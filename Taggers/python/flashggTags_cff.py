@@ -202,6 +202,24 @@ flashggTTHLeptonicTag = cms.EDProducer("FlashggTTHLeptonicTagProducer",
                                        HTXSTags     = HTXSInputTags
 
 )
+flashggTHQLeptonicTag = cms.EDProducer("FlashggTHQLeptonicTagProducer",
+                                       DiPhotonTag=cms.InputTag('flashggPreselectedDiPhotons'),
+                                       SystLabel=cms.string(""),
+                                       MVAResultTag=cms.InputTag('flashggDiPhotonMVA'),
+                                       inputTagJets= UnpackedJetCollectionVInputTag,
+                                       ElectronTag=cms.InputTag('flashggSelectedElectrons'),
+                                       MuonTag=cms.InputTag('flashggSelectedMuons'),
+                                       MetTag=cms.InputTag( 'flashggMets' ),
+                                       VertexTag=cms.InputTag('offlineSlimmedPrimaryVertices'),
+                                       GenParticleTag=cms.InputTag( "flashggPrunedGenParticles" ),
+                                       rhoTag = cms.InputTag('fixedGridRhoFastjetAll'),
+                                      # MVAweightfile = cms.FileInPath("flashgg/Taggers/data/TMVAClassification_BDT_training_v2.json.weights.xml"),
+				       MVAMethod = cms.string("BDTG"),
+				       GenJetTag = cms.InputTag("slimmedGenJets"),
+				      # HTXSTags     = HTXSInputTags
+
+)
+
 
 flashggTTHDiLeptonTag = cms.EDProducer("FlashggTTHDiLeptonTagProducer",
                                         DiPhotonTag=cms.InputTag('flashggPreselectedDiPhotons'),

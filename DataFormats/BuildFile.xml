@@ -4,6 +4,8 @@
 <use   name="DataFormats/VertexReco"/>
 <use   name="DataFormats/Common"/>
 <use   name="DataFormats/JetReco"/>
+<use   name="DataFormats/Math"/>
+<use   name="DataFormats/HepMCCandidate"/>
 <use name="rootrflx"/>
 
 <export>

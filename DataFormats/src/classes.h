@@ -43,6 +43,8 @@
 #include "flashgg/DataFormats/interface/ZPlusJetTag.h"
 #include "flashgg/DataFormats/interface/TagCandidate.h"
 #include "flashgg/DataFormats/interface/TagAndProbeCandidate.h" //spigazzi
+#include "flashgg/DataFormats/interface/THQLeptonicTagTruth.h"
+#include "flashgg/DataFormats/interface/THQLeptonicTag.h"
 
 #include <vector>
 #include <map>
@@ -70,6 +72,8 @@ namespace  {
         edm::Ptr<flashgg::DiPhotonCandidate>                          ptr_fgg_dip;
         edm::Wrapper<edm::Ptr<flashgg::DiPhotonCandidate> >       wrp_ptr_fgg_dip;
         std::vector<edm::Ptr<flashgg::DiPhotonCandidate> >        vec_ptr_fgg_dip;
+        //edm::Wrapper<std::vector<flashgg::DiPhotonCandidate> >    wrp_vec_fgg_dip;
+        //std::vector<flashgg::DiPhotonCandidate>
         edm::Wrapper<std::vector<edm::Ptr<flashgg::DiPhotonCandidate> > >   wrp_vec_ptr_fgg_dip;
 
         edm::Ref<std::vector<flashgg::Photon>,flashgg::Photon,edm::refhelper::FindUsingAdvance<std::vector<flashgg::Photon>,flashgg::Photon> > ref_fgg_pho;
@@ -205,6 +209,10 @@ namespace  {
         std::vector<flashgg::TTHLeptonicTag> vec_tthl;
         edm::Wrapper<std::vector<flashgg::TTHLeptonicTag> > wrp_vec_tthl;
 
+        flashgg::THQLeptonicTag thql; 
+        std::vector<flashgg::THQLeptonicTag> vec_thql; 
+        edm::Wrapper<std::vector<flashgg::THQLeptonicTag> > wrp_vec_thql; 
+
         flashgg::TTHDiLeptonTag tthd;
         std::vector<flashgg::TTHDiLeptonTag> vec_tthd;
         edm::Wrapper<std::vector<flashgg::TTHDiLeptonTag> > wrp_vec_tthd;
@@ -241,6 +249,10 @@ namespace  {
         flashgg::VHTagTruth vhtt;
         std::vector<flashgg::VHTagTruth> vec_vhtt;
         edm::Wrapper<std::vector<flashgg::VHTagTruth> > wrp_vec_vhtt;
+
+        flashgg::THQLeptonicTagTruth thqlt; 
+        std::vector<flashgg::THQLeptonicTagTruth> vec_thqlt; 
+        edm::Wrapper<std::vector<flashgg::THQLeptonicTagTruth> > wrp_vec_thqlt; 
 
         flashgg::VHLooseTag vhl;
         std::vector<flashgg::VHLooseTag> vec_vhl;

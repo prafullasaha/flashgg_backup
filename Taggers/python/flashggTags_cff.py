@@ -235,9 +235,9 @@ flashggTHQLeptonicTag = cms.EDProducer("FlashggTHQLeptonicTagProducer",
                                        bTag = cms.string(flashggDeepCSV),
                                        muPFIsoSumRelThreshold = cms.double(0.25),
                                        PhoMVAThreshold = cms.double(-0.2), 
-                                       DeltaRTrkEle = cms.double(0.35),
+                                       DeltaRTrkElec = cms.double(0.35),
                                        deltaRPhoElectronThreshold = cms.double(0.2),
-                                       thqleptonicMVAweightfile = cms.FileInPath("flashgg/Taggers/data/TMVAClassification_BDT_training_v2.json.weights.xml"),
+                                       thqleptonicMVAweightfile = cms.FileInPath("flashgg/Taggers/data/w10_10_3_15_10.weights.xml"),
 				      # HTXSTags     = HTXSInputTags
 )
 

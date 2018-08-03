@@ -48,9 +48,10 @@
 
 #include <vector>
 #include <map>
-
+#include <string>
 namespace  {
     struct dictionary {
+        std::map<std::string,std::vector<float> >                map_st_vec_float;
         flashgg::WeightedObject                                             fgg_obj;
         
         flashgg::PDFWeightObject                                             fgg_pobj;
@@ -188,6 +189,7 @@ namespace  {
         flashgg::DiPhotonTagBase tagbase;
         std::vector<flashgg::DiPhotonTagBase> vec_tagbase;
         edm::Wrapper<std::vector<flashgg::DiPhotonTagBase> > wrp_vec_tagbase;
+        std::vector<flashgg::DiPhotonTagBase::tag_t> vec_tagbase_tagt;
 
         flashgg::NoTag nocat;
         std::vector<flashgg::NoTag> vec_nocat;
@@ -218,6 +220,10 @@ namespace  {
         edm::Wrapper<std::vector<flashgg::TTHDiLeptonTag> > wrp_vec_tthd;
 
         edm::Ptr<reco::GenParticle> ptr_genp;
+        std::vector<edm::Ptr<reco::GenParticle> > vec_ptr_genp;
+
+        edm::Ptr<reco::GenJet> ptr_genjet;
+        std::vector<edm::Ptr<reco::GenJet> > vec_ptr_genjet;
 
         flashgg::TTHHadronicTag tthh;
         std::vector<flashgg::TTHHadronicTag> vec_tthh;

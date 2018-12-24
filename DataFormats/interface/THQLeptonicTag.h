@@ -9,6 +9,7 @@
 //#include "flashgg/DataFormats/interface/THQLeptonicMVAResult.h"
 #include "DataFormats/Math/interface/deltaR.h"
 #include "DataFormats/Math/interface/deltaPhi.h"
+#include "TLorentzVector.h"
 
 using namespace edm;
 
@@ -104,6 +105,37 @@ namespace flashgg {
         int getLeptonType() const{
             return LeptonType_;
         }
+//getdR
+        float getdRtHchainfwdjet() const{
+            return dRtHchainfwdjet_;
+        }
+        float getdRbjetfwdjet() const{
+            return dRbjetfwdjet_;
+        }
+        
+        float getmyfunction() const{
+            return dRmyfunval_;
+        }
+        float getdRsubleadphobjet() const{
+            return dRsubleadphobjet_;
+        }
+        float getdRleadphofwdjet() const{
+            return dRleadphofwdjet_;
+        }
+        float getdRsubleadphofwdjet() const{
+            return dRsubleadphofwdjet_;
+        }
+        float getdRleptonbjet() const{
+            return dRleptonbjet_;
+        }
+        float getdRleptonfwdjet() const{
+            return dRleptonfwdjet_;
+        }
+        float getmvaresult() const{
+            return mvaresult_;
+        }
+
+//
 
         float thqleptonicMvaRes(string label) const {
             int index = findIndex(label);
@@ -358,7 +390,36 @@ namespace flashgg {
         void setElectronMisHits(float misHits){
             eleMisHits_.push_back(misHits);
         }
-        
+//SET dR
+        void setdRtHchainfwdjet(float drtHchainfwdjet ){
+             dRtHchainfwdjet_ = drtHchainfwdjet ;
+        }
+        void setdRbjetfwdjet(float drbjetfwdjet ){
+             dRbjetfwdjet_ = drbjetfwdjet ;
+        }
+        void setdRleadphobjet(float drleadphobjet){
+            dRmyfunval_ = drleadphobjet;
+        }
+        void setdRsubleadphobjet(float drsubleadphobjet){
+            dRsubleadphobjet_ = drsubleadphobjet;
+        }
+        void setdRleadphofwdjet(float drleadphofwdjet){
+            dRleadphofwdjet_ = drleadphofwdjet;
+        }
+        void setdRsubleadphofwdjet(float drsubleadphofwdjet){
+            dRsubleadphofwdjet_ = drsubleadphofwdjet;
+        }
+        void setdRleptonbjet( float drleptonbjet ){
+            dRleptonbjet_ = drleptonbjet;
+        }
+        void setdRleptonfwdjet( float drleptonfwdjet ){
+            dRleptonfwdjet_ = drleptonfwdjet;
+        }
+ 
+        void setmvaresult( float mvaresult ){
+            mvaresult_ = mvaresult;
+        } 
+//       
         int nMedium_bJets, nLoose_bJets, nTight_bJets;
         double bTagWeight, bTagWeightUp, bTagWeightDown;
         double photonWeights;
@@ -416,6 +477,16 @@ namespace flashgg {
         std::vector<float> eleMisHits_;
         //THQLeptonicMVAResult THQLeptonicMVA_;
         float rho_;
+        float dRtHchainfwdjet_=0;
+        float dRbjetfwdjet_;
+        float dRleadphobjet_;
+        float dRsubleadphobjet_;
+        float dRleadphofwdjet_;
+        float dRsubleadphofwdjet_;
+        float dRleptonbjet_;
+        float dRleptonfwdjet_;
+        float mvaresult_;
+        float dRmyfunval_;
         int LeptonType_;
         std::vector< std::string > bAssignmentLabels;
         std::vector< Ptr<Jet> > fwdJet ;

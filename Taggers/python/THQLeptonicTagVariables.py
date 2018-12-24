@@ -280,6 +280,17 @@ jet_variables=[
     "HT                     :=getHT()"    
 ]
 
+dr_variable=[
+    "dr_tHchainfwdjet        :=getdRtHchainfwdjet()",
+    "dr_bjetfwdjet           :=getdRbjetfwdjet()",
+#    "dr_leadphobjet	     :=getmyfunction()",
+    "dr_subleadphobjet       :=getdRsubleadphobjet()",
+    "dr_leadphofwdjet        :=getdRleadphofwdjet()",
+    "dr_subleadphofwdjet     :=getdRsubleadphofwdjet()",
+    "dr_leptonbjet           :=getdRleptonbjet",
+#    "dr_leptonfwdjet	     :=getdRleptonfwdjet"
+]
+
 thqmva_variables=[
     "bTagWeight             := bTagWeight",
     "bTagWeightUp           := bTagWeightUp",
@@ -288,7 +299,8 @@ thqmva_variables=[
     "FoxWolf                :=getFoxWolframMoment_ONE",
     "Aplanarity             :=getAplanarity()",
     "MET_pt                 :=getRECOMET().getCorPt()",
-    "MET_phi                :=getRECOMET().getCorPhi()"
+    "MET_phi                :=getRECOMET().getCorPhi()",
+    "MVAresult              :=getmvaresult"
 ]
 
 for label in ["HighestBTagVal", "Medium" , "Loose" , "Tight"]:
@@ -371,7 +383,7 @@ truth_variables=[
     "genPromptParticleMatchingToSubLeadingElectron_phi  := ?tagTruth().hasClosestPromptParticleToSubLeadingElectron? tagTruth().closestPromptParticleToSubLeadingElectron().phi : -999.",
     "genPromptParticleMatchingToLeadingElectron_e       := ?tagTruth().hasClosestPromptParticleToLeadingElectron? tagTruth().closestPromptParticleToLeadingElectron().energy : -999.",
     "genPromptParticleMatchingToSubLeadingElectron_e    := ?tagTruth().hasClosestPromptParticleToSubLeadingElectron? tagTruth().closestPromptParticleToSubLeadingElectron().energy : -999.",
-
+#    "genPartMatchingToPho1_pt := ?tagTruth().hasClosestParticleToLeadingPhoton()? tagTruth().closestParticleToLeadingPhoton()->pt() : -999.",
 
     "genMET_pt                            := getMET_Pt(\"allNus\")",
     "genMET_eta                           := getMET_Eta(\"allNus\")",

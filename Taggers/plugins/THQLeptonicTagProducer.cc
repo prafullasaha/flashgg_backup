@@ -770,7 +770,7 @@ int n_pass_after_jetetapt_cut=0;
 //cout<<"LooseBJetVect.size()"<<LooseBJetVect.size()<<endl;
 //if(SelJetVect.size() < jetsNumberThreshold_){ continue; }
 //if(MediumBJetVect.size() < bjetsNumberThreshold_ ){ continue; }
-cout<<"lepton.size()"<<lepton.size()<<endl;
+//cout<<"lepton.size()"<<lepton.size()<<endl;
       //Calculate scalar sum of jets
 //      if(SelJetVect.size() < jetsNumberThreshold_ || MediumBJetVect.size() < bjetsNumberThreshold_){ continue; }
       std::sort(LooseBJetVect_PtSorted.begin(),LooseBJetVect_PtSorted.end(),GreaterByPt());
@@ -790,7 +790,7 @@ cout<<"lepton.size()"<<lepton.size()<<endl;
 
 
 	bool taggedevents= false;      
-if(SelJetVect.size() >= jetsNumberThreshold_ && MediumBJetVect_PtSorted.size() >= bjetsNumberThreshold_){
+if(SelJetVect.size() >= jetsNumberThreshold_ /*&& MediumBJetVect_PtSorted.size() >= bjetsNumberThreshold_*/){
        taggedevents= true;
 //       cout<<"SelJetVect.size()      ="<<SelJetVect.size()<<endl;
 //       cout<<"MediumBJetVect.size()  ="<<MediumBJetVect.size()<<endl;

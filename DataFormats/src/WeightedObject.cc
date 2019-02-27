@@ -66,8 +66,13 @@ namespace flashgg {
             if( !hasWeight( *keyIt ) ) {
                 if ( usecentralifnotfound ) {
                     setWeight( *keyIt, initialcentralweight * other.weight( *keyIt ) );
+
+//std::cout<<"initialcentralweight * other.weight( *keyIt )="<<initialcentralweight * other.weight( *keyIt )<<std::endl;
+//std::cout<<"keyIt=                                                 "<<*keyIt<<std::endl;
                 } else {
                     setWeight( *keyIt, other.weight( *keyIt ) );
+//std::cout<<"else keyIt=                                            "<<*keyIt<<std::endl;
+//std::cout<<"else other.weight( *keyIt )="<<other.weight( *keyIt )<<std::endl;
                 }
             }
         }

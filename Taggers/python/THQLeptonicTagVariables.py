@@ -236,6 +236,9 @@ jet_variables=[
     "n_L_bjets                := nLoose_bJets",
     "n_T_bjets                := nTight_bJets",
 
+#    "n_centraljets	    := nCentralJets",
+#    "n_forwardjets	    := nForwardJets",
+
     "n_bjets                := bJets.size",
     "bjet1_pt               := ?bJets.size>0? bJets.at(0).pt : -999",
     "bjet2_pt               := ?bJets.size>1? bJets.at(1).pt : -999",
@@ -289,6 +292,10 @@ dr_variable=[
     "dr_subleadphofwdjet     :=getdRsubleadphofwdjet()",
     "dr_leptonbjet           :=getdRleptonbjet",
 #    "dr_leptonfwdjet	     :=getdRleptonfwdjet"
+    "n_centraljets           := nCentralJets",
+    "n_forwardjets           := nForwardJets",
+    " forwardjet1_eta        := ?forwardJet.size>0? forwardJet.at(0).eta : -999 ",
+    " forwardjet1_pt        := ?forwardJet.size>0? forwardJet.at(0).pt : -999 "
 ]
 
 thqmva_variables=[
@@ -350,15 +357,17 @@ truth_variables=[
     "partonMatchingToJ2_e                 := ?tagTruth().hasClosestPartonToSubLeadingJet? tagTruth().closestPartonToSubLeadingJet().energy : -999.",
     "partonMatchingToJ3_e                 := ?tagTruth().hasClosestPartonToSubSubLeadingJet? tagTruth().closestPartonToSubSubLeadingJet().energy : -999.",
     
-    "genParticleMatchingToLeadingMuon_pt          := ?tagTruth().hasClosestParticleToLeadingMuon? tagTruth().closestParticleToLeadingMuon().pt : -999.",
-    "genParticleMatchingToSubLeadingMuon_pt       := ?tagTruth().hasClosestParticleToSubLeadingMuon? tagTruth().closestParticleToSubLeadingMuon().pt : -999.",
+#    "genParticleMatchingToLeadingMuon_pt          := ?tagTruth().hasClosestParticleToLeadingMuon? tagTruth().closestParticleToLeadingMuon().pt : -999.",
+   "genParticleMatchingToLeadingMuon_pt          :=tagTruth().pt_genParticleMatchingToLeadingMuon() ",
+
+   "genParticleMatchingToSubLeadingMuon_pt       := ?tagTruth().hasClosestParticleToSubLeadingMuon? tagTruth().closestParticleToSubLeadingMuon().pt : -999.",
     "genParticleMatchingToLeadingMuon_eta         := ?tagTruth().hasClosestParticleToLeadingMuon? tagTruth().closestParticleToLeadingMuon().eta : -999.",
     "genParticleMatchingToSubLeadingMuon_eta      := ?tagTruth().hasClosestParticleToSubLeadingMuon? tagTruth().closestParticleToSubLeadingMuon().eta : -999.",
     "genParticleMatchingToLeadingMuon_phi         := ?tagTruth().hasClosestParticleToLeadingMuon? tagTruth().closestParticleToLeadingMuon().phi : -999.",
     "genParticleMatchingToSubLeadingMuon_phi      := ?tagTruth().hasClosestParticleToSubLeadingMuon? tagTruth().closestParticleToSubLeadingMuon().phi : -999.",
     "genParticleMatchingToLeadingMuon_e           := ?tagTruth().hasClosestParticleToLeadingMuon? tagTruth().closestParticleToLeadingMuon().energy : -999.",
     "genParticleMatchingToSubLeadingMuon_e        := ?tagTruth().hasClosestParticleToSubLeadingMuon? tagTruth().closestParticleToSubLeadingMuon().energy : -999.",
-    "genParticleMatchingToLeadingElectron_pt      := ?tagTruth().hasClosestParticleToLeadingElectron? tagTruth().closestParticleToLeadingElectron().pt : -999.",
+    "genParticleMatchingToLeadingElectron_pt      := ?tagTruth().hasClosestParticleToLeadingElectron? tagTruth().closestParticleToLeadingElectron().pt : -999.", 
     "genParticleMatchingToSubLeadingElectron_pt   := ?tagTruth().hasClosestParticleToSubLeadingElectron? tagTruth().closestParticleToSubLeadingElectron().pt : -999.",
     "genParticleMatchingToLeadingElectron_eta     := ?tagTruth().hasClosestParticleToLeadingElectron? tagTruth().closestParticleToLeadingElectron().eta : -999.",
     "genParticleMatchingToSubLeadingElectron_eta  := ?tagTruth().hasClosestParticleToSubLeadingElectron? tagTruth().closestParticleToSubLeadingElectron().eta : -999.",
@@ -375,13 +384,14 @@ truth_variables=[
     "genPromptParticleMatchingToSubLeadingMuon_phi      := ?tagTruth().hasClosestPromptParticleToSubLeadingMuon? tagTruth().closestPromptParticleToSubLeadingMuon().phi : -999.",
     "genPromptParticleMatchingToLeadingMuon_e           := ?tagTruth().hasClosestPromptParticleToLeadingMuon? tagTruth().closestPromptParticleToLeadingMuon().energy : -999.",
     "genPromptParticleMatchingToSubLeadingMuon_e        := ?tagTruth().hasClosestPromptParticleToSubLeadingMuon? tagTruth().closestPromptParticleToSubLeadingMuon().energy : -999.",
-    "genPromptParticleMatchingToLeadingElectron_pt      := ?tagTruth().hasClosestPromptParticleToLeadingElectron? tagTruth().closestPromptParticleToLeadingElectron().pt : -999.",
+#    "genPromptParticleMatchingToLeadingElectron_pt      := ?tagTruth().hasClosestPromptParticleToLeadingElectron? tagTruth().closestPromptParticleToLeadingElectron().pt : -999.",
+     "genPromptParticleMatchingToLeadingElectron_pt      := tagTruth().pt_genPromptParticleMatchingToLeadingElectron()",
     "genPromptParticleMatchingToSubLeadingElectron_pt   := ?tagTruth().hasClosestPromptParticleToSubLeadingElectron? tagTruth().closestPromptParticleToSubLeadingElectron().pt : -999.",
-    "genPromptParticleMatchingToLeadingElectron_eta     := ?tagTruth().hasClosestPromptParticleToLeadingElectron? tagTruth().closestPromptParticleToLeadingElectron().eta : -999.",
+#    "genPromptParticleMatchingToLeadingElectron_eta     := ?tagTruth().hasClosestPromptParticleToLeadingElectron? tagTruth().closestPromptParticleToLeadingElectron().eta : -999.",
     "genPromptParticleMatchingToSubLeadingElectron_eta  := ?tagTruth().hasClosestPromptParticleToSubLeadingElectron? tagTruth().closestPromptParticleToSubLeadingElectron().eta : -999.",
-    "genPromptParticleMatchingToLeadingElectron_phi     := ?tagTruth().hasClosestPromptParticleToLeadingElectron? tagTruth().closestPromptParticleToLeadingElectron().phi : -999.",
+#    "genPromptParticleMatchingToLeadingElectron_phi     := ?tagTruth().hasClosestPromptParticleToLeadingElectron? tagTruth().closestPromptParticleToLeadingElectron().phi : -999.",
     "genPromptParticleMatchingToSubLeadingElectron_phi  := ?tagTruth().hasClosestPromptParticleToSubLeadingElectron? tagTruth().closestPromptParticleToSubLeadingElectron().phi : -999.",
-    "genPromptParticleMatchingToLeadingElectron_e       := ?tagTruth().hasClosestPromptParticleToLeadingElectron? tagTruth().closestPromptParticleToLeadingElectron().energy : -999.",
+#    "genPromptParticleMatchingToLeadingElectron_e       := ?tagTruth().hasClosestPromptParticleToLeadingElectron? tagTruth().closestPromptParticleToLeadingElectron().energy : -999.",
     "genPromptParticleMatchingToSubLeadingElectron_e    := ?tagTruth().hasClosestPromptParticleToSubLeadingElectron? tagTruth().closestPromptParticleToSubLeadingElectron().energy : -999.",
 #    "genPartMatchingToPho1_pt := ?tagTruth().hasClosestParticleToLeadingPhoton()? tagTruth().closestParticleToLeadingPhoton()->pt() : -999.",
 
@@ -429,6 +439,20 @@ for label in ["Medium" ]: #"HighestBTagVal", "Loose" , "Tight"]:
 
 
 theoweight_variables=[
+    "weight_electronVetoSF:=weight(\"electronVetoSFCentral\")",
+    "weight_PreselSF:=weight(\"PreselSFCentral\")",
+    "weight_TriggerWeight:=weight(\"TriggerWeightCentral\")",
+    "weight_LooseMvaSF:=weight(\"LooseMvaSFCentral\")",
+    "weight_FracRVWeight:=weight(\"FracRVWeightCentral\")",
+    "weight_FracRVNvtxWeight:=weight(\"FracRVNvtxWeightCentral\")",
+    "weight_SigmaEOverESmearing:=weight(\"SigmaEOverESmearingCentral\")",
+    "weight_MuonMediumIDWeight:=weight(\"MuonMediumIDWeightCentral\")",
+    "weight_MuonLooseRelISOWeight:=weight(\"MuonLooseRelISOWeightCentral\")",
+    "weight_ElectronWeight:=weight(\"ElectronWeightCentral\")",
+    "weight_JEC:=weight(\"JECCentral\")",
+    "weight_JER:=weight(\"JERCentral\")",
+    "weight_JetBTagCutWeight:=weight(\"JetBTagCutWeightCentral\")",
+    "weight_JetBTagReshapeWeight:=weight(\"JetBTagReshapeWeightCentral\")",
     "alphaUp   := getAlphaUp()",
     "alphaDown := getAlphaDown()",
     "pdfnlo    := getPdfNLO()"
@@ -445,11 +469,11 @@ theoweight_variables +=[
     "scaleMuFDownMuRDown := getScale(7)"
     ]
 
-for i in range(100):
+for i in range(1):
     theoweight_variables +=["pdf_%i := getPdf(%i)" % (i,i)]
 
 theoctcvweight_variables = []
-for i in range(70):
+for i in range(1):
     theoctcvweight_variables +=["ctcv_%i := getCtCv(%i)" % (i,i)]
 
 

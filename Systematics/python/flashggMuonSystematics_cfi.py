@@ -97,7 +97,17 @@ for iso in ["LooseRelIso_DEN_LooseID", "LooseRelIso_DEN_MediumID", "TightRelIso_
 flashggMuonSystematics = cms.EDProducer('FlashggMuonEffSystematicProducer',
 					src = cms.InputTag("flashggSelectedMuons"),
 					SystMethods2D = cms.VPSet(),
-					SystMethods = cms.VPSet()
+					SystMethods = cms.VPSet(
+#									 cms.PSet(MethodName = cms.string("FlashggMuonWeight"),
+#									 Label = cms.string("MuonWeight"),
+#									 NSigmas = cms.vint32(-1,1),
+#									 OverallRange = cms.string("abs(eta)<2.5"),
+#									 BinList = binInfo,
+#									 Debug = cms.untracked.bool(False),
+#									 ApplyCentralValue = cms.bool(True)
+#									
+#									)
+								)
                                         )
 
 import exceptions

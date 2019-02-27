@@ -6,6 +6,7 @@
 #include "flashgg/DataFormats/interface/Electron.h"
 #include "flashgg/DataFormats/interface/Jet.h"
 #include "flashgg/DataFormats/interface/Met.h"
+#include "flashgg/DataFormats/interface/WeightedObject.h"
 //#include "flashgg/DataFormats/interface/THQLeptonicMVAResult.h"
 #include "DataFormats/Math/interface/deltaR.h"
 #include "DataFormats/Math/interface/deltaPhi.h"
@@ -35,6 +36,8 @@ namespace flashgg {
         const std::vector<edm::Ptr<Jet> > jets() const { return Jets_;}
         const std::vector<edm::Ptr<Jet> > Jets_EtaSorted() const { return Jets_EtaSorted_;}
         const std::vector<edm::Ptr<Jet> > bJets() const { return BJets_;}
+        const std::vector<edm::Ptr<Jet> > centralJet() const { return CentralJet_ ;}
+        const std::vector<edm::Ptr<Jet> > forwardJet() const { return ForwardJet_ ;}
 
         //DeltaRhis between leptons and MET
         float dPhi_Muon1_MET() const  { 
@@ -313,6 +316,13 @@ namespace flashgg {
             Jets_EtaSorted_ = Jets_Eta;
         }
         void setBJets( std::vector<edm::Ptr<Jet> > BJets )  { BJets_ = BJets;}
+//----------------------------------------------------------------------------
+        void setcentraljet( std::vector<edm::Ptr<Jet> > CentralJet ) { CentralJet_ = CentralJet ;}
+        void setforwardjet( std::vector<edm::Ptr<Jet> > ForwardJet ) { ForwardJet_ = ForwardJet ;}
+
+//----------------------------------------------------------------------------
+
+
         void setVertices( std::vector<edm::Ptr<reco::Vertex> > vertices ) {
             vertices_ = vertices;
         }
@@ -329,7 +339,7 @@ namespace flashgg {
         int NLooseMu25 , NLooseMu15 , NMediumMu25 , NMediumMu15 , NTightMuo25 , NTightMuo15 ;
         void setMuons( std::vector<edm::Ptr<Muon> > Muons , std::vector<int> passTight , int n_LooseMu25 , int n_LooseMu15 , int n_MediumMu25 , int n_MediumMu15 , int n_TightMuo25 , int n_TightMuo15 ) {
             Muons_ = Muons;
-            assert( Muons.size() == passTight.size() );
+//            assert( Muons.size() == passTight.size() );
             MuPassTight_ = passTight;
 
             NLooseMu15 = n_LooseMu15 ;
@@ -420,7 +430,7 @@ namespace flashgg {
             mvaresult_ = mvaresult;
         } 
 //       
-        int nMedium_bJets, nLoose_bJets, nTight_bJets;
+        int nMedium_bJets, nLoose_bJets, nTight_bJets, nCentralJets , nForwardJets;
         double bTagWeight, bTagWeightUp, bTagWeightDown;
         double photonWeights;
         const std::vector<int> ElePassVeto() const{
@@ -469,6 +479,8 @@ namespace flashgg {
         std::vector<edm::Ptr<Jet> > Jets_;
         std::vector<edm::Ptr<Jet> > Jets_EtaSorted_;
         std::vector<edm::Ptr<Jet> > BJets_;
+        std::vector<edm::Ptr<Jet> > CentralJet_;
+        std::vector<edm::Ptr<Jet> > ForwardJet_;
         edm::Ptr<flashgg::Met> MET_;
         std::vector<float> thqleptonicMvaRes_;
         std::vector<edm::Ptr<reco::Vertex> > vertices_;

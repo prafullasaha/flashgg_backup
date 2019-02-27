@@ -46,6 +46,14 @@ namespace flashgg {
         float pt_genPartMatchingToPho2() const { return ( hasClosestParticleToSubLeadingPhoton() ? closestParticleToSubLeadingPhoton()->pt() : -9999. );}
         float eta_genPartMatchingToPho2() const { return ( hasClosestParticleToSubLeadingPhoton() ? closestParticleToSubLeadingPhoton()->eta() : -9999. );}
         float phi_genPartMatchingToPho2() const { return ( hasClosestParticleToSubLeadingPhoton() ? closestParticleToSubLeadingPhoton()->phi() : -9999. );}
+
+        float pt_genPromptParticleMatchingToLeadingElectron() const {
+if(hasClosestPromptParticleToLeadingElectron())
+{ std::cout<<"confirms a electron"<<std::endl;
+std::cout<<"pt of confirmed electron=             "<<closestPromptParticleToLeadingElectron()->pt()<<std::endl;
+}
+ return (hasClosestPromptParticleToLeadingElectron() ? closestPromptParticleToLeadingElectron()->pt() : -9999.);}        
+
         float pt_P1() const { return ( hasLeadingParton() ? leadingParton()->pt() : -9999. ); }
         float eta_P1() const { return ( hasLeadingParton() ? leadingParton()->eta() : -9999. ); }
         float phi_P1() const { return ( hasLeadingParton() ? leadingParton()->phi() : -9999. ); }
@@ -84,7 +92,8 @@ namespace flashgg {
                                                                                                eta_J2(),phi_J2()) : -9999. );}
         float dR_partonMatchingToJ3() const { return ( hasSubSubLeadingJet() && hasClosestPartonToSubSubLeadingJet() ? deltaR(closestPartonToSubSubLeadingJet()->eta(),closestPartonToSubSubLeadingJet()->phi(),
                                                                                                eta_J3(),phi_J3()) : -9999. );}
-                  
+        float pt_genParticleMatchingToLeadingMuon() const {return (hasClosestParticleToLeadingMuon() ? closestParticleToLeadingMuon()->pt() : -8888);}                 
+ 
 
 
         //Delta Rs between jets
@@ -237,7 +246,10 @@ namespace flashgg {
                                                     (leadingParton()->p4()+subLeadingParton()->p4()+subSubLeadingParton()->p4()).phi());}else{return -9999.;}}
 
         //Has (thing) methods
-        bool hasClosestGenJetToLeadingJet() const { return closestGenJetToLeadingJet_.isNonnull(); }
+        bool hasClosestGenJetToLeadingJet() const {
+//if(closestGenJetToLeadingJet_.isNonnull()) std::cout<<"has closest gen jet to leading jet"<<std::endl;
+//else std::cout<<"don't has closest gen jet to leading jet"<<std::endl;
+return closestGenJetToLeadingJet_.isNonnull(); }
         bool hasClosestGenJetToSubLeadingJet() const { return closestGenJetToSubLeadingJet_.isNonnull(); }
         bool hasClosestGenJetToSubSubLeadingJet() const { return closestGenJetToSubSubLeadingJet_.isNonnull(); }
         bool hasClosestParticleToLeadingJet() const { return closestParticleToLeadingJet_.isNonnull(); }
@@ -254,7 +266,16 @@ namespace flashgg {
         bool hasClosestParticleToSubLeadingElectron() const { return closestParticleToSubLeadingElectron_.isNonnull(); }
         bool hasClosestPromptParticleToLeadingMuon() const { return closestPromptParticleToLeadingMuon_.isNonnull(); }
         bool hasClosestPromptParticleToSubLeadingMuon() const { return closestPromptParticleToSubLeadingMuon_.isNonnull(); }
-        bool hasClosestPromptParticleToLeadingElectron() const { return closestPromptParticleToLeadingElectron_.isNonnull(); }
+        bool hasClosestPromptParticleToLeadingElectron() const {
+//std::cout<<"pt of prompt electron"<<closestPromptParticleToLeadingElectron_->pt()<<std::endl;
+//if(closestPromptParticleToLeadingElectron_ != NULL) std::cout<<"has closest prompt electron!!!!!"<<std::endl;
+//if(closestPromptParticleToLeadingElectron_.isNonnull()){
+//std::cout<<"pt of prompt electron"<<closestPromptParticleToLeadingElectron_->pt()<<std::endl;
+//std::cout<<"has closest prompt electron"<<std::endl;
+//}
+//else std::cout<<"don't has closest prompt electron"<<std::endl;
+
+return closestPromptParticleToLeadingElectron_.isNonnull(); }
         bool hasClosestPromptParticleToSubLeadingElectron() const { return closestPromptParticleToSubLeadingElectron_.isNonnull(); }
         bool hasDiPhoton() const { return diPhoton_.isNonnull(); }
         bool hasLeadingJet() const { return leadingJet_.isNonnull(); }
@@ -360,7 +381,10 @@ namespace flashgg {
         void setClosestParticleToSubLeadingElectron( const edm::Ptr<reco::GenParticle> &val ) { closestParticleToSubLeadingElectron_ = val; }
         void setClosestPromptParticleToLeadingMuon( const edm::Ptr<reco::GenParticle> &val ) { closestPromptParticleToLeadingMuon_ = val; }
         void setClosestPromptParticleToSubLeadingMuon( const edm::Ptr<reco::GenParticle> &val ) { closestPromptParticleToSubLeadingMuon_ = val; }
-        void setClosestPromptParticleToLeadingElectron( const edm::Ptr<reco::GenParticle> &val ) { closestPromptParticleToLeadingElectron_ = val; }
+        void setClosestPromptParticleToLeadingElectron( const edm::Ptr<reco::GenParticle> &val ) { closestPromptParticleToLeadingElectron_ = val;
+//std::cout<<"Getting input in this electron set function"<<std::endl;
+//std::cout<<"Pt of that electron"<<closestPromptParticleToLeadingElectron_->pt()<<std::endl;
+ }
         void setClosestPromptParticleToSubLeadingElectron( const edm::Ptr<reco::GenParticle> &val ) { closestPromptParticleToSubLeadingElectron_ = val; }
         void setLeadingParton( const edm::Ptr<reco::GenParticle> &val ) { leadingParton_ = val; }
         void setSubLeadingParton( const edm::Ptr<reco::GenParticle> &val ) { subLeadingParton_ = val; }
@@ -379,6 +403,21 @@ namespace flashgg {
         void setSubLeadingMuon   ( const edm::Ptr<flashgg::Muon> &val ) { subLeadingMuon_    = val; }
         void setLeadingElectron      ( const edm::Ptr<flashgg::Electron> &val ) { leadingElectron_       = val; }
         void setSubLeadingElectron   ( const edm::Ptr<flashgg::Electron> &val ) { subLeadingElectron_    = val; }
+
+        void testfunction(){ //PS
+//        std::cout<<"test value"<<closestPromptParticleToLeadingElectron()->pt()<<std::endl;
+}
+
+//bool hasClosestPromptParticleToLeadingElectron() const {
+//std::cout<<"pt of prompt electron"<<closestPromptParticleToLeadingElectron_->pt()<<std::endl;
+////if(closestPromptParticleToLeadingElectron_ != NULL) std::cout<<"has closest prompt electron!!!!!"<<std::endl;
+//if(closestPromptParticleToLeadingElectron_.isNonnull()){
+//std::cout<<"pt of prompt electron"<<closestPromptParticleToLeadingElectron_->pt()<<std::endl;
+//std::cout<<"has closest prompt electron"<<std::endl;
+//}
+//else std::cout<<"don't has closest prompt electron"<<std::endl;
+
+// return closestPromptParticleToLeadingElectron_.isNonnull(); }
         /*
         void setMETValues(  string label, float metPt, float metEta, float metPhi, float metE ){
             metAssignmentLabels.push_back( label);

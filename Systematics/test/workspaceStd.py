@@ -30,7 +30,7 @@ else:
     raise Exception,"Could not find a sensible CMSSW_VERSION for default globaltag"
 
 process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(1000) )
-process.MessageLogger.cerr.FwkReport.reportEvery = cms.untracked.int32( 100 )
+process.MessageLogger.cerr.FwkReport.reportEvery = cms.untracked.int32( 1 )
 
 MUON_ID = "Medium" #["Tight", "Medium" , "Loose", "Soft", "HighPt", "MediumPrompt", "TrkHighPt"]
 MUON_ISO = "LooseRel" #{ LooseID : ["LooseRel"],MediumID:["LooseRel", "TightRel"] , TrkHighPtID:["LooseRelTk", "TightRelTk"], TightIDandIPCut:["LooseRel", "TightRel"], HighPtIDandIPCut:["LooseRelTk", "TightRelTk"] }
@@ -157,7 +157,7 @@ if customize.doFiducial:
 
 process.load("flashgg/Taggers/flashggTagSequence_cfi")
 process.load("flashgg/MicroAOD/flashggDiPhotons_cfi")
-process.load("flashgg/MicroAOD/tHqLeptonicFilter_cfi")
+#process.load("flashgg/MicroAOD/tHqLeptonicFilter_cfi")
 
 # needed for 0th vertex from microAOD
 if customize.tthTagsOnly:
@@ -367,6 +367,7 @@ process.source = cms.Source ("PoolSource",
 #"root://eoscms.cern.ch//eos/cms/store/group/phys_higgs/cmshgg/sethzenz/flashgg/RunIIFall17-3_1_0/3_1_0/VBFHToGG_M125_13TeV_amcatnlo_pythia8/RunIIFall17-3_1_0-3_1_0-v0-RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_mc2017_realistic_v14-v1/180605_202651/0000/myMicroAODOutputFile_9.root"
 #"/store/group/phys_higgs/cmshgg/sethzenz/flashgg/RunIIFall17-3_1_0/3_1_0/ggZH_HToGG_ZToLL_M125_13TeV_powheg_pythia8/RunIIFall17-3_1_0-3_1_0-v0-RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_mc2017_realistic_v14-v1/180609_092512/0000/myMicroAODOutputFile_2.root"
 "root://eoscms.cern.ch//eos/cms/store/group/phys_higgs/cmshgg/sethzenz/flashgg/RunIIFall17-3_1_0/3_1_0/THQ_ctcvcp_HToGG_M125_13TeV-madgraph-pythia8_TuneCP5/RunIIFall17-3_1_0-3_1_0-v0-RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_mc2017_realistic_v14-v1/180605_204436/0000/myMicroAODOutputFile_5.root"
+#"/store/group/phys_higgs/cmshgg/sethzenz/flashgg/RunIIFall17-3_1_0/3_1_0/ttHJetToGG_M125_13TeV_amcatnloFXFX_madspin_pythia8_PSWeights/RunIIFall17-3_1_0-3_1_0-v0-RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_mc2017_realistic_v14_ext1-v1/180605_203128/0000/myMicroAODOutputFile_9.root"
 ))
 
 process.TFileService = cms.Service("TFileService",
@@ -421,8 +422,8 @@ elif customize.processId.count("thq") or customize.processId.count("thw"):
 elif customize.processId.count("h_") or customize.processId.count("vbf"):
     variablesToUse = minimalVariables + var.vtx_variables + var.vtx_truth_variables + var.dipho_variables + var.photon_variables + var.lepton_variables + var.jet_variables + var.thqmva_variables + var.truth_variables + var.theoweight_variables + defaultVariables
 else:
-#    variablesToUse = minimalVariables + var.vtx_variables + var.vtx_truth_variables + var.dipho_variables
-    variablesToUse= minimalVariables + var.vtx_variables + var.vtx_truth_variables + var.dipho_variables + var.photon_variables + defaultVariables + var.lepton_variables + var.jet_variables + var.thqmva_variables + var.truth_variables  + defaultVariables + var.dr_variable + var.thqmva_variables + var.theoweight_variables + var.theoctcvweight_variables
+    variablesToUse = minimalVariables + var.vtx_variables + var.vtx_truth_variables + var.dipho_variables
+#    variablesToUse= minimalVariables + var.vtx_variables + var.vtx_truth_variables + var.dipho_variables + var.photon_variables + defaultVariables + var.lepton_variables + var.jet_variables + var.thqmva_variables + var.truth_variables  + defaultVariables + var.dr_variable + var.thqmva_variables + var.theoweight_variables + var.theoctcvweight_variables
 
 
 if customize.doFiducial:
@@ -590,7 +591,7 @@ else :
                          process.flashggSystTagMerger*
                          process.penultimateFilter*
                          process.finalFilter*
-			 process.tHqLeptonicFilter*
+#			 process.tHqLeptonicFilter*
                          process.tagsDumper)
 
 if customize.doFiducial:
@@ -686,7 +687,7 @@ if customize.verboseSystDump:
 #print >> processDumpFile, process.dumpPython()
 
 # set default options if needed
-customize.setDefault("maxEvents",1000)
+customize.setDefault("maxEvents", 100 )
 customize.setDefault("targetLumi",1.00e+3)
 # call the customization
 customize(process)

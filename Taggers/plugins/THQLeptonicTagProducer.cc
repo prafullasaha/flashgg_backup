@@ -48,6 +48,7 @@
 #include "CommonTools/UtilAlgos/interface/TFileService.h"
 #include "TCanvas.h"
 #include <map>
+#include <typeinfo>
 // https://github.com/cms-analysis/flashgg/commit/f327ca16c29b4ced8eaf8c309cb9218fac265963 (fixing the tth taggers)
 using namespace std;
 using namespace edm;
@@ -228,7 +229,8 @@ namespace flashgg {
     std::vector<edm::Ptr<flashgg::Jet> > MediumBJetVect, MediumBJetVect_PtSorted;
     std::vector<edm::Ptr<flashgg::Jet> > LooseBJetVect, LooseBJetVect_PtSorted ;
     std::vector<edm::Ptr<flashgg::Jet> > TightBJetVect, TightBJetVect_PtSorted;
-
+    std::vector<edm::Ptr<flashgg::Jet> > centraljet;
+    std::vector<edm::Ptr<flashgg::Jet> > forwardjet;
 
     edm::Ptr<flashgg::Jet> fwdJet;
     edm::Ptr<flashgg::Jet> bJet  ;
@@ -327,8 +329,7 @@ namespace flashgg {
     }
 
     double default_Zmass_ = 91.9;
-//    double default_deltaMassElectronZThreshold_ = 10.;
-    double default_deltaMassElectronZThreshold_ = 0.;
+    double default_deltaMassElectronZThreshold_ = 5.;
 
 
     vector<double> default_electronEtaCuts_;
@@ -393,21 +394,32 @@ namespace flashgg {
     produces<vector<THQLeptonicTagTruth> >();
   }
 
+int n_pass=0;
+int n_total=0;
+int n_pass_before_dipho_cut=0;
+int n_pass_after_dipho_cut=0;
+int n_pass_after_diphomva_cut=0;
+int n_pass_after_jet_cut=0;
+int n_pass_after_jeteta_cut=0;
+int n_pass_after_jetpt_cut=0;
+int n_pass_after_jetetapt_cut=0;
   void THQLeptonicTagProducer::produce( Event &evt, const EventSetup & )
 
   {
+
+    n_total++;//AP
     JetCollectionVector Jets( inputTagJets_.size() );
     for( size_t j = 0; j < inputTagJets_.size(); ++j ) {
       evt.getByToken( tokenJets_[j], Jets[j] );
     }
-
+    
     edm::Handle<double>  rho;
     evt.getByToken(rhoTag_,rho);
     float rho_    = *rho;
-
+    
     Handle<View<flashgg::DiPhotonCandidate> > diPhotons;
     evt.getByToken( diPhotonToken_, diPhotons );
-
+    
     Handle<View<flashgg::Muon> > theMuons;
     evt.getByToken( muonToken_, theMuons );
 
@@ -449,7 +461,7 @@ namespace flashgg {
     bool photonSelection = false;
     double idmva1 = 0.;
     double idmva2 = 0.;
-
+    cout<<"diPhotons->size()"<<diPhotons->size()<<endl;
     for( unsigned int diphoIndex = 0; diphoIndex < diPhotons->size(); diphoIndex++ ) {
 
       hasGoodElec = false; hasVetoElec = false;
@@ -465,20 +477,19 @@ namespace flashgg {
 
       // if(processId_.find("thq") != std::string::npos or processId_.find("thw") != std::string::npos)
       // 	CTCVWeightedVariables["photon1pt"]->Fill( dipho->leadingPhoton()->pt() , CtCvWeights );
-
+      n_pass_before_dipho_cut++;
       if( dipho->leadingPhoton()->pt() < ( dipho->mass() )*leadPhoOverMassThreshold_ ) { continue; }
-
       // if(processId_.find("thq") != std::string::npos or processId_.find("thw") != std::string::npos)
       // 	CTCVWeightedVariables["photon2pt"]->Fill( dipho->subLeadingPhoton()->pt() , CtCvWeights );
 
       if( dipho->subLeadingPhoton()->pt() < ( dipho->mass() )*subleadPhoOverMassThreshold_ ) { continue; }
-
+      n_pass_after_dipho_cut++;
 
       idmva1 = dipho->leadingPhoton()->phoIdMvaDWrtVtx( dipho->vtx() );
       idmva2 = dipho->subLeadingPhoton()->phoIdMvaDWrtVtx( dipho->vtx() );
 
       if( idmva1 <= PhoMVAThreshold_ || idmva2 <= PhoMVAThreshold_ ) { continue; }
-
+      n_pass_after_diphomva_cut++;
       // if(processId_.find("thq") != std::string::npos or processId_.find("thw") != std::string::npos){
       // 	CTCVWeightedVariables["diPhotonMVA"]->Fill( mvares->result , CtCvWeights );
 
@@ -488,10 +499,6 @@ namespace flashgg {
 
       if( mvares->result < MVAThreshold_ ) { continue; }
 //      cout<<"mvares->result"<<mvares->result<<endl;
-//      cout<<"SelJetVect.size()"<<SelJetVect.size()<<endl;
-//      cout<<"SelJetVect_BSorted.size()"<<SelJetVect_BSorted.size()<<endl;
-//      if(SelJetVect.size() < jetsNumberThreshold_ /*|| SelJetVect_BSorted.size() < bjetsNumberThreshold_*/){ continue; }
-
       photonSelection = true;
             
         
@@ -525,10 +532,9 @@ namespace flashgg {
 			 theMET->energy()
 			 ) ; 
 //Lorentzvector of all final state particles 
-//            G = G1 + G2 + bL + fwdJL + metL + lepton.lorentzVector_;
-       TLorentzVector tHchain;
-                       tHchain=G1 + G2 + bL + metL + lepton.lorentzVector_;
-         float dRbjetfwdjet = deltaR( bL.Eta() , bL.Phi() , fwdJL.Eta() , fwdJL.Phi() );
+       TLorentzVector tHchain ;
+       tHchain=G1 + G2 + bL + metL + lepton.lorentzVector_;
+       float dRbjetfwdjet = deltaR( bL.Eta() , bL.Phi() , fwdJL.Eta() , fwdJL.Phi() );
          float dRtHchainfwdjet = 0;
                dRtHchainfwdjet = deltaR( tHchain.Eta() , tHchain.Phi() , fwdJL.Eta() , fwdJL.Phi() );
 //	float dRleadphobjet = deltaR( G1.Eta() , G1.Phi(), bL.Eta() , bL.Phi());
@@ -537,7 +543,7 @@ namespace flashgg {
         float dRsubleadphofwdjet = deltaR( G2.Eta() , G2.Phi(), fwdJL.Eta() , fwdJL.Phi());
 	float dRleptonbjet = deltaR( lepton.lorentzVector_.Eta() , lepton.lorentzVector_.Phi(), bL.Eta() , bL.Phi());
 	float dRleptonfwdjet = deltaR( lepton.lorentzVector_.Eta() , lepton.lorentzVector_.Phi(), fwdJL.Eta() , fwdJL.Phi());
-//        cout<<"dRleptonfwdjet="<<dRleptonfwdjet<<endl;
+//        cout<<"bL.eta"<<bL.eta()<<endl;
 //            if( dRbjetfwdjet < DeltaRbjetfwdjet_ ){ continue; }
 //                cout<<"dRbjetfwdjet="<<dRbjetfwdjet<<endl;
 
@@ -631,11 +637,11 @@ namespace flashgg {
 	LeptonType = 1;
       }
 
-      for( unsigned int ElectronIndex = 0; ElectronIndex < looseElectrons.size(); ElectronIndex++ ) {
+      for( unsigned int ElectronIndex = 0; ElectronIndex < goodElectrons.size(); ElectronIndex++ ) {
 
-	thqltags_obj.includeWeights( *looseElectrons[ElectronIndex] );
+	thqltags_obj.includeWeights( *goodElectrons[ElectronIndex] );
                 
-	Ptr<Electron> Electron = looseElectrons[ElectronIndex];
+	Ptr<Electron> Electron = goodElectrons[ElectronIndex];
 	lepton.set( Electron->pt(),
 		    Electron->eta() ,
 		    Electron->phi() ,
@@ -657,82 +663,147 @@ namespace flashgg {
       float dRPhoLeadJet=0;
       float dRPhoSubLeadJet=0;
       double minDrLepton = 999.;
+        int njets_btagloose_ = 0;
+      int njets_btagmedium_ = 0;
+      int njets_btagtight_ = 0;
+
       for( unsigned int candIndex_outer = 0; candIndex_outer < Jets[jetCollectionIndex]->size() ; candIndex_outer++ ) {
 	edm::Ptr<flashgg::Jet> thejet = Jets[jetCollectionIndex]->ptrAt( candIndex_outer );
+//	std::cout << "prin: "<< Jets[jetCollectionIndex]->size() << " "<<thejet->pt() << " "<< thejet->eta()<<" "<< thejet->phi()<< " "<< thejet->energy() <<std::endl;
+	std::vector <float> minDrLepton_ele;
+	std::vector <float> minDrLepton_muon;
 
-	//std::cout << "prin: "<< Jets[jetCollectionIndex]->size() << " "<<thejet->pt() << " "<< thejet->eta()<<" "<< thejet->phi()<< " "<< thejet->energy() <<std::endl;
 
-	if( !thejet->passesPuJetId( dipho ) ) { continue; }
+        if( !thejet->passesPuJetId( dipho ) ) { continue; }
 
 	if( fabs( thejet->eta() ) > jetEtaThreshold_ ) { continue; }
-
-	if( thejet->pt() < jetPtThreshold_ ) { continue; }
-
+        if( thejet->pt() < jetPtThreshold_ ) { continue; }
 	dRPhoLeadJet = deltaR( thejet->eta(), thejet->phi(), dipho->leadingPhoton()->superCluster()->eta(), dipho->leadingPhoton()->superCluster()->phi() ) ;
-	dRPhoSubLeadJet = deltaR( thejet->eta(), thejet->phi(), dipho->subLeadingPhoton()->superCluster()->eta(),
-					dipho->subLeadingPhoton()->superCluster()->phi() );
+	dRPhoSubLeadJet = deltaR( thejet->eta(), thejet->phi(), dipho->subLeadingPhoton()->superCluster()->eta(),dipho->subLeadingPhoton()->superCluster()->phi() );
 
 	if( dRPhoLeadJet < deltaRJetLeadPhoThreshold_ || dRPhoSubLeadJet < deltaRJetSubLeadPhoThreshold_ ) { continue; }
 
+//std::cout<<"dRPhoLeadJet=  "<<dRPhoLeadJet<<"  "<<"dRPhoSubLeadJet=  "<<dRPhoSubLeadJet<<std::endl;
 
 	TLorentzVector jet_lorentzVector;
 	jet_lorentzVector.SetPtEtaPhiE(  thejet->pt() , thejet->eta() , thejet->phi() , thejet->energy() );
 	//std::cout <<  thejet->pt() << " "<< thejet->eta()<<" "<< thejet->phi()<< " "<< thejet->energy() <<std::endl;
 	particles_LorentzVector.push_back( jet_lorentzVector );
 	particles_RhoEtaPhiVector.push_back( math::RhoEtaPhiVector( thejet->pt(), thejet->eta(), thejet->phi() ) );
-                
 
-//	double minDrLepton = 999.;
+	int goodElectrons_count = 0;
+	int goodMuons_count = 0;
+	int rejectJet_wrt_muon = 1;
+        int rejectJet_wrt_ele = 1;
+
+//deltaR check with ele------------------------------------
+        for(auto ele : goodElectrons){
+          float dRJetLepton_ele = deltaR( thejet->eta(), thejet->phi(), ele->eta() , ele->phi() );
+//          if( dRJetLepton_ele < minDrLepton ) { 
+	minDrLepton_ele.push_back(dRJetLepton_ele); 
+//	}
+	goodElectrons_count++;
+	}
+	if(minDrLepton_ele.size() > 0){
+        for(unsigned int minDrLepton_ele_index=0; minDrLepton_ele_index < minDrLepton_ele.size() ; minDrLepton_ele_index++ ){
+        if( minDrLepton_ele.at(minDrLepton_ele_index) < deltaRJetLepThreshold_){rejectJet_wrt_ele = 0;}
+        rejectJet_wrt_ele = rejectJet_wrt_ele * rejectJet_wrt_ele ; 
+        }
+        }
+        if( rejectJet_wrt_ele == 0) {continue;}
+	minDrLepton_ele.clear();
+//deltaR check with muon---------------------------
 	for(auto mu : goodMuons){
-	  float dRJetLepton = deltaR( thejet->eta(), thejet->phi(), mu->eta() , mu->phi() );
-	  if( dRJetLepton < minDrLepton ) { minDrLepton = dRJetLepton; }
-	}
-	for(auto ele : goodElectrons){
-	  float dRJetLepton = deltaR( thejet->eta(), thejet->phi(), ele->eta() , ele->phi() );
-	  if( dRJetLepton < minDrLepton ) { minDrLepton = dRJetLepton; }
+	  float dRJetLepton_muon = deltaR( thejet->eta(), thejet->phi(), mu->eta() , mu->phi() );
+//	  if( dRJetLepton_muon < minDrLepton ) { 
+	  minDrLepton_muon.push_back(dRJetLepton_muon); 
+//	}
+	goodMuons_count++;
 	}
 
-	if( minDrLepton < deltaRJetLepThreshold_) continue;
+        if(minDrLepton_muon.size() > 0){
+	for(unsigned int minDrLepton_muon_index=0; minDrLepton_muon_index < minDrLepton_muon.size() ; minDrLepton_muon_index++ ){
+	if( minDrLepton_muon.at(minDrLepton_muon_index) < deltaRJetLepThreshold_){rejectJet_wrt_muon = 0;}
+        rejectJet_wrt_muon = rejectJet_wrt_muon * rejectJet_wrt_muon ;
+        }
+	}
+	if( rejectJet_wrt_muon == 0) {continue;}
+	minDrLepton_muon.clear();
 
-	double bDiscriminatorValue = thejet->bDiscriminator( bTag_.c_str() );
+        float bDiscriminatorValue = -2.;
+        if(bTag_ == "pfDeepCSV") bDiscriminatorValue = thejet->bDiscriminator("pfDeepCSVJetTags:probb")+thejet->bDiscriminator("pfDeepCSVJetTags:probbb");
+	else
+        bDiscriminatorValue = thejet->bDiscriminator( bTag_.c_str() );
 
 	if( bDiscriminatorValue > bDiscriminator_[0] ) {
 	  LooseBJetVect_PtSorted.push_back( thejet ); 
 	  LooseBJetVect.push_back( thejet );
+	  njets_btagloose_++;
 	}
-
+//cout<<"bDiscriminatorValue"<<bDiscriminatorValue<<endl;
 	if( bDiscriminatorValue > bDiscriminator_[1] ) {
 	  MediumBJetVect.push_back( thejet ); 
 	  MediumBJetVect_PtSorted.push_back( thejet );
+	  njets_btagmedium_++;
 	}
 
 	if( bDiscriminatorValue > bDiscriminator_[2] ) {
 	  TightBJetVect_PtSorted.push_back( thejet ); 
 	  TightBJetVect.push_back( thejet );
+          njets_btagtight_++;
 	}
 	
 	ht+=thejet->pt();
+
+	if( fabs( thejet->eta() ) < 1){ centraljet.push_back( thejet );}
+        if( fabs( thejet->eta() ) > 1) {forwardjet.push_back( thejet );}
+
+
 	SelJetVect.push_back( thejet ); 
 	SelJetVect_EtaSorted.push_back( thejet );
 	SelJetVect_PtSorted.push_back( thejet );
 	SelJetVect_BSorted.push_back( thejet );
+//cout<<"ele_count=  "<<ele_count<<"muon_count=  "<<muon_count<<endl;
       }//end of jets loop
-
+//cout<<"SelJetVect.size()      ="<<SelJetVect.size()<<endl;
+//cout<<"MediumBJetVect.size()  ="<<MediumBJetVect.size()<<endl;
+//cout<<"LooseBJetVect.size()"<<LooseBJetVect.size()<<endl;
+//if(SelJetVect.size() < jetsNumberThreshold_){ continue; }
+//if(MediumBJetVect.size() < bjetsNumberThreshold_ ){ continue; }
+cout<<"lepton.size()"<<lepton.size()<<endl;
       //Calculate scalar sum of jets
+//      if(SelJetVect.size() < jetsNumberThreshold_ || MediumBJetVect.size() < bjetsNumberThreshold_){ continue; }
+      std::sort(LooseBJetVect_PtSorted.begin(),LooseBJetVect_PtSorted.end(),GreaterByPt());
+      std::sort(LooseBJetVect.begin(),LooseBJetVect.end(),GreaterByBTagging(bTag_.c_str()));
+
+      std::sort(MediumBJetVect_PtSorted.begin(),MediumBJetVect_PtSorted.end(),GreaterByPt());
+      std::sort(MediumBJetVect.begin(),MediumBJetVect.end(),GreaterByBTagging(bTag_.c_str()));
+
+      std::sort(TightBJetVect_PtSorted.begin(),TightBJetVect_PtSorted.end(),GreaterByPt());
+      std::sort(TightBJetVect.begin(),TightBJetVect.end(),GreaterByBTagging(bTag_.c_str()));
+
+      std::sort(SelJetVect_EtaSorted.begin(),SelJetVect_EtaSorted.end(),GreaterByEta());
+      std::sort(SelJetVect_PtSorted.begin(),SelJetVect_PtSorted.end(),GreaterByPt());
+      std::sort(SelJetVect_BSorted.begin(),SelJetVect_BSorted.end(),GreaterByBTagging(bTag_.c_str()));
+      std::sort(forwardjet.begin(), forwardjet.end(),GreaterByEta());
+
+
+
+	bool taggedevents= false;      
+if(SelJetVect.size() >= jetsNumberThreshold_ && MediumBJetVect_PtSorted.size() >= bjetsNumberThreshold_){
+       taggedevents= true;
+//       cout<<"SelJetVect.size()      ="<<SelJetVect.size()<<endl;
+//       cout<<"MediumBJetVect.size()  ="<<MediumBJetVect.size()<<endl;
+
+	}      
+      if(taggedevents)
+      {
+
+//      cout<<"SelJetVect.size()      ="<<SelJetVect.size()<<endl;
+//      cout<<"MediumBJetVect.size()  ="<<MediumBJetVect.size()<<endl;
+
+
       thqltags_obj.setHT(ht);
-
-      std::sort(LooseBJetVect_PtSorted.begin(),LooseBJetVect_PtSorted.end(),GreaterByPt()); 
-      std::sort(LooseBJetVect.begin(),LooseBJetVect.end(),GreaterByBTagging(bTag_.c_str())); 
-
-      std::sort(MediumBJetVect_PtSorted.begin(),MediumBJetVect_PtSorted.end(),GreaterByPt()); 
-      std::sort(MediumBJetVect.begin(),MediumBJetVect.end(),GreaterByBTagging(bTag_.c_str())); 
-
-      std::sort(TightBJetVect_PtSorted.begin(),TightBJetVect_PtSorted.end(),GreaterByPt()); 
-      std::sort(TightBJetVect.begin(),TightBJetVect.end(),GreaterByBTagging(bTag_.c_str())); 
-
-      std::sort(SelJetVect_EtaSorted.begin(),SelJetVect_EtaSorted.end(),GreaterByEta()); 
-      std::sort(SelJetVect_PtSorted.begin(),SelJetVect_PtSorted.end(),GreaterByPt()); 
-      std::sort(SelJetVect_BSorted.begin(),SelJetVect_BSorted.end(),GreaterByBTagging(bTag_.c_str())); 
 
 
       // if( processId_.find("thq") != std::string::npos or processId_.find("thw") != std::string::npos ){
@@ -767,16 +838,20 @@ namespace flashgg {
 				   fwam.getMoment( FoxWolfram::PZ , ifw ),
 				   fwam.getMoment( FoxWolfram::ONE , ifw ) );
 	//std::cout<< "fox:" << foxwolf1.another<<std::endl;
-
+////cout<<"centraljet.size()"<<forwardjet.size()<<endl;
 	thqltags_obj.setrho(rho_);
 
 	thqltags_obj.setLeptonType(LeptonType);
 	thqltags_obj.includeWeights( *dipho );
 
 	thqltags_obj.photonWeights = dipho->leadingPhoton()->centralWeight()*dipho->subLeadingPhoton()->centralWeight() ;
-
+//std::cout<<"dipho->subleadingPhoton()->centralWeight()"<<dipho->subLeadingPhoton()->centralWeight()<<std::endl;
 	thqltags_obj.setJets( SelJetVect_PtSorted , SelJetVect_EtaSorted);
-	thqltags_obj.setBJets( SelJetVect_BSorted );
+	thqltags_obj.setBJets( MediumBJetVect );
+	thqltags_obj.nCentralJets = centraljet.size();
+	thqltags_obj.nForwardJets = forwardjet.size();
+        thqltags_obj.setcentraljet( centraljet );
+        thqltags_obj.setforwardjet( forwardjet );
         thqltags_obj.setdRtHchainfwdjet( dRtHchainfwdjet ) ;
         thqltags_obj.setdRbjetfwdjet( dRbjetfwdjet ) ;
 //        thqltags_obj.setdRleadphobjet( dRleadphobjet );
@@ -790,9 +865,11 @@ namespace flashgg {
         thqltags_obj.bTagWeight = 1.0;
 	thqltags_obj.bTagWeightDown = 1.0;
 	thqltags_obj.bTagWeightUp = 1.0;
+        n_pass_after_jetetapt_cut++;
 
-        if(SelJetVect.size() < jetsNumberThreshold_ || SelJetVect_BSorted.size() < bjetsNumberThreshold_ ){ continue; }
-//        cout<<"SelJetVect.size()"<<SelJetVect.size()<<endl;//        cout<<"SelJetVect_BSorted.size()"<<SelJetVect_BSorted.size()<<endl;
+	
+
+n_pass_after_jet_cut++;
 
 
 	for( auto j : SelJetVect_PtSorted ){
@@ -800,14 +877,14 @@ namespace flashgg {
 	  //  cout << *itr << endl;
 	  thqltags_obj.includeWeights( *j );
 	  
-	  if( j->hasWeight("JetBTagCutWeightCentral") ){
+/*	  if( j->hasWeight("JetBTagCutWeightCentral") ){
 	      thqltags_obj.bTagWeight *= j->weight( "JetBTagCutWeightCentral" );
 	      thqltags_obj.bTagWeightDown *= j->weight( "JetBTagCutWeightDown01sigma" );
 	      thqltags_obj.bTagWeightUp *= j->weight( "JetBTagCutWeightUp01sigma" );
 	  }
 	  else
 	    cout << "BTag weight is not set in jet" << endl;
-	}
+*/	}
 
 	thqltags_obj.setVertices( vertices->ptrs() );
 
@@ -837,7 +914,7 @@ namespace flashgg {
 	
 	//std::cout << "new vertex !! "<< thqltags_obj.getSubLeadingLeptonVertexDxy( "muon") << std::endl;
 
-	thqltags_obj.setMuons( LooseMu200 , looseMus_PassTight , LooseMu25.size() , LooseMu15.size() , MediumMu25.size() , MediumMu15.size() , TightMuo25.size() , TightMuo15.size() );
+	thqltags_obj.setMuons( goodMuons , looseMus_PassTight , LooseMu25.size() , LooseMu15.size() , MediumMu25.size() , MediumMu15.size() , TightMuo25.size() , TightMuo15.size() );
 	//cout << "nLooseMuons : " << LooseMu200.size() << " and nTightMuons : " << goodMuons.size() << " out of : " << theMuons->ptrs().size() << endl;
 
 	a.clear();b.clear();c.clear();d.clear();
@@ -865,7 +942,7 @@ namespace flashgg {
 */
 	thqltags_obj.setLeptonVertices( "electron", a, b, c, d) ;
 
-	thqltags_obj.setElectrons( vetoNonIsoElectrons , vetoNonIsoElectrons_PassTight , vetoNonIsoElectrons_PassVeto , looseElectrons.size() , vetoElectrons.size() , mediumElectrons.size() , goodElectrons.size() );
+	thqltags_obj.setElectrons( goodElectrons , vetoNonIsoElectrons_PassTight , vetoNonIsoElectrons_PassVeto , looseElectrons.size() , vetoElectrons.size() , mediumElectrons.size() , goodElectrons.size() );
 
 	thqltags_obj.setDiPhotonIndex( diphoIndex );
 	thqltags_obj.setSystLabel( systLabel_ );
@@ -1146,19 +1223,30 @@ namespace flashgg {
  
 	    if( index_gp_leadjet < std::numeric_limits<unsigned int>::max() ) { truth_obj.setClosestParticleToLeadingJet( genParticles->ptrAt( index_gp_leadjet ) ); }
 	    if( index_gp_subleadjet < std::numeric_limits<unsigned int>::max() ) { truth_obj.setClosestParticleToSubLeadingJet( genParticles->ptrAt( index_gp_subleadjet ) ); }
-	    if( index_gp_leadphoton < std::numeric_limits<unsigned int>::max() ) { truth_obj.setClosestParticleToLeadingPhoton( genParticles->ptrAt( index_gp_leadphoton ) ); }
+	    if( index_gp_leadphoton < std::numeric_limits<unsigned int>::max() ) {
+	      truth_obj.setClosestParticleToLeadingPhoton( genParticles->ptrAt( index_gp_leadphoton ) ); }
 	    if( index_gp_subleadphoton < std::numeric_limits<unsigned int>::max() ) { truth_obj.setClosestParticleToSubLeadingPhoton( genParticles->ptrAt( index_gp_subleadphoton ) ); }
-	  
+
+ 
 	    if( index_gp_leadmuon < std::numeric_limits<unsigned int>::max() ) /*{ truth_obj.setClosestPromptParticleToLeadingMuon( genParticles->ptrAt( index_gp_leadmuon ) ); }*/
 	      {
+//		std::cout<<"Yeh I found a Muon!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"<<std::endl;
+
 		truth_obj.setClosestParticleToLeadingMuon( genParticles->ptrAt( index_gp_leadmuon ) );
 		const reco::GenParticle *mcMom;
 		mcMom = static_cast<const reco::GenParticle *>(genParticles->ptrAt( index_gp_leadmuon )->mother());
+//		std::cout<<"My mother is "<<genParticles->ptrAt( index_gp_leadmuon )->mother()->pdgId()<<std::endl;
 		if (mcMom){
+//		  std::cout<<"Checking the muon Id which we have identified..        ="<<genParticles->ptrAt( index_gp_leadmuon )->pdgId()<<std::endl;
+//		  std::cout<<"Checking the status of muon which we have identified   ="<<genParticles->ptrAt( index_gp_leadmuon )->status()<<std::endl;
+//		  std::cout<<"Found a muon which has mother Id!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"<<std::endl;
+//                  std::cout<<"Identified muon's Mother Id is                         ="<<mcMom->pdgId()<<std::endl;
 		  if( abs(genParticles->ptrAt( index_gp_leadmuon )->pdgId())==13 
 		      && genParticles->ptrAt( index_gp_leadmuon )->status()==1  
 		      && abs( mcMom->pdgId())==24 ) 
-		    { truth_obj.setClosestPromptParticleToLeadingMuon( genParticles->ptrAt( index_gp_leadmuon ) ); }
+		    { truth_obj.setClosestPromptParticleToLeadingMuon( genParticles->ptrAt( index_gp_leadmuon ) );
+//		      std::cout<<"Yeh I found a Prompt Muon.......:::::::::::::::::::))))))))))))))))))))))"<<std::endl;
+		    }
 		}
 	      }
 	    
@@ -1175,17 +1263,40 @@ namespace flashgg {
 	    }
 	    if( index_gp_leadelectron < std::numeric_limits<unsigned int>::max() ) 
 	      {
+//		std::cout<<"Yeh I found a electron!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"<<std::endl;
+
 		truth_obj.setClosestParticleToLeadingElectron( genParticles->ptrAt( index_gp_leadelectron ) );
+if(truth_obj.hasClosestParticleToLeadingElectron()){
+//std::cout<<"Has a closest particle to leading electron"<<std::endl;
+
+}
+//if(truth_obj.hasClosestPromptParticleToLeadingElectron()){
+//std::cout<<"Has a closest Prompt particle to leading electron"<<std::endl;
+
+//}
 		const reco::GenParticle *mcMom;
 		mcMom = static_cast<const reco::GenParticle *>(genParticles->ptrAt( index_gp_leadelectron )->mother());
-		if (mcMom){
+ 		if (mcMom){
+//		  std::cout<<"Checking the electron Id which we have identified..        ="<<genParticles->ptrAt( index_gp_leadelectron )->pdgId()<<std::endl;
+//                  std::cout<<"Checking the status of electron which we have identified   ="<<genParticles->ptrAt( index_gp_leadelectron )->status()<<std::endl;
+//                  std::cout<<"Found a electron which has mother Id!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"<<std::endl;
+//                  std::cout<<"Identified electron's Mother Id is                         ="<<mcMom->pdgId()<<std::endl;
+
 		  if( abs(genParticles->ptrAt( index_gp_leadelectron )->pdgId())==11 
 		      && genParticles->ptrAt( index_gp_leadelectron )->status()==1  
 		      && abs( mcMom->pdgId())==24 ) 
-		    { truth_obj.setClosestPromptParticleToLeadingElectron( genParticles->ptrAt( index_gp_leadelectron ) ); }
+		    {
+//		    std::cout<<"I found a Prompt electron.....::::::::::::::::::::::::)))))))))))))))))"<<std::endl;
+		    truth_obj.setClosestPromptParticleToLeadingElectron( genParticles->ptrAt( index_gp_leadelectron ) ); }
+if(truth_obj.hasClosestPromptParticleToLeadingElectron()){
+//std::cout<<"Has a closest Prompt particle to leading electron"<<std::endl;
+
+}
+
+truth_obj.pt_genPromptParticleMatchingToLeadingElectron();
 		}
 	      }
-	    
+//	    truth_obj.testfunction(); 
 	    if( index_gp_subleadelectron < std::numeric_limits<unsigned int>::max() ) {
 	      const reco::GenParticle *mcMom;
 	      truth_obj.setClosestParticleToSubLeadingElectron( genParticles->ptrAt( index_gp_subleadelectron ) );
@@ -1296,9 +1407,10 @@ namespace flashgg {
 	  thqltags->push_back( thqltags_obj );
 	  truths->push_back( truth_obj );
 	  thqltags->back().setTagTruth( edm::refToPtr( edm::Ref<vector<THQLeptonicTagTruth> >( rTagTruth, idx++ ) ) );
-
 	}// ! evt.isRealData() loop end ! 
 	if (evt.isRealData()) thqltags->push_back( thqltags_obj ); //FIXME at next iteration!!
+//cout<<"n_total= "<<n_total<<"before_dipho_cut"<<n_pass_before_dipho_cut<<"after_dipho_cut= "<<n_pass_after_dipho_cut<<"after_diphomva_cut= "<<n_pass_after_diphomva_cut<<"after_jetetapt_cut= "<<n_pass_after_jetetapt_cut<<"after_jet_cut= "<<n_pass_after_jet_cut<<"n_pass_after_all_cut= "<<n_pass<<endl;
+
       }//thq tag
       else {
 	if(false)
@@ -1313,14 +1425,15 @@ namespace flashgg {
       LooseBJetVect.clear(); LooseBJetVect_PtSorted.clear(); 
       MediumBJetVect.clear(); MediumBJetVect_PtSorted.clear();
       TightBJetVect.clear(); TightBJetVect_PtSorted.clear();
-
-            
+      centraljet.clear(); forwardjet.clear();     
+    n_pass++; //AP       
+     }//end of taggedevent loop     
     }//diPho loop end !
-        
     evt.put( std::move( thqltags ) );
     evt.put( std::move( truths ) );
+//    cout<<"n_total= "<<n_total<<"before_dipho_cut"<<n_pass_before_dipho_cut<<"after_dipho_cut= "<<n_pass_after_dipho_cut<<"after_diphomva_cut= "<<n_pass_after_diphomva_cut<<"after_jetetapt_cut= "<<n_pass_after_jetetapt_cut<<"after_jet_cut= "<<n_pass_after_jet_cut<<"n_pass_after_all_cut= "<<n_pass<<endl;//AP
   }
-    
+//std::cout<<"n_total= "<<n_total<<"before_dipho_cut"<<n_pass_before_dipho_cut<<"after_dipho_cut= "<<n_pass_after_dipho_cut<<"after_diphomva_cut= "<<n_pass_after_diphomva_cut<<"after_jetetapt_cut= "<<n_pass_after_jetetapt_cut<<"after_jet_cut= "<<n_pass_after_jet_cut<</*"n_pass_after_all_cut= "<<n_pass<<*/endl;
 }
 typedef flashgg::THQLeptonicTagProducer FlashggTHQLeptonicTagProducer;
 DEFINE_FWK_MODULE( FlashggTHQLeptonicTagProducer );

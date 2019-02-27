@@ -1,0 +1,13 @@
+universe = vanilla
+executable = job_thq.sh
+should_transfer_files = YES
+WhenTOTransferOutput  = ON_EXIT
+output = condor/thq_$(cluster)_$(process).stdout
+error  = condor/thq_$(cluster)_$(process).stderr
+log    = condor/thq_$(cluster)_$(process).condor
+
++JobFlavour = "tomorrow"
+
+Queue 1
+
+

@@ -63,6 +63,7 @@ namespace flashgg {
             }
             if (this->applyCentralValue()) {
                 theWeight = central;
+//std::cout<<"theWeight=      "<<theWeight<<std::endl;
             } else {
                 theWeight = 1;
             }

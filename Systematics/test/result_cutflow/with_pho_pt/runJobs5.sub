@@ -1,0 +1,9 @@
++JobFlavour = "tomorrow"
+
+executable  = /afs/cern.ch/work/p/prsaha/public/mytest1/CMSSW_9_4_6/src/flashgg/Systematics/test/result_cutflow/with_pho_pt/runJobs5.sh
+output      = /afs/cern.ch/work/p/prsaha/public/mytest1/CMSSW_9_4_6/src/flashgg/Systematics/test/result_cutflow/with_pho_pt/runJobs5.out
+error       = /afs/cern.ch/work/p/prsaha/public/mytest1/CMSSW_9_4_6/src/flashgg/Systematics/test/result_cutflow/with_pho_pt/runJobs5.err
+log         = /afs/cern.ch/work/p/prsaha/public/mytest1/CMSSW_9_4_6/src/flashgg/Systematics/test/result_cutflow/with_pho_pt/runJobs5_htc.log
+
+max_retries = 1
+queue 1

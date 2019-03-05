@@ -30,7 +30,7 @@ else:
     raise Exception,"Could not find a sensible CMSSW_VERSION for default globaltag"
 
 process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(1000) )
-process.MessageLogger.cerr.FwkReport.reportEvery = cms.untracked.int32( 1 )
+process.MessageLogger.cerr.FwkReport.reportEvery = cms.untracked.int32( 5000 )
 
 MUON_ID = "Medium" #["Tight", "Medium" , "Loose", "Soft", "HighPt", "MediumPrompt", "TrkHighPt"]
 MUON_ISO = "LooseRel" #{ LooseID : ["LooseRel"],MediumID:["LooseRel", "TightRel"] , TrkHighPtID:["LooseRelTk", "TightRelTk"], TightIDandIPCut:["LooseRel", "TightRel"], HighPtIDandIPCut:["LooseRelTk", "TightRelTk"] }
@@ -422,8 +422,8 @@ elif customize.processId.count("thq") or customize.processId.count("thw"):
 elif customize.processId.count("h_") or customize.processId.count("vbf"):
     variablesToUse = minimalVariables + var.vtx_variables + var.vtx_truth_variables + var.dipho_variables + var.photon_variables + var.lepton_variables + var.jet_variables + var.thqmva_variables + var.truth_variables + var.theoweight_variables + defaultVariables
 else:
-    variablesToUse = minimalVariables + var.vtx_variables + var.vtx_truth_variables + var.dipho_variables
-#    variablesToUse= minimalVariables + var.vtx_variables + var.vtx_truth_variables + var.dipho_variables + var.photon_variables + defaultVariables + var.lepton_variables + var.jet_variables + var.thqmva_variables + var.truth_variables  + defaultVariables + var.dr_variable + var.thqmva_variables + var.theoweight_variables + var.theoctcvweight_variables
+#    variablesToUse = minimalVariables + var.vtx_variables + var.vtx_truth_variables + var.dipho_variables
+    variablesToUse= minimalVariables + var.vtx_variables + var.vtx_truth_variables + var.dipho_variables + var.photon_variables + defaultVariables + var.lepton_variables + var.jet_variables + var.thqmva_variables + var.truth_variables  + defaultVariables + var.dr_variable + var.thqmva_variables + var.theoweight_variables + var.theoctcvweight_variables
 
 
 if customize.doFiducial:
@@ -687,7 +687,7 @@ if customize.verboseSystDump:
 #print >> processDumpFile, process.dumpPython()
 
 # set default options if needed
-customize.setDefault("maxEvents", 100 )
+customize.setDefault("maxEvents", 1000 )
 customize.setDefault("targetLumi",1.00e+3)
 # call the customization
 customize(process)

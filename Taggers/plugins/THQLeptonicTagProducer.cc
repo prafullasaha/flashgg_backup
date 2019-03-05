@@ -603,8 +603,84 @@ int n_pass_after_jetetapt_cut=0;
 	vetoNonIsoElectrons_PassTight.push_back( std::find( goodElectrons.begin() , goodElectrons.end() , ele ) != goodElectrons.end() );
 	vetoNonIsoElectrons_PassVeto.push_back( std::find( vetoElectrons.begin() , vetoElectrons.end() , ele ) != vetoElectrons.end() );
       }
+//----------------------
+      if(goodMuons.size()>=2)
+            {
+                std::vector<edm::Ptr<flashgg::Muon>> Muons_0;
+                Muons_0 = goodMuons;
+                std::vector<int> badIndexes;
 
+                for(unsigned int i=0; i<Muons_0.size(); ++i)
+                {
+                    for(unsigned int j=i+1; j<Muons_0.size(); ++j)
+                    {
+                        TLorentzVector l1, l2;
+                        l1.SetPtEtaPhiE(Muons_0[i]->pt(), Muons_0[i]->eta(), Muons_0[i]->phi(), Muons_0[i]->energy());
+                        l2.SetPtEtaPhiE(Muons_0[j]->pt(), Muons_0[j]->eta(), Muons_0[j]->phi(), Muons_0[j]->energy());
 
+                        if(fabs((l1+l2).M() - Zmass_) < deltaMassElectronZThreshold_)
+                        {
+                            badIndexes.push_back(i);
+                            badIndexes.push_back(j);
+                        }
+                    }
+                }
+
+                if(badIndexes.size()!=0)
+                {
+                    goodMuons.clear();
+                    for(unsigned int i=0; i<Muons_0.size(); ++i)
+                    {
+                       bool isBad = false;
+                       for(unsigned int j=0; j<badIndexes.size(); ++j)
+                       {
+                          if(badIndexes[j]==(int)i)
+                               isBad = true;
+                      }
+                      if(!isBad) goodMuons.push_back(Muons_0[i]);
+                    }
+                }
+            }        
+
+            if(goodElectrons.size()>=2)
+            {
+                std::vector<int> badIndexes;
+                std::vector<edm::Ptr<flashgg::Electron> > Electrons_0;
+                Electrons_0 = goodElectrons;
+                for(unsigned int i=0; i<Electrons_0.size(); ++i)
+                {
+                    for(unsigned int j=i+1; j<Electrons_0.size(); ++j)
+                    {
+                        TLorentzVector l1, l2;
+                        l1.SetPtEtaPhiE(Electrons_0[i]->pt(), Electrons_0[i]->eta(), Electrons_0[i]->phi(), Electrons_0[i]->energy());
+                        l2.SetPtEtaPhiE(Electrons_0[j]->pt(), Electrons_0[j]->eta(), Electrons_0[j]->phi(), Electrons_0[j]->energy());
+
+                        if(fabs((l1+l2).M() - Zmass_) < deltaMassElectronZThreshold_)
+                        {
+                            badIndexes.push_back(i);
+                            badIndexes.push_back(j);
+                        }
+                    }
+                }
+                if(badIndexes.size()!=0)
+                {
+                    goodElectrons.clear();
+
+                    for(unsigned int i=0; i<Electrons_0.size(); ++i)
+                    {
+                         bool isBad = false;
+                         for(unsigned int j=0; j<badIndexes.size(); ++j)
+                         {
+                             if(badIndexes[j]==(int)i)
+                                 isBad = true;
+                         }
+                         if(!isBad) goodElectrons.push_back(Electrons_0[i]);
+                    }
+                 }
+	     } 
+//------------------------------------------
+//      if((goodElectrons.size()+ goodMuons.size()) < 1){ continue; }      
+ 
       hasGoodElec = ( goodElectrons.size() == 1 ); hasVetoElec = ( vetoElectrons.size() > 0 );
       hasGoodMuons = ( goodMuons.size() == 1 );
 

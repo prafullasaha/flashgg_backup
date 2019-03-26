@@ -295,7 +295,8 @@ dr_variable=[
     "n_centraljets           := nCentralJets",
     "n_forwardjets           := nForwardJets",
     " forwardjet1_eta        := ?forwardJet.size>0? forwardJet.at(0).eta : -999 ",
-    " forwardjet1_pt        := ?forwardJet.size>0? forwardJet.at(0).pt : -999 "
+    " forwardjet1_pt        := ?forwardJet.size>0? forwardJet.at(0).pt : -999 ",
+    "likelihood_value       :=getlikelihood()"
 ]
 
 thqmva_variables=[
@@ -308,6 +309,7 @@ thqmva_variables=[
     "MET_pt                 :=getRECOMET().getCorPt()",
     "MET_phi                :=getRECOMET().getCorPhi()",
     "MVAresult              :=getmvaresult"
+#   "likelihood_value	    :=getlikelihood()"
 ]
 
 for label in ["HighestBTagVal", "Medium" , "Loose" , "Tight"]:

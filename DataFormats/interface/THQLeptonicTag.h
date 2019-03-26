@@ -137,6 +137,10 @@ namespace flashgg {
         float getmvaresult() const{
             return mvaresult_;
         }
+        double getlikelihood() const{
+            return likelihood_result_;
+        }
+
 
 //
 
@@ -353,7 +357,7 @@ namespace flashgg {
         int n_Ele_Loose , n_Ele_Veto, n_Ele_Medium, n_Ele_Tight;
         void setElectrons( std::vector<edm::Ptr<Electron> > Electrons , std::vector<int> passTight, std::vector<int> passVeto , int n_loose , int n_veto , int n_medium , int n_tight ) {
             Electrons_ = Electrons;
-            assert( passTight.size() == Electrons.size() );
+//            assert( passTight.size() == Electrons.size() );
             ElePassTight_ = passTight ;
             assert( ElePassTight_.size() == passVeto.size() );
             ElePassVeto_ = passVeto;
@@ -428,6 +432,9 @@ namespace flashgg {
  
         void setmvaresult( float mvaresult ){
             mvaresult_ = mvaresult;
+        }
+        void setlikelihood( double likelihood_result ){
+            likelihood_result_ = likelihood_result;
         } 
 //       
         int nMedium_bJets, nLoose_bJets, nTight_bJets, nCentralJets , nForwardJets;
@@ -498,6 +505,7 @@ namespace flashgg {
         float dRleptonbjet_;
         float dRleptonfwdjet_;
         float mvaresult_;
+        double likelihood_result_;
         float dRmyfunval_;
         int LeptonType_;
         std::vector< std::string > bAssignmentLabels;

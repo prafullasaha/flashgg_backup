@@ -48,10 +48,10 @@ namespace flashgg {
         float phi_genPartMatchingToPho2() const { return ( hasClosestParticleToSubLeadingPhoton() ? closestParticleToSubLeadingPhoton()->phi() : -9999. );}
 
         float pt_genPromptParticleMatchingToLeadingElectron() const {
-if(hasClosestPromptParticleToLeadingElectron())
+/*if(hasClosestPromptParticleToLeadingElectron())
 { std::cout<<"confirms a electron"<<std::endl;
 std::cout<<"pt of confirmed electron=             "<<closestPromptParticleToLeadingElectron()->pt()<<std::endl;
-}
+}*/
  return (hasClosestPromptParticleToLeadingElectron() ? closestPromptParticleToLeadingElectron()->pt() : -9999.);}        
 
         float pt_P1() const { return ( hasLeadingParton() ? leadingParton()->pt() : -9999. ); }

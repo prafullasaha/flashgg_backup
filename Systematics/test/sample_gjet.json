@@ -1,0 +1,8 @@
+{
+    "processes" : {
+       "GJets"  : [ [ "/GJet_Pt-20to40_DoubleEMEnriched_MGG-80toInf_TuneCP5_13TeV_Pythia8/spigazzi-RunIIFall17-3_2_0-RunIIFall17-3_2_0-v0-RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_mc2017_realistic_v14-v1-643b5aec98cc206f90f4d82ff6877519/USER",  { "args" : ["outputFile=output_GJets.root"], "njobs":300} ] ]
+             
+                  },	
+    "cmdLine"  : "campaign=RunIIFall17-3_2_0 targetLumi=1e+3 processType='mc'"
+}
+

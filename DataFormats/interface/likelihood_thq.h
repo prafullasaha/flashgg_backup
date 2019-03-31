@@ -26,8 +26,8 @@ public:
     const char * likelihood_inputfile_;
 //    TFile *file_inputdistributions;
 private:
-    TH1F * h_fstatekinematics_sig[9];
-    TH1F * h_fstatekinematics_bkg[9];
+    TH1F * h_fstatekinematics_sig[14];
+    TH1F * h_fstatekinematics_bkg[14];
     TFile * file_inputdistributions;
 //    const char * likelihood_inputfile_;
 };
@@ -44,7 +44,13 @@ double LikelihoodClass::evaluate_likelihood(std::vector<double> inputvars, const
     h_fstatekinematics_sig[6]= (TH1F*) file_inputdistributions->Get("thq_dr_subleadphofwdjet");
     h_fstatekinematics_sig[7]= (TH1F*) file_inputdistributions->Get("thq_bjet1_pt");
     h_fstatekinematics_sig[8]= (TH1F*) file_inputdistributions->Get("top_mt11_thq");
-
+    h_fstatekinematics_sig[9]= (TH1F*) file_inputdistributions->Get("thq_dipho_pt");
+    h_fstatekinematics_sig[10]= (TH1F*) file_inputdistributions->Get("thq_n_bjets");
+    h_fstatekinematics_sig[11]= (TH1F*) file_inputdistributions->Get("thq_dr_tHchainfwdjet");
+    h_fstatekinematics_sig[12]= (TH1F*) file_inputdistributions->Get("thq_dr_leptonbjet");
+    h_fstatekinematics_sig[13]= (TH1F*) file_inputdistributions->Get("thq_dr_leptonfwdjet");
+    
+	
     h_fstatekinematics_bkg[0]= (TH1F*) file_inputdistributions->Get("tth_n_jets");
     h_fstatekinematics_bkg[1]= (TH1F*) file_inputdistributions->Get("tth_n_centraljets");
     h_fstatekinematics_bkg[2]= (TH1F*) file_inputdistributions->Get("tth_muon1_ch");
@@ -54,10 +60,17 @@ double LikelihoodClass::evaluate_likelihood(std::vector<double> inputvars, const
     h_fstatekinematics_bkg[6]= (TH1F*) file_inputdistributions->Get("tth_dr_subleadphofwdjet");
     h_fstatekinematics_bkg[7]= (TH1F*) file_inputdistributions->Get("tth_bjet1_pt");
     h_fstatekinematics_bkg[8]= (TH1F*) file_inputdistributions->Get("top_mt11_tth");
+    h_fstatekinematics_bkg[9]= (TH1F*) file_inputdistributions->Get("tth_dipho_pt");
+    h_fstatekinematics_bkg[10]= (TH1F*) file_inputdistributions->Get("tth_n_bjets");
+    h_fstatekinematics_bkg[11]= (TH1F*) file_inputdistributions->Get("tth_dr_tHchainfwdjet");
+    h_fstatekinematics_bkg[12]= (TH1F*) file_inputdistributions->Get("tth_dr_leptonbjet");
+    h_fstatekinematics_bkg[13]= (TH1F*) file_inputdistributions->Get("tth_dr_leptonfwdjet");
+    
+
 
 //    file_inputdistributions->Close();
 
-    if(inputvars.size()!=9) {
+    if(inputvars.size()!=14) {
         std::cout<<"<LikelihoodClass::evaluate_likelihood>: inputvars.size() is "<<inputvars.size()<< " and it is expected to be 8!"<<std::endl;
         std::cout<<"<LikelihoodClass::evaluate_likelihood>: is returning a value of -10.!"<<std::endl;
         return -10.;
@@ -90,6 +103,12 @@ LikelihoodClass::~LikelihoodClass() {
         delete h_fstatekinematics_sig[6];
         delete h_fstatekinematics_sig[7];
 	delete h_fstatekinematics_sig[8];
+	delete h_fstatekinematics_sig[9];
+        delete h_fstatekinematics_sig[10];
+        delete h_fstatekinematics_sig[11];
+        delete h_fstatekinematics_sig[12];
+        delete h_fstatekinematics_sig[13];
+
 
 	delete h_fstatekinematics_bkg[0];
         delete h_fstatekinematics_bkg[1];
@@ -100,6 +119,11 @@ LikelihoodClass::~LikelihoodClass() {
         delete h_fstatekinematics_bkg[6];
         delete h_fstatekinematics_bkg[7];
         delete h_fstatekinematics_bkg[8];
+        delete h_fstatekinematics_bkg[9];
+        delete h_fstatekinematics_bkg[10];
+        delete h_fstatekinematics_bkg[11];
+        delete h_fstatekinematics_bkg[12];
+        delete h_fstatekinematics_bkg[13];
 
 }
 

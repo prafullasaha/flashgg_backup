@@ -134,9 +134,25 @@ namespace flashgg {
         float getdRleptonfwdjet() const{
             return dRleptonfwdjet_;
         }
+        float getdEtaleptonfwdjet() const{
+            return dEtaleptonfwdjet_;
+        }
+        float gettop_mt() const{
+            return top_mt_;
+        }
+        float gettop_mass() const{
+            return top_mass_;
+        }
+        float getlepton_ch() const{
+            return lepton_ch_;
+        }
         float getmvaresult() const{
             return mvaresult_;
         }
+        float getthq_mvaresult() const{
+            return thq_mvaresult_;
+        }
+
         double getlikelihood() const{
             return likelihood_result_;
         }
@@ -411,8 +427,8 @@ namespace flashgg {
         void setdRbjetfwdjet(float drbjetfwdjet ){
              dRbjetfwdjet_ = drbjetfwdjet ;
         }
-        void setdRleadphobjet(float drleadphobjet){
-            dRmyfunval_ = drleadphobjet;
+        void setdRleadphobjet(float drleadphobjet_){
+            dRmyfunval_ = drleadphobjet_;
         }
         void setdRsubleadphobjet(float drsubleadphobjet){
             dRsubleadphobjet_ = drsubleadphobjet;
@@ -429,14 +445,29 @@ namespace flashgg {
         void setdRleptonfwdjet( float drleptonfwdjet ){
             dRleptonfwdjet_ = drleptonfwdjet;
         }
- 
+        void setdEtaleptonfwdjet(float dEtaleptonfwdjet){
+            dEtaleptonfwdjet_ = dEtaleptonfwdjet;
+        }
+        void settop_mt(float top_mt){
+            top_mt_ = top_mt;
+        }
+        void settop_mass(float top_mass){
+            top_mass_ = top_mass;
+        }
+        void setlepton_ch(float lepton_ch){
+            lepton_ch_ = lepton_ch;
+        }
         void setmvaresult( float mvaresult ){
             mvaresult_ = mvaresult;
         }
         void setlikelihood( double likelihood_result ){
             likelihood_result_ = likelihood_result;
         } 
-//       
+        void setthq_mvaresult( float thq_mvaresult ){
+            thq_mvaresult_ = thq_mvaresult;
+        }
+      
+//
         int nMedium_bJets, nLoose_bJets, nTight_bJets, nCentralJets , nForwardJets;
         double bTagWeight, bTagWeightUp, bTagWeightDown;
         double photonWeights;
@@ -504,7 +535,12 @@ namespace flashgg {
         float dRsubleadphofwdjet_;
         float dRleptonbjet_;
         float dRleptonfwdjet_;
+        float dEtaleptonfwdjet_;
+        float top_mt_;
+        float top_mass_;
+        float lepton_ch_;
         float mvaresult_;
+        float thq_mvaresult_;
         double likelihood_result_;
         float dRmyfunval_;
         int LeptonType_;

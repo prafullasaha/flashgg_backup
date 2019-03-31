@@ -386,6 +386,7 @@ process.source = cms.Source ("PoolSource",
 #"/store/group/phys_higgs/cmshgg/spigazzi/flashgg/RunIIFall17-3_2_0/RunIIFall17-3_2_0-16-g755a881e/DiPhotonJetsBox2BJets_MGG-80toInf_13TeV-Sherpa/RunIIFall17-3_2_0-RunIIFall17-3_2_0-16-g755a881e-v0-RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_mc2017_realistic_v14-v1/181114_181128/0000/myMicroAODOutputFile_9.root"
 #"/store/group/phys_higgs/cmshgg/spigazzi/flashgg/RunIIFall17-3_2_0/RunIIFall17-3_2_0/GJet_Pt-20to40_DoubleEMEnriched_MGG-80toInf_TuneCP5_13TeV_Pythia8/RunIIFall17-3_2_0-RunIIFall17-3_2_0-v0-RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_mc2017_realistic_v14-v1/181008_110723/0000/myMicroAODOutputFile_167.root"
 #"/store/group/phys_higgs/cmshgg/spigazzi/flashgg/RunIIFall17-3_2_0/RunIIFall17-3_2_0/GJets_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIIFall17-3_2_0-RunIIFall17-3_2_0-v0-RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_mc2017_realistic_v14-v1/181008_111050/0000/myMicroAODOutputFile_99.root"
+#"/store/group/phys_higgs/cmshgg/sethzenz/flashgg/RunIIFall17-3_1_0/3_1_0/TTGG_0Jets_TuneCP5_13TeV_amcatnlo_madspin_pythia8/RunIIFall17-3_1_0-3_1_0-v1-RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_mc2017_realistic_v14-v2/180627_103743/0000/myMicroAODOutputFile_9.root"
 ))
 
 process.TFileService = cms.Service("TFileService",
@@ -645,7 +646,7 @@ printSystematicInfo(process)
 
 # Detailed tag interpretation information printout (blinded)
 process.flashggTagSorter.StoreOtherTagInfo = True
-process.flashggTagSorter.BlindedSelectionPrintout = True
+process.flashggTagSorter.BlindedSelectionPrintout =False #True
 
 #### BELOW HERE IS MOSTLY DEBUGGING STUFF
 
@@ -705,7 +706,7 @@ if customize.verboseSystDump:
 #print >> processDumpFile, process.dumpPython()
 
 # set default options if needed
-customize.setDefault("maxEvents", -1 )
+customize.setDefault("maxEvents", 5000 )
 customize.setDefault("targetLumi",1.00e+3)
 # call the customization
 customize(process)

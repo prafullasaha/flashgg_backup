@@ -280,6 +280,10 @@ jet_variables=[
     "solvedMET_eta          :=getMET_Eta(\"SolvedMET\")",
     "solvedMET_phi          :=getMET_Phi(\"SolvedMET\")",
     "solvedMET_e            :=getMET_E(\"SolvedMET\")",
+    "dr_leadphobjet          :=getmyfunction()",
+    "dr_leptonfwdjet         :=getdRleptonfwdjet",
+    "top_mt                 :=gettop_mt()",
+    "top_mass               :=gettop_mass()",
     "HT                     :=getHT()"    
 ]
 
@@ -291,12 +295,16 @@ dr_variable=[
     "dr_leadphofwdjet        :=getdRleadphofwdjet()",
     "dr_subleadphofwdjet     :=getdRsubleadphofwdjet()",
     "dr_leptonbjet           :=getdRleptonbjet",
-#    "dr_leptonfwdjet	     :=getdRleptonfwdjet"
+#    "dr_leptonfwdjet	     :=getdRleptonfwdjet",
+    "dEta_leptonfwdjet       :=getdEtaleptonfwdjet()",
+#    "top_mt		     :=gettop_mt()",
+    "lepton_charge           :=getlepton_ch()",
     "n_centraljets           := nCentralJets",
     "n_forwardjets           := nForwardJets",
-    " forwardjet1_eta        := ?forwardJet.size>0? forwardJet.at(0).eta : -999 ",
-    " forwardjet1_pt        := ?forwardJet.size>0? forwardJet.at(0).pt : -999 ",
-    "likelihood_value       :=getlikelihood()"
+    "forwardjet1_eta         := ?forwardJet.size>0? forwardJet.at(0).eta : -999 ",
+    "forwardjet1_pt          := ?forwardJet.size>0? forwardJet.at(0).pt : -999 ",
+    "likelihood_value        :=getlikelihood()",
+#    "MVAresult_thq	     :=getthq_mvaresult"
 ]
 
 thqmva_variables=[
@@ -308,8 +316,9 @@ thqmva_variables=[
     "Aplanarity             :=getAplanarity()",
     "MET_pt                 :=getRECOMET().getCorPt()",
     "MET_phi                :=getRECOMET().getCorPhi()",
-    "MVAresult              :=getmvaresult"
+    "MVAresult              :=getmvaresult",
 #   "likelihood_value	    :=getlikelihood()"
+    "MVAresult_thq          :=getthq_mvaresult"
 ]
 
 for label in ["HighestBTagVal", "Medium" , "Loose" , "Tight"]:

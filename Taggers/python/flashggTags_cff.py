@@ -249,7 +249,9 @@ flashggTHQLeptonicTag = cms.EDProducer("FlashggTHQLeptonicTagProducer",
                                        deltaRPhoElectronThreshold = cms.double(0.4),
                                        DeltaRbjetfwdjet=cms.double(0.4),
                                        DeltaRtHchainfwdjet=cms.double(0.4),
-                                       thqleptonicMVAweightfile = cms.FileInPath("flashgg/Taggers/data/w10_10_3_15_10.weights.xml"),
+				       MVAThreshold_thq = cms.double(-0.012),
+				       likelihoodThreshold_thq = cms.double(0.5),
+                                       thqleptonicMVAweightfile = cms.FileInPath("flashgg/Taggers/data/TMVAClassification_BDT_THQ.weights.xml"),
 				       likelihood_input = cms.FileInPath("flashgg/Taggers/data/LikelihoodInput_file.root"),
                                       # HTXSTags     = HTXSInputTags
 )

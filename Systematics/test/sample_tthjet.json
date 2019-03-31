@@ -1,6 +1,6 @@
 {
     "processes" : {
-       "TTHJet"  : [ [ "/ttHJetToGG_M125_13TeV_amcatnloFXFX_madspin_pythia8/spigazzi-RunIIFall17-3_2_0-RunIIFall17-3_2_0-v0-RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_mc2017_realistic_v14-v1-2ee06b704144832827629a427b0ccf57/USER",  { "args" : ["outputFile=output_TTHJet.root"], "njobs":100} ] ]
+       "Bkg"  : [ [ "/ttHJetToGG_M125_13TeV_amcatnloFXFX_madspin_pythia8/spigazzi-RunIIFall17-3_2_0-RunIIFall17-3_2_0-v0-RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_mc2017_realistic_v14-v1-2ee06b704144832827629a427b0ccf57/USER",  { "args" : ["outputFile=output_TTHJet.root"], "njobs":100} ] ]
              
                   },	
     "cmdLine"  : "campaign=RunIIFall17-3_2_0 targetLumi=1e+3 processType='mc'"

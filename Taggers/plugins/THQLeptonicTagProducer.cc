@@ -242,17 +242,21 @@ private:
     struct GreaterByBTagging
     {
     public:
-        GreaterByBTagging(std::string urName):
-            urName(urName)
+        GreaterByBTagging(std::string urName, std::string urName1):
+            urName( urName )
         {
         }
-
+/*	    urName1(urName1)
+        {
+        }
+*/
         bool operator()( edm::Ptr<flashgg::Jet> lh, edm::Ptr<flashgg::Jet> rh ) const
         {
-            return lh->bDiscriminator( urName.data() ) > rh->bDiscriminator( urName.data() );
+            return (lh->bDiscriminator(urName.data()) + lh->bDiscriminator(urName1.data())) > (rh->bDiscriminator(urName.data()) + lh->bDiscriminator(urName1.data())) ;
         };
     private:
-        const std::string urName;
+        const std::string urName, urName1;
+//	const std::string urName1;
     };
 
 
@@ -261,7 +265,7 @@ private:
     std::vector<edm::Ptr<flashgg::Jet> > SelJetVect_EtaSorted;
     std::vector<edm::Ptr<flashgg::Jet> > SelJetVect_PtSorted;
     std::vector<edm::Ptr<flashgg::Jet> > SelJetVect_BSorted;
-    std::vector<edm::Ptr<flashgg::Jet> > MediumBJetVect, MediumBJetVect_PtSorted;
+    std::vector<edm::Ptr<flashgg::Jet> > MediumBJetVect, MediumBJetVect_PtSorted, MediumBJetVect_;
     std::vector<edm::Ptr<flashgg::Jet> > LooseBJetVect, LooseBJetVect_PtSorted ;
     std::vector<edm::Ptr<flashgg::Jet> > TightBJetVect, TightBJetVect_PtSorted;
     std::vector<edm::Ptr<flashgg::Jet> > centraljet;
@@ -781,6 +785,7 @@ void THQLeptonicTagProducer::produce( Event &evt, const EventSetup & )
         int njets_btagloose_ = 0;
         int njets_btagmedium_ = 0;
         int njets_btagtight_ = 0;
+	std::vector<float> bTag_value;
 
         for( unsigned int candIndex_outer = 0; candIndex_outer < Jets[jetCollectionIndex]->size() ; candIndex_outer++ ) {
             edm::Ptr<flashgg::Jet> thejet = Jets[jetCollectionIndex]->ptrAt( candIndex_outer );
@@ -858,7 +863,8 @@ void THQLeptonicTagProducer::produce( Event &evt, const EventSetup & )
             }
             minDrLepton_muon.clear();
 
-            float bDiscriminatorValue = -2.;
+
+            float bDiscriminatorValue; //= -2.;
             if(bTag_ == "pfDeepCSV") bDiscriminatorValue = thejet->bDiscriminator("pfDeepCSVJetTags:probb") + thejet->bDiscriminator("pfDeepCSVJetTags:probbb");
             else
                 bDiscriminatorValue = thejet->bDiscriminator( bTag_ );
@@ -869,7 +875,7 @@ void THQLeptonicTagProducer::produce( Event &evt, const EventSetup & )
                 njets_btagloose_++;
             }
             if( bDiscriminatorValue > bDiscriminator_[1] ) {
-                MediumBJetVect.push_back( thejet );
+                MediumBJetVect_.push_back( thejet );
                 MediumBJetVect_PtSorted.push_back( thejet );
                 njets_btagmedium_++;
             }
@@ -897,29 +903,34 @@ void THQLeptonicTagProducer::produce( Event &evt, const EventSetup & )
         }//end of jets loop
 
         //Calculate scalar sum of jets
-	if(SelJetVect.size() < jetsNumberThreshold_ || MediumBJetVect.size() < bjetsNumberThreshold_){
-         SelJetVect.clear();
-	 SelJetVect_EtaSorted.clear(); SelJetVect_PtSorted.clear(); SelJetVect_BSorted.clear();
-         LooseBJetVect.clear(); LooseBJetVect_PtSorted.clear(); 
-         MediumBJetVect.clear(); MediumBJetVect_PtSorted.clear();
-         TightBJetVect.clear(); TightBJetVect_PtSorted.clear();
-         centraljet.clear(); forwardjet.clear();     
-	 continue; }
 
         std::sort(LooseBJetVect_PtSorted.begin(),LooseBJetVect_PtSorted.end(),GreaterByPt());
-        std::sort(LooseBJetVect.begin(),LooseBJetVect.end(),GreaterByBTagging(bTag_.c_str()));
-
         std::sort(MediumBJetVect_PtSorted.begin(),MediumBJetVect_PtSorted.end(),GreaterByPt());
-        std::sort(MediumBJetVect.begin(),MediumBJetVect.end(),GreaterByBTagging(bTag_.c_str()));
-
         std::sort(TightBJetVect_PtSorted.begin(),TightBJetVect_PtSorted.end(),GreaterByPt());
-        std::sort(TightBJetVect.begin(),TightBJetVect.end(),GreaterByBTagging(bTag_.c_str()));
-
+//        std::sort(LooseBJetVect.begin(),LooseBJetVect.end(),GreaterByBTagging(bTag_.c_str()));
+//        std::sort(TightBJetVect.begin(),TightBJetVect.end(),GreaterByBTagging(bTag_.c_str()));
         std::sort(SelJetVect_EtaSorted.begin(),SelJetVect_EtaSorted.end(),GreaterByEta());
         std::sort(SelJetVect_PtSorted.begin(),SelJetVect_PtSorted.end(),GreaterByPt());
 //      std::sort(SelJetVect_BSorted.begin(),SelJetVect_BSorted.end(),GreaterByBTagging(bTag_.c_str()));
-        std::sort(forwardjet.begin(), forwardjet.end(),GreaterByEta());
+//      std::sort(forwardjet.begin(), forwardjet.end(),GreaterByEta());
 
+	for(unsigned int bjetsindex = 0 ; bjetsindex < MediumBJetVect_.size(); bjetsindex++){
+	if(MediumBJetVect_[bjetsindex] !=  SelJetVect_EtaSorted[0] ){
+	MediumBJetVect.push_back( MediumBJetVect_[bjetsindex] );
+	bTag_value.push_back( MediumBJetVect_[bjetsindex]->bDiscriminator("pfDeepCSVJetTags:probb") + MediumBJetVect_[bjetsindex]->bDiscriminator("pfDeepCSVJetTags:probbb") );
+	}
+	}
+	std::sort(MediumBJetVect.begin(),MediumBJetVect.end(), GreaterByBTagging("pfDeepCSVJetTags:probb", "pfDeepCSVJetTags:probbb"));
+	std::sort(bTag_value.begin(), bTag_value.end(), std::greater<float>());
+
+        if(SelJetVect.size() < jetsNumberThreshold_ || MediumBJetVect.size() < bjetsNumberThreshold_){
+         SelJetVect.clear();
+         SelJetVect_EtaSorted.clear(); SelJetVect_PtSorted.clear(); SelJetVect_BSorted.clear();
+         LooseBJetVect.clear(); LooseBJetVect_PtSorted.clear();
+         MediumBJetVect.clear(); MediumBJetVect_PtSorted.clear(); MediumBJetVect_.clear(); 
+         TightBJetVect.clear(); TightBJetVect_PtSorted.clear();
+         centraljet.clear(); forwardjet.clear();
+         continue; }	
 //------------------------------------Likelihood and MVA-----------------------------------------
 //---------------------------------------------------------------------------------------
 //        LikelihoodClass *likelihood_tHq = new LikelihoodClass();
@@ -993,7 +1004,7 @@ void THQLeptonicTagProducer::produce( Event &evt, const EventSetup & )
         thqltags_obj.setlikelihood ( lhood_value ) ;
 	thqltags_obj.setthq_mvaresult ( thqLeptonicMvaResult_value_ );
 //Tagger with Likelihood
-        if(lhood_value < likelihoodThreshold_thq_){
+/*        if(lhood_value < likelihoodThreshold_thq_){
          SelJetVect.clear();
          SelJetVect_EtaSorted.clear(); SelJetVect_PtSorted.clear(); SelJetVect_BSorted.clear();
          LooseBJetVect.clear(); LooseBJetVect_PtSorted.clear();
@@ -1001,6 +1012,7 @@ void THQLeptonicTagProducer::produce( Event &evt, const EventSetup & )
          TightBJetVect.clear(); TightBJetVect_PtSorted.clear();
          centraljet.clear(); forwardjet.clear();
          continue; }
+*/
 //Tagger with BDT
 /*	 if( thqLeptonicMvaResult_value_ < MVAThreshold_thq_){
          SelJetVect.clear();
@@ -1071,6 +1083,7 @@ void THQLeptonicTagProducer::produce( Event &evt, const EventSetup & )
                 thqltags_obj.setmvaresult ( mvares->result ) ;     //diphoton mva
 //		thqltags_obj.setthq_mvaresult ( thqLeptonicMvaResult_value_ );
 //        	thqltags_obj.setlikelihood ( lhood_value ) ;
+		thqltags_obj.setbDiscriminatorValue( bTag_value );
                 thqltags_obj.bTagWeight = 1.0;
                 thqltags_obj.bTagWeightDown = 1.0;
                 thqltags_obj.bTagWeightUp = 1.0;
@@ -1676,6 +1689,7 @@ void THQLeptonicTagProducer::produce( Event &evt, const EventSetup & )
             LooseBJetVect.clear();
             LooseBJetVect_PtSorted.clear();
             MediumBJetVect.clear();
+	    MediumBJetVect_.clear();
             MediumBJetVect_PtSorted.clear();
             TightBJetVect.clear();
             TightBJetVect_PtSorted.clear();

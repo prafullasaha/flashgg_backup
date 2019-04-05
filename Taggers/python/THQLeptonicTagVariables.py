@@ -5,6 +5,8 @@ import flashgg.Taggers.globalVariables_cff as globalVars
 #from globalVariables_cff import globalVariables
 
 from flashgg.MicroAOD.flashggJets_cfi import flashggBTag
+from flashgg.MicroAOD.flashggJets_cfi import flashggDeepCSVb
+from flashgg.MicroAOD.flashggJets_cfi import flashggDeepCSVbb
 
 vtx_variables=[
     "vtxprob                := diPhotonMVA.vtxprob",
@@ -252,9 +254,15 @@ jet_variables=[
     "bjet1_e                := ?bJets.size>0? bJets.at(0).energy: -999.",
     "bjet2_e                := ?bJets.size>1? bJets.at(1).energy: -999.",
     "bjet3_e                := ?bJets.size>2? bJets.at(2).energy: -999.",
-    'bjet1_discr            := ?bJets.size>0? bJets.at(0).bDiscriminator( "'+ flashggBTag +'" ) : -999',
-    'bjet2_discr            := ?bJets.size>1? bJets.at(1).bDiscriminator( "'+ flashggBTag +'" ) : -999',
-    'bjet3_discr            := ?bJets.size>2? bJets.at(2).bDiscriminator( "'+ flashggBTag +'" ) : -999',
+#    'bjet1_discr            := ?bJets.size>0? bJets.at(0).bDiscriminator( "'+ flashggBTag +'" ) : -999',
+#    'bjet2_discr            := ?bJets.size>1? bJets.at(1).bDiscriminator( "'+ flashggBTag +'" ) : -999',
+#    'bjet3_discr            := ?bJets.size>2? bJets.at(2).bDiscriminator( "'+ flashggBTag +'" ) : -999',
+    'bjet1_discr  := ?bJets.size>0? (bJets.at(0).bDiscriminator( "'+ flashggDeepCSVb +'" ) + bJets.at(0).bDiscriminator( "'+ flashggDeepCSVbb +'" )) : -999',
+    'bjet2_discr  := ?bJets.size>1? (bJets.at(1).bDiscriminator( "'+ flashggDeepCSVb +'" ) + bJets.at(1).bDiscriminator( "'+ flashggDeepCSVbb +'" )) : -999',
+    'bjet3_discr  := ?bJets.size>2? (bJets.at(2).bDiscriminator( "'+ flashggDeepCSVb +'" ) + bJets.at(2).bDiscriminator( "'+ flashggDeepCSVbb +'" )) : -999',
+    'bjet1_discr_1 := ?bJets.size>0? bDiscriminatorValue.at(0) : -999',
+    'bjet2_discr_2 := ?bJets.size>1? bDiscriminatorValue.at(1) : -999',
+    'bjet3_discr_3 := ?bJets.size>2? bDiscriminatorValue.at(2) : -999',
 
 
     # new variables
@@ -437,11 +445,13 @@ thqSystematicVariables = [
     "n_M_bjets   := nMedium_bJets",
     "LeptonType  := getLeptonType()",
     "MET_pt      := getRECOMET().getCorPt()",
-    "HT          := getHT()",
-    'bjet1_discr := ?bJets.size>0? bJets.at(0).bDiscriminator( "'+ flashggBTag +'" ) : -999',
-    'bjet2_discr := ?bJets.size>1? bJets.at(1).bDiscriminator( "'+ flashggBTag +'" ) : -999',
-    'bjet3_discr := ?bJets.size>2? bJets.at(2).bDiscriminator( "'+ flashggBTag +'" ) : -999',
-
+    "HT          := getHT()"
+#    'bjet1_discr  := ?bJets.size>0? (bJets.at(0).bDiscriminator( "'+ flashggDeepCSVb +'" ) + bJets.at(0).bDiscriminator( "'+ flashggDeepCSVbb +'" )) : -999',
+#    'bjet2_discr  := ?bJets.size>1? (bJets.at(1).bDiscriminator( "'+ flashggDeepCSVb +'" ) + bJets.at(1).bDiscriminator( "'+ flashggDeepCSVbb +'" )) : -999',
+#    'bjet3_discr  := ?bJets.size>2? (bJets.at(2).bDiscriminator( "'+ flashggDeepCSVb +'" ) + bJets.at(2).bDiscriminator( "'+ flashggDeepCSVbb +'" )) : -999',
+#    'bjet1_discr_1 := ?bJets.size>0? bDiscriminatorValue.at(0) : -999',
+#    'bjet2_discr_2 := ?bJets.size>1? bDiscriminatorValue.at(1) : -999',
+#    'bjet3_discr_3 := ?bJets.size>2? bDiscriminatorValue.at(2) : -999'
 ]
 for label in ["Medium" ]: #"HighestBTagVal", "Loose" , "Tight"]:
     thqSystematicVariables.append('fwdJetEta_{0}             := ?thqleptonicMvaRes("{0}")>-10.? getFwdJet("{0}").eta : -999'.format(label) )

@@ -156,6 +156,9 @@ namespace flashgg {
         double getlikelihood() const{
             return likelihood_result_;
         }
+        const std::vector<float> bDiscriminatorValue() const{
+            return bDiscriminatorValue_;
+        }
 
 
 //
@@ -466,6 +469,10 @@ namespace flashgg {
         void setthq_mvaresult( float thq_mvaresult ){
             thq_mvaresult_ = thq_mvaresult;
         }
+        void setbDiscriminatorValue( std::vector<float> bDiscriminatorValue ){
+            bDiscriminatorValue_ = bDiscriminatorValue;
+        }
+
       
 //
         int nMedium_bJets, nLoose_bJets, nTight_bJets, nCentralJets , nForwardJets;
@@ -542,6 +549,7 @@ namespace flashgg {
         float mvaresult_;
         float thq_mvaresult_;
         double likelihood_result_;
+        std::vector<float> bDiscriminatorValue_;
         float dRmyfunval_;
         int LeptonType_;
         std::vector< std::string > bAssignmentLabels;

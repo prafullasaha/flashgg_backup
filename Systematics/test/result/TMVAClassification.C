@@ -84,11 +84,11 @@ int TMVAClassification( TString myMethodList = "" )
    Use["CutsSA"]          = 0;
    //
    // 1-dimensional likelihood ("naive Bayes estimator")
-   Use["Likelihood"]      = 0;
-   Use["LikelihoodD"]     = 0; // the "D" extension indicates decorrelated input variables (see option strings)
+   Use["Likelihood"]      = 1;
+   Use["LikelihoodD"]     = 1; // the "D" extension indicates decorrelated input variables (see option strings)
    Use["LikelihoodPCA"]   = 0; // the "PCA" extension indicates PCA-transformed input variables (see option strings)
    Use["LikelihoodKDE"]   = 0;
-   Use["LikelihoodMIX"]   = 0;
+   Use["LikelihoodMIX"]   = 1;
    //
    // Mutidimensional likelihood and Nearest-Neighbour methods
    Use["PDERS"]           = 0;
@@ -127,7 +127,7 @@ int TMVAClassification( TString myMethodList = "" )
    //
    // Boosted Decision Trees
    Use["BDT"]             = 1; // uses Adaptive Boost
-   Use["BDTG"]            = 0; // uses Gradient Boost
+   Use["BDTG"]            = 1; // uses Gradient Boost
    Use["BDTB"]            = 0; // uses Bagging
    Use["BDTD"]            = 0; // decorrelation + Adaptive Boost
    Use["BDTF"]            = 0; // allow usage of fisher discriminant for node splitting
@@ -246,6 +246,9 @@ int TMVAClassification( TString myMethodList = "" )
 ////     dataloader->AddVariable( "dr_bjetfwdjet", "dr_bjetfwdjet", "units", 'F' );
      dataloader->AddVariable( "dr_leadphofwdjet", "dRleadphofwdjet", "units", 'F' );
      dataloader->AddVariable( "dr_subleadphofwdjet", "dRsubleadphofwdjet", "units", 'F' );
+     dataloader->AddVariable( "bjet1_discr", "bjet1_discr", "units", 'F' );
+     dataloader->AddVariable( "bjet2_discr", "bjet2_discr", "units", 'F' );
+
 //     dataloader->AddVariable( "lepton_charge", "lepton_charge", "units", 'F' );
 
 //     dataloader->AddVariable( "dr_bjetfwdjet", "dRbjetfwdjet", "units", 'F' );     

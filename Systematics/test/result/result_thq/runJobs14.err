@@ -1,0 +1,229 @@
+mkdir: cannot create directory '/afs/cern.ch/work/p/prsaha/public/flashgg_slc7/CMSSW_9_4_9/src/flashgg/Systematics/test/result/result_thq': File exists
+ls: cannot access /tmp/x509up_u110926: No such file or directory
+Warning in <TInterpreter::ReadRootmapFile>: class  edm::Ptr<pat::PackedGenParticle> found in libDataFormatsPatCandidates.so  is already in libflashggDataFormats.so 
+06-Apr-2019 22:55:46 CEST  Initiating request to open file root://eoscms.cern.ch//eos/cms/store/group/phys_higgs/cmshgg/spigazzi/flashgg/RunIIFall17-3_2_0/RunIIFall17-3_2_0-6-g0758a19d/THQ_ctcvcp_HToGG_M125_13TeV-madgraph-pythia8_TuneCP5/RunIIFall17-3_2_0-RunIIFall17-3_2_0-6-g0758a19d-v0-RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_mc2017_realistic_v14-v1/181028_105350/0000/myMicroAODOutputFile_9.root
+06-Apr-2019 22:55:50 CEST  Successfully opened file root://eoscms.cern.ch//eos/cms/store/group/phys_higgs/cmshgg/spigazzi/flashgg/RunIIFall17-3_2_0/RunIIFall17-3_2_0-6-g0758a19d/THQ_ctcvcp_HToGG_M125_13TeV-madgraph-pythia8_TuneCP5/RunIIFall17-3_2_0-RunIIFall17-3_2_0-6-g0758a19d-v0-RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_mc2017_realistic_v14-v1/181028_105350/0000/myMicroAODOutputFile_9.root
+Begin processing the 1st record. Run 1, Event 248936, LumiSection 256 at 06-Apr-2019 22:56:54.525 CEST
+Begin processing the 5001st record. Run 1, Event 360425, LumiSection 370 at 06-Apr-2019 22:58:24.520 CEST
+Begin processing the 10001st record. Run 1, Event 1279306, LumiSection 1311 at 06-Apr-2019 22:59:49.277 CEST
+Begin processing the 15001st record. Run 1, Event 843016, LumiSection 864 at 06-Apr-2019 23:01:16.045 CEST
+Begin processing the 20001st record. Run 1, Event 1186044, LumiSection 1215 at 06-Apr-2019 23:02:43.064 CEST
+Begin processing the 25001st record. Run 1, Event 1214441, LumiSection 1244 at 06-Apr-2019 23:04:14.571 CEST
+Begin processing the 30001st record. Run 1, Event 1443980, LumiSection 1480 at 06-Apr-2019 23:05:45.215 CEST
+Begin processing the 35001st record. Run 1, Event 1685255, LumiSection 1727 at 06-Apr-2019 23:07:19.026 CEST
+Begin processing the 40001st record. Run 1, Event 1942952, LumiSection 1991 at 06-Apr-2019 23:08:49.373 CEST
+06-Apr-2019 23:09:01 CEST  Closed file root://eoscms.cern.ch//eos/cms/store/group/phys_higgs/cmshgg/spigazzi/flashgg/RunIIFall17-3_2_0/RunIIFall17-3_2_0-6-g0758a19d/THQ_ctcvcp_HToGG_M125_13TeV-madgraph-pythia8_TuneCP5/RunIIFall17-3_2_0-RunIIFall17-3_2_0-6-g0758a19d-v0-RunIIFall17MiniAODv2-PU2017_12Apr2018_94X_mc2017_realistic_v14-v1/181028_105350/0000/myMicroAODOutputFile_9.root
+
+TrigReport ---------- Event  Summary ------------
+TrigReport Events total = 40691 passed = 40691 failed = 0
+
+TrigReport ---------- Path   Summary ------------
+TrigReport  Trig Bit#   Executed     Passed     Failed      Error Name
+TrigReport     1    0      40691      40691          0          0 p
+
+TrigReport -------End-Path   Summary ------------
+TrigReport  Trig Bit#   Executed     Passed     Failed      Error Name
+
+TrigReport ---------- Modules in Path: p ------------
+TrigReport  Trig Bit#    Visited     Passed     Failed      Error Name
+TrigReport     1    0      40691      40691          0          0 flashggUpdatedIdMVADiPhotons
+TrigReport     1    1      40691      40691          0          0 flashggDiPhotonSystematics
+TrigReport     1    2      40691      40691          0          0 flashggMetSystematics
+TrigReport     1    3      40691      40691          0          0 flashggMuonSystematics
+TrigReport     1    4      40691      40691          0          0 flashggElectronSystematics
+TrigReport     1    5      40691      40691          0          0 flashggUnpackedJets
+TrigReport     1    6      40691      40691          0          0 flashggJetSystematics0
+TrigReport     1    7      40691      40691          0          0 flashggJetSystematics1
+TrigReport     1    8      40691      40691          0          0 flashggJetSystematics2
+TrigReport     1    9      40691      40691          0          0 flashggJetSystematics3
+TrigReport     1   10      40691      40691          0          0 flashggJetSystematics4
+TrigReport     1   11      40691      40691          0          0 flashggJetSystematics5
+TrigReport     1   12      40691      40691          0          0 flashggJetSystematics6
+TrigReport     1   13      40691      40691          0          0 flashggJetSystematics7
+TrigReport     1   14      40691      40691          0          0 flashggJetSystematics8
+TrigReport     1   15      40691      40691          0          0 flashggJetSystematics9
+TrigReport     1   16      40691      40691          0          0 flashggJetSystematics10
+TrigReport     1   17      40691      40691          0          0 flashggJetSystematics11
+TrigReport     1   18      40691      40691          0          0 flashggPreselectedDiPhotons
+TrigReport     1   19      40691      40691          0          0 flashggDiPhotonMVA
+TrigReport     1   20      40691      40691          0          0 flashggVBFMVA
+TrigReport     1   21      40691      40691          0          0 flashggVBFDiPhoDiJetMVA
+TrigReport     1   22      40691      40691          0          0 flashggUntagged
+TrigReport     1   23      40691      40691          0          0 flashggVBFTag
+TrigReport     1   24      40691      40691          0          0 flashggTTHLeptonicTag
+TrigReport     1   25      40691      40691          0          0 flashggTHQLeptonicTag
+TrigReport     1   26      40691      40691          0          0 flashggTTHHadronicTag
+TrigReport     1   27      40691      40691          0          0 flashggVHMetTag
+TrigReport     1   28      40691      40691          0          0 flashggWHLeptonicTag
+TrigReport     1   29      40691      40691          0          0 flashggZHLeptonicTag
+TrigReport     1   30      40691      40691          0          0 flashggVHLeptonicLooseTag
+TrigReport     1   31      40691      40691          0          0 flashggVHHadronicTag
+TrigReport     1   32      40691      40691          0          0 flashggTagSorter
+TrigReport     1   33      40691      40691          0          0 flashggSystTagMerger
+TrigReport     1   34      40691      40691          0          0 tagsDumper
+
+TrigReport ---------- Module Summary ------------
+TrigReport    Visited   Executed     Passed     Failed      Error Name
+TrigReport      40691      40691      40691          0          0 TriggerResults
+TrigReport      40691      40691      40691          0          0 ak4PFCHSL1FastL2L3Corrector
+TrigReport      40691      40691      40691          0          0 ak4PFCHSL1FastjetCorrector
+TrigReport      40691      40691      40691          0          0 ak4PFCHSL2RelativeCorrector
+TrigReport      40691      40691      40691          0          0 ak4PFCHSL3AbsoluteCorrector
+TrigReport      40691      40691      40691          0          0 flashggDiPhotonMVA
+TrigReport      40691      40691      40691          0          0 flashggDiPhotonSystematics
+TrigReport      40691      40691      40691          0          0 flashggElectronSystematics
+TrigReport      40691      40691      40691          0          0 flashggJetSystematics0
+TrigReport      40691      40691      40691          0          0 flashggJetSystematics1
+TrigReport      40691      40691      40691          0          0 flashggJetSystematics10
+TrigReport      40691      40691      40691          0          0 flashggJetSystematics11
+TrigReport      40691      40691      40691          0          0 flashggJetSystematics2
+TrigReport      40691      40691      40691          0          0 flashggJetSystematics3
+TrigReport      40691      40691      40691          0          0 flashggJetSystematics4
+TrigReport      40691      40691      40691          0          0 flashggJetSystematics5
+TrigReport      40691      40691      40691          0          0 flashggJetSystematics6
+TrigReport      40691      40691      40691          0          0 flashggJetSystematics7
+TrigReport      40691      40691      40691          0          0 flashggJetSystematics8
+TrigReport      40691      40691      40691          0          0 flashggJetSystematics9
+TrigReport      40691      40691      40691          0          0 flashggMetSystematics
+TrigReport      40691      40691      40691          0          0 flashggMuonSystematics
+TrigReport      40691      40691      40691          0          0 flashggPreselectedDiPhotons
+TrigReport      40691      40691      40691          0          0 flashggSystTagMerger
+TrigReport      40691      40691      40691          0          0 flashggTHQLeptonicTag
+TrigReport      40691      40691      40691          0          0 flashggTTHHadronicTag
+TrigReport      40691      40691      40691          0          0 flashggTTHLeptonicTag
+TrigReport      40691      40691      40691          0          0 flashggTagSorter
+TrigReport      40691      40691      40691          0          0 flashggUnpackedJets
+TrigReport      40691      40691      40691          0          0 flashggUntagged
+TrigReport      40691      40691      40691          0          0 flashggUpdatedIdMVADiPhotons
+TrigReport      40691      40691      40691          0          0 flashggVBFDiPhoDiJetMVA
+TrigReport      40691      40691      40691          0          0 flashggVBFMVA
+TrigReport      40691      40691      40691          0          0 flashggVBFTag
+TrigReport      40691      40691      40691          0          0 flashggVHHadronicTag
+TrigReport      40691      40691      40691          0          0 flashggVHLeptonicLooseTag
+TrigReport      40691      40691      40691          0          0 flashggVHMetTag
+TrigReport      40691      40691      40691          0          0 flashggWHLeptonicTag
+TrigReport      40691      40691      40691          0          0 flashggZHLeptonicTag
+TrigReport      40691      40691      40691          0          0 p
+TrigReport      40691      40691      40691          0          0 tagsDumper
+
+TimeReport ---------- Event  Summary ---[sec]----
+TimeReport       event loop CPU/event = 0.017395
+TimeReport      event loop Real/event = 0.017894
+TimeReport     sum Streams Real/event = 0.016996
+TimeReport efficiency CPU/Real/thread = 0.972100
+
+TimeReport ---------- Path   Summary ---[Real sec]----
+TimeReport  per event     per exec  Name
+TimeReport   0.016552     0.016552  p
+TimeReport  per event     per exec  Name
+
+TimeReport -------End-Path   Summary ---[Real sec]----
+TimeReport  per event     per exec  Name
+TimeReport  per event     per exec  Name
+
+TimeReport ---------- Modules in Path: p ---[Real sec]----
+TimeReport  per event    per visit  Name
+TimeReport   0.004605     0.004605  flashggUpdatedIdMVADiPhotons
+TimeReport   0.002484     0.002484  flashggDiPhotonSystematics
+TimeReport   0.000186     0.000186  flashggMetSystematics
+TimeReport   0.000032     0.000032  flashggMuonSystematics
+TimeReport   0.000055     0.000055  flashggElectronSystematics
+TimeReport   0.000400     0.000400  flashggUnpackedJets
+TimeReport   0.001087     0.001087  flashggJetSystematics0
+TimeReport   0.000261     0.000261  flashggJetSystematics1
+TimeReport   0.000236     0.000236  flashggJetSystematics2
+TimeReport   0.000230     0.000230  flashggJetSystematics3
+TimeReport   0.000226     0.000226  flashggJetSystematics4
+TimeReport   0.000224     0.000224  flashggJetSystematics5
+TimeReport   0.000223     0.000223  flashggJetSystematics6
+TimeReport   0.000222     0.000222  flashggJetSystematics7
+TimeReport   0.000220     0.000220  flashggJetSystematics8
+TimeReport   0.000220     0.000220  flashggJetSystematics9
+TimeReport   0.000217     0.000217  flashggJetSystematics10
+TimeReport   0.000216     0.000216  flashggJetSystematics11
+TimeReport   0.000192     0.000192  flashggPreselectedDiPhotons
+TimeReport   0.000240     0.000240  flashggDiPhotonMVA
+TimeReport   0.000047     0.000047  flashggVBFMVA
+TimeReport   0.000053     0.000053  flashggVBFDiPhoDiJetMVA
+TimeReport   0.000024     0.000024  flashggUntagged
+TimeReport   0.000044     0.000044  flashggVBFTag
+TimeReport   0.000041     0.000041  flashggTTHLeptonicTag
+TimeReport   0.000140     0.000140  flashggTHQLeptonicTag
+TimeReport   0.000141     0.000141  flashggTTHHadronicTag
+TimeReport   0.000031     0.000031  flashggVHMetTag
+TimeReport   0.000033     0.000033  flashggWHLeptonicTag
+TimeReport   0.000019     0.000019  flashggZHLeptonicTag
+TimeReport   0.000027     0.000027  flashggVHLeptonicLooseTag
+TimeReport   0.000017     0.000017  flashggVHHadronicTag
+TimeReport   0.000012     0.000012  flashggTagSorter
+TimeReport   0.000003     0.000003  flashggSystTagMerger
+TimeReport   0.000552     0.000552  tagsDumper
+TimeReport  per event    per visit  Name
+
+TimeReport ---------- Module Summary ---[Real sec]----
+TimeReport  per event     per exec    per visit  Name
+TimeReport   0.000003     0.000003     0.000003  TriggerResults
+TimeReport   0.000004     0.000004     0.000004  ak4PFCHSL1FastL2L3Corrector
+TimeReport   0.000004     0.000004     0.000004  ak4PFCHSL1FastjetCorrector
+TimeReport   0.000002     0.000002     0.000002  ak4PFCHSL2RelativeCorrector
+TimeReport   0.000009     0.000009     0.000009  ak4PFCHSL3AbsoluteCorrector
+TimeReport   0.000240     0.000240     0.000240  flashggDiPhotonMVA
+TimeReport   0.002484     0.002484     0.002484  flashggDiPhotonSystematics
+TimeReport   0.000055     0.000055     0.000055  flashggElectronSystematics
+TimeReport   0.001087     0.001087     0.001087  flashggJetSystematics0
+TimeReport   0.000261     0.000261     0.000261  flashggJetSystematics1
+TimeReport   0.000217     0.000217     0.000217  flashggJetSystematics10
+TimeReport   0.000216     0.000216     0.000216  flashggJetSystematics11
+TimeReport   0.000236     0.000236     0.000236  flashggJetSystematics2
+TimeReport   0.000230     0.000230     0.000230  flashggJetSystematics3
+TimeReport   0.000226     0.000226     0.000226  flashggJetSystematics4
+TimeReport   0.000224     0.000224     0.000224  flashggJetSystematics5
+TimeReport   0.000223     0.000223     0.000223  flashggJetSystematics6
+TimeReport   0.000222     0.000222     0.000222  flashggJetSystematics7
+TimeReport   0.000220     0.000220     0.000220  flashggJetSystematics8
+TimeReport   0.000220     0.000220     0.000220  flashggJetSystematics9
+TimeReport   0.000186     0.000186     0.000186  flashggMetSystematics
+TimeReport   0.000032     0.000032     0.000032  flashggMuonSystematics
+TimeReport   0.000192     0.000192     0.000192  flashggPreselectedDiPhotons
+TimeReport   0.000003     0.000003     0.000003  flashggSystTagMerger
+TimeReport   0.000140     0.000140     0.000140  flashggTHQLeptonicTag
+TimeReport   0.000141     0.000141     0.000141  flashggTTHHadronicTag
+TimeReport   0.000041     0.000041     0.000041  flashggTTHLeptonicTag
+TimeReport   0.000012     0.000012     0.000012  flashggTagSorter
+TimeReport   0.000400     0.000400     0.000400  flashggUnpackedJets
+TimeReport   0.000024     0.000024     0.000024  flashggUntagged
+TimeReport   0.004605     0.004605     0.004605  flashggUpdatedIdMVADiPhotons
+TimeReport   0.000053     0.000053     0.000053  flashggVBFDiPhoDiJetMVA
+TimeReport   0.000047     0.000047     0.000047  flashggVBFMVA
+TimeReport   0.000044     0.000044     0.000044  flashggVBFTag
+TimeReport   0.000017     0.000017     0.000017  flashggVHHadronicTag
+TimeReport   0.000027     0.000027     0.000027  flashggVHLeptonicLooseTag
+TimeReport   0.000031     0.000031     0.000031  flashggVHMetTag
+TimeReport   0.000033     0.000033     0.000033  flashggWHLeptonicTag
+TimeReport   0.000019     0.000019     0.000019  flashggZHLeptonicTag
+TimeReport   0.000004     0.000004     0.000004  p
+TimeReport   0.000552     0.000552     0.000552  tagsDumper
+TimeReport  per event     per exec    per visit  Name
+
+T---Report end!
+
+
+=============================================
+
+MessageLogger Summary
+
+ type     category        sev    module        subroutine        count    total
+ ---- -------------------- -- ---------------- ----------------  -----    -----
+    1 fileAction           -s file_close                             1        1
+    2 fileAction           -s file_open                              2        2
+
+ type    category    Examples: run/evt        run/evt          run/evt
+ ---- -------------------- ---------------- ---------------- ----------------
+    1 fileAction           PostGlobalEndRun                  
+    2 fileAction           pre-events       pre-events       
+
+Severity    # Occurrences   Total Occurrences
+--------    -------------   -----------------
+System                  3                   3
+
+dropped waiting message count 0

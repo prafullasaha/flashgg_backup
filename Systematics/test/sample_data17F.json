@@ -1,0 +1,7 @@
+{
+    "cmdLine"  : "campaign=RunIIFall17-3_2_0 processType='data'",
+    "processes": {
+        "Data"   :[ ["/DoubleEG/spigazzi-RunIIFall17-3_2_0-RunIIFall17-3_2_0-v0-Run2017F-09May2018-v1-b20a6d6568e74bd35d904b62a0ede15e/USER",  { "args" : ["outputFile=output_DATA.root"], "njobs":100}  ] ]
+    }
+}
+

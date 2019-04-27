@@ -84,11 +84,11 @@ int TMVAClassification( TString myMethodList = "" )
    Use["CutsSA"]          = 0;
    //
    // 1-dimensional likelihood ("naive Bayes estimator")
-   Use["Likelihood"]      = 1;
-   Use["LikelihoodD"]     = 1; // the "D" extension indicates decorrelated input variables (see option strings)
+   Use["Likelihood"]      = 0;
+   Use["LikelihoodD"]     = 0; // the "D" extension indicates decorrelated input variables (see option strings)
    Use["LikelihoodPCA"]   = 0; // the "PCA" extension indicates PCA-transformed input variables (see option strings)
    Use["LikelihoodKDE"]   = 0;
-   Use["LikelihoodMIX"]   = 1;
+   Use["LikelihoodMIX"]   = 0;
    //
    // Mutidimensional likelihood and Nearest-Neighbour methods
    Use["PDERS"]           = 0;
@@ -207,11 +207,11 @@ int TMVAClassification( TString myMethodList = "" )
    // The second argument is the output file for the training results
    // All TMVA output can be suppressed by removing the "!" (not) in
    // front of the "Silent" argument in the option string
-   TMVA::Factory *factory = new TMVA::Factory( "TMVAClassification", outputFile,
-                                               "!V:!Silent:Color:DrawProgressBar:Transformations=I;D;P;G,D:AnalysisType=Classification" );
+//   TMVA::Factory *factory = new TMVA::Factory( "TMVAClassification", outputFile,
+//                                               "!V:!Silent:Color:DrawProgressBar:Transformations=I;D;P;G,D:AnalysisType=Classification" );
 
-//TMVA::Factory *factory = new TMVA::Factory( "TMVAClassification", outputFile,
-//                                               "!V:!Silent:Color:DrawProgressBar:Transformations=I;P;G:AnalysisType=Classification" );
+TMVA::Factory *factory = new TMVA::Factory( "TMVAClassification", outputFile,
+                                               "!V:!Silent:Color:DrawProgressBar:Transformations=I,P,G:AnalysisType=Classification" );
 
 
    TMVA::DataLoader *dataloader=new TMVA::DataLoader("dataset");
@@ -233,25 +233,38 @@ int TMVAClassification( TString myMethodList = "" )
      dataloader->AddVariable( "n_jets",   "n_jets", "units", 'F' );
      dataloader->AddVariable( "n_bjets",   "n_bjets", "units", 'F' );
      dataloader->AddVariable( "n_centraljets",   "n_centraljets", "units", 'F' );
-//     dataloader->AddVariable( "lepton_charge", "lepton_charge", "units", 'F' );
+     dataloader->AddVariable( "lepton_charge", "lepton_charge", "units", 'F' );
      dataloader->AddVariable( "bjet1_pt", "bjet1_pt", "units", 'F' );
      dataloader->AddVariable( "fwdjet1_eta", "fwdjet1_eta", "units", 'F' );
-     dataloader->AddVariable( "dEta_leptonfwdjet", "dEta_leptonfwdjet", "units", 'F' );
+//     dataloader->AddVariable( "dEta_leptonfwdjet", "dEta_leptonfwdjet", "units", 'F' );
      dataloader->AddVariable( "top_mt", "top_mt11", "units", 'F' );
 //     dataloader->AddVariable( "top_mass", "top_mass", "units", 'F' );
 //     dataloader->AddVariable( "n_T_bjets", "n_T_bjets", "units", 'F' );
      dataloader->AddVariable( "dr_tHchainfwdjet", "dRtHchainfwdjet", "units", 'F' );
      dataloader->AddVariable( "dr_leptonbjet", "dRleptonbjet", "units", 'F' );
      dataloader->AddVariable( "dr_leptonfwdjet", "dRleptonfwdjet", "units", 'F' );
-////     dataloader->AddVariable( "dr_bjetfwdjet", "dr_bjetfwdjet", "units", 'F' );
+     dataloader->AddVariable( "dr_bjetfwdjet", "dr_bjetfwdjet", "units", 'F' );
      dataloader->AddVariable( "dr_leadphofwdjet", "dRleadphofwdjet", "units", 'F' );
      dataloader->AddVariable( "dr_subleadphofwdjet", "dRsubleadphofwdjet", "units", 'F' );
      dataloader->AddVariable( "bjet1_discr", "bjet1_discr", "units", 'F' );
      dataloader->AddVariable( "bjet2_discr", "bjet2_discr", "units", 'F' );
+//     dataloader->AddVariable( "bjet3_discr", "bjet3_discr", "units", 'F' );
+//     dataloader->AddVariable( "bjet1_pt", "bjet1_pt", "units", 'F');
+     dataloader->AddVariable( "bjet2_pt", "bjet2_pt", "units", 'F');
+     dataloader->AddVariable( "bjet1_eta", "bjet1_eta", "units", 'F');
+     dataloader->AddVariable( "bjet2_eta", "bjet2_eta", "units", 'F');
+     dataloader->AddVariable( "jet1_pt", "jet1_pt", "units", 'F');
+     dataloader->AddVariable( "jet2_pt", "jet2_pt", "units", 'F');
+     dataloader->AddVariable( "jet1_eta", "jet1_eta", "units", 'F');
+//     dataloader->AddVariable( "fwdjet1_pt", "fwdjet1_pt", "units", 'F' );
+     dataloader->AddVariable( "jet2_eta", "jet2_eta", "units", 'F');
+//     dataloader->AddVariable( "dipho_leadPt", "dipho_leadPt", "units", 'F' );
+//     dataloader->AddVariable( "dipho_subleadPt", "dipho_subleadPt", "units", 'F' );
+//     dataloader->AddVariable( "dipho_eta", "dipho_eta", "units", 'F' );
+//     dataloader->AddVariable( "dipho_leadEta", "dipho_leadEta", "units", 'F' );
+//     dataloader->AddVariable( "dipho_subleadEta", "dipho_subleadEta", "units", 'F' );
 
-//     dataloader->AddVariable( "lepton_charge", "lepton_charge", "units", 'F' );
 
-//     dataloader->AddVariable( "dr_bjetfwdjet", "dRbjetfwdjet", "units", 'F' );     
    // You can add so-called "Spectator variables", which are not used in the MVA training,
    // but will appear in the final "TestTree" produced by TMVA. This TestTree will contain the
    // input variables, the response values of all trained MVAs, and the spectator variables
@@ -261,12 +274,19 @@ int TMVAClassification( TString myMethodList = "" )
 
 
    // global event weights per tree (see below for setting event-wise weights)
-   Double_t signalWeight     = 1.0;
-   Double_t backgroundWeight = 1.0;
+//   Double_t signalWeight     = 1.0;
+//   Double_t backgroundWeight = 1.0;
+
+//   dataloader->AddSignalTree    ( signalTree, signalWeight);
+//   dataloader->AddBackgroundTree( background, backgroundWeight);
+
+
+   dataloader->SetSignalWeightExpression( "weight" );
+   dataloader->SetBackgroundWeightExpression( "weight" );
 
    // You can add an arbitrary number of signal or background trees
-   dataloader->AddSignalTree    ( signalTree,     signalWeight );
-   dataloader->AddBackgroundTree( background, backgroundWeight );
+   dataloader->AddSignalTree    ( signalTree );
+   dataloader->AddBackgroundTree( background );
 
    // To give different trees for training and testing, do as follows:
    //
@@ -314,8 +334,8 @@ int TMVAClassification( TString myMethodList = "" )
 //   dataloader->SetBackgroundWeightExpression( "weight" );
 
    // Apply additional cuts on the signal and background samples (can be different)
-   TCut mycuts = ""; // for example: TCut mycuts = "abs(var1)<0.5 && abs(var2-0.5)<1";
-   TCut mycutb = ""; // for example: TCut mycutb = "abs(var1)<0.5";
+   TCut mycuts ="";//"bjet2_discr > -999 && bjet2_eta > -999 && jet2_eta > -999 && bjet2_pt > -999 && jet2_pt > -999"; // for example: TCut mycuts = "abs(var1)<0.5 && abs(var2-0.5)<1";
+   TCut mycutb ="";//"bjet2_discr > -999 && bjet2_eta > -999 && jet2_eta > -999 && bjet2_pt > -999 && jet2_pt > -999"; // for example: TCut mycutb = "abs(var1)<0.5";
 
    // Tell the dataloader how to use the training and testing events
    //

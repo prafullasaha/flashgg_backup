@@ -581,7 +581,7 @@ void THQLeptonicTagProducer::produce( Event &evt, const EventSetup & )
         idmva1 = dipho->leadingPhoton()->phoIdMvaDWrtVtx( dipho->vtx() );
         idmva2 = dipho->subLeadingPhoton()->phoIdMvaDWrtVtx( dipho->vtx() );
 
-        if( idmva1 < PhoMVAThreshold_ || idmva2 < PhoMVAThreshold_ ) {
+        if( idmva1 > PhoMVAThreshold_ && idmva2 > PhoMVAThreshold_ ) {
             continue;
         }
 

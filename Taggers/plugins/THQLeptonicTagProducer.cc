@@ -581,7 +581,7 @@ void THQLeptonicTagProducer::produce( Event &evt, const EventSetup & )
         idmva1 = dipho->leadingPhoton()->phoIdMvaDWrtVtx( dipho->vtx() );
         idmva2 = dipho->subLeadingPhoton()->phoIdMvaDWrtVtx( dipho->vtx() );
 
-        if( idmva1 > PhoMVAThreshold_ && idmva2 > PhoMVAThreshold_ ) {
+        if( idmva1 < PhoMVAThreshold_ || idmva2 < PhoMVAThreshold_ ) {
             continue;
         }
 
@@ -1095,7 +1095,7 @@ void THQLeptonicTagProducer::produce( Event &evt, const EventSetup & )
          continue; }
 */
 //Tagger with BDT
-	 if( thqLeptonicMvaResult_value_ < MVAThreshold_thq_){
+/*	 if( thqLeptonicMvaResult_value_ < MVAThreshold_thq_){
          SelJetVect.clear();
          SelJetVect_EtaSorted.clear(); SelJetVect_PtSorted.clear(); SelJetVect_BSorted.clear();
          LooseBJetVect.clear(); LooseBJetVect_PtSorted.clear();
@@ -1103,7 +1103,7 @@ void THQLeptonicTagProducer::produce( Event &evt, const EventSetup & )
          TightBJetVect.clear(); TightBJetVect_PtSorted.clear();
          centraljet.clear(); forwardjet.clear();
          continue; }
-
+*/
 //int catnum = -1;
 //catnum = chooseCategory( thqLeptonicMvaResult_value_ );
 //catnum = chooseCategory( mvares->result );

@@ -444,7 +444,7 @@ else:
         ["VHHadronicTag",0],
         ["TTHHadronicTag",3],
         ["TTHLeptonicTag",2],
-        ["THQLeptonicTag", 0],
+        ["THQLeptonicTag",0],
 #        ["TTHDiLeptonTag",0]
         ]
 

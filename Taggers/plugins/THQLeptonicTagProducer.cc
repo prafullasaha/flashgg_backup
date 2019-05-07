@@ -1104,8 +1104,8 @@ void THQLeptonicTagProducer::produce( Event &evt, const EventSetup & )
          centraljet.clear(); forwardjet.clear();
          continue; }
 */
-//int catnum = -1;
-//catnum = chooseCategory( thqLeptonicMvaResult_value_ );
+int catnum = -1;
+catnum = chooseCategory( thqLeptonicMvaResult_value_ );
 //catnum = chooseCategory( mvares->result );
 //catnum = chooseCategory( idmva1, idmva2 );
 //---------------------------------------------------------------------------------------
@@ -1168,7 +1168,7 @@ void THQLeptonicTagProducer::produce( Event &evt, const EventSetup & )
 		thqltags_obj.setthq_mvaresult ( thqLeptonicMvaResult_value_ );
         	thqltags_obj.setlikelihood ( lhood_value ) ;
 		thqltags_obj.setbDiscriminatorValue( bTag_value );
-//		thqltags_obj.setCategoryNumber( catnum );
+		thqltags_obj.setCategoryNumber( catnum );
                 thqltags_obj.bTagWeight = 1.0;
                 thqltags_obj.bTagWeightDown = 1.0;
                 thqltags_obj.bTagWeightUp = 1.0;

@@ -1095,7 +1095,7 @@ void THQLeptonicTagProducer::produce( Event &evt, const EventSetup & )
          continue; }
 */
 //Tagger with BDT
-/*	 if( thqLeptonicMvaResult_value_ < MVAThreshold_thq_){
+	 if( thqLeptonicMvaResult_value_ < MVAThreshold_thq_){
          SelJetVect.clear();
          SelJetVect_EtaSorted.clear(); SelJetVect_PtSorted.clear(); SelJetVect_BSorted.clear();
          LooseBJetVect.clear(); LooseBJetVect_PtSorted.clear();
@@ -1103,7 +1103,7 @@ void THQLeptonicTagProducer::produce( Event &evt, const EventSetup & )
          TightBJetVect.clear(); TightBJetVect_PtSorted.clear();
          centraljet.clear(); forwardjet.clear();
          continue; }
-*/
+
 //int catnum = -1;
 //catnum = chooseCategory( thqLeptonicMvaResult_value_ );
 //catnum = chooseCategory( mvares->result );
@@ -1153,7 +1153,7 @@ void THQLeptonicTagProducer::produce( Event &evt, const EventSetup & )
                 thqltags_obj.setcentraljet( centraljet );
                 thqltags_obj.setforwardjet( forwardjet );
                 thqltags_obj.setdRtHchainfwdjet( dRtHchainfwdjet_ ) ;
-               thqltags_obj.setdRbjetfwdjet( dRbjetfwdjet_ ) ;
+                thqltags_obj.setdRbjetfwdjet( dRbjetfwdjet_ ) ;
                 thqltags_obj.setdRleadphobjet( dRleadphobjet_ );
                 thqltags_obj.setdRsubleadphobjet( dRsubleadphobjet_ );
                 thqltags_obj.setdRleadphofwdjet( dRleadphofwdjet_ );

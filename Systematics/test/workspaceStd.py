@@ -444,7 +444,7 @@ else:
         ["VHHadronicTag",0],
         ["TTHHadronicTag",3],
         ["TTHLeptonicTag",2],
-        ["THQLeptonicTag", 0],
+        ["THQLeptonicTag",0],
 #        ["TTHDiLeptonTag",0]
         ]
 
@@ -684,7 +684,7 @@ if customize.verboseSystDump:
 #print >> processDumpFile, process.dumpPython()
 
 # set default options if needed
-customize.setDefault("maxEvents", -1 )
+customize.setDefault("maxEvents", 10000 )
 customize.setDefault("targetLumi",1.00e+3)
 # call the customization
 customize(process)

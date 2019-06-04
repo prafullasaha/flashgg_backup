@@ -418,9 +418,9 @@ if customize.processId.count("Data"):
 #elif customize.processId.count("h_") or customize.processId.count("vbf"):
 #    variablesToUse = minimalVariables + var.vtx_variables + var.vtx_truth_variables + var.dipho_variables + var.photon_variables + var.lepton_variables + var.jet_variables + var.thqmva_variables + var.truth_variables + var.theoweight_variables + defaultVariables
 else:
-#    variablesToUse = minimalVariables + var.vtx_variables + var.vtx_truth_variables + var.dipho_variables
+    variablesToUse = minimalVariables + var.vtx_variables + var.vtx_truth_variables + var.dipho_variables
 #tHq leptonic tag variables
-    variablesToUse= var.vtx_variables + var.vtx_truth_variables + var.dipho_variables + var.photon_variables + defaultVariables + var.lepton_variables + var.jet_variables + var.thqmva_variables + var.truth_variables  + defaultVariables + var.dr_variable + var.thqmva_variables + var.theoweight_variables + var.theoctcvweight_variables
+#    variablesToUse= var.vtx_variables + var.vtx_truth_variables + var.dipho_variables + var.photon_variables + defaultVariables + var.lepton_variables + var.jet_variables + var.thqmva_variables + var.truth_variables  + defaultVariables + var.dr_variable + var.thqmva_variables + var.theoweight_variables + var.theoctcvweight_variables
 
 
 if customize.doFiducial:

@@ -127,7 +127,7 @@ int TMVAClassification( TString myMethodList = "" )
    //
    // Boosted Decision Trees
    Use["BDT"]             = 1; // uses Adaptive Boost
-   Use["BDTG"]            = 1; // uses Gradient Boost
+   Use["BDTG"]            = 0; // uses Gradient Boost
    Use["BDTB"]            = 0; // uses Bagging
    Use["BDTD"]            = 0; // decorrelation + Adaptive Boost
    Use["BDTF"]            = 0; // allow usage of fisher discriminant for node splitting
@@ -248,6 +248,7 @@ TMVA::Factory *factory = new TMVA::Factory( "TMVAClassification", outputFile,
      dataloader->AddVariable( "dr_subleadphofwdjet", "dRsubleadphofwdjet", "units", 'F' );
      dataloader->AddVariable( "bjet1_discr", "bjet1_discr", "units", 'F' );
      dataloader->AddVariable( "bjet2_discr", "bjet2_discr", "units", 'F' );
+     dataloader->AddVariable( "fwdjet1_discr", "fwdjet1_discr", "units", 'F' );
 //     dataloader->AddVariable( "bjet3_discr", "bjet3_discr", "units", 'F' );
 //     dataloader->AddVariable( "bjet1_pt", "bjet1_pt", "units", 'F');
      dataloader->AddVariable( "bjet2_pt", "bjet2_pt", "units", 'F');
@@ -257,7 +258,7 @@ TMVA::Factory *factory = new TMVA::Factory( "TMVAClassification", outputFile,
      dataloader->AddVariable( "jet2_pt", "jet2_pt", "units", 'F');
      dataloader->AddVariable( "jet1_eta", "jet1_eta", "units", 'F');
 //     dataloader->AddVariable( "fwdjet1_pt", "fwdjet1_pt", "units", 'F' );
-     dataloader->AddVariable( "jet2_eta", "jet2_eta", "units", 'F');
+//ps     dataloader->AddVariable( "jet2_eta", "jet2_eta", "units", 'F');
 //     dataloader->AddVariable( "dipho_leadPt", "dipho_leadPt", "units", 'F' );
 //     dataloader->AddVariable( "dipho_subleadPt", "dipho_subleadPt", "units", 'F' );
 //     dataloader->AddVariable( "dipho_eta", "dipho_eta", "units", 'F' );

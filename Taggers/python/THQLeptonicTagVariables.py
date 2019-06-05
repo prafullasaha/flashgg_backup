@@ -257,6 +257,7 @@ jet_variables=[
 #    'bjet1_discr            := ?bJets.size>0? bJets.at(0).bDiscriminator( "'+ flashggBTag +'" ) : -999',
 #    'bjet2_discr            := ?bJets.size>1? bJets.at(1).bDiscriminator( "'+ flashggBTag +'" ) : -999',
 #    'bjet3_discr            := ?bJets.size>2? bJets.at(2).bDiscriminator( "'+ flashggBTag +'" ) : -999',
+    'fwdjet1_discr  := ?Jets_EtaSorted.size>0? (Jets_EtaSorted.at(0).bDiscriminator( "'+ flashggDeepCSVb +'" ) + Jets_EtaSorted.at(0).bDiscriminator( "'+ flashggDeepCSVbb +'" )) : -999',
     'bjet1_discr  := ?bJets.size>0? (bJets.at(0).bDiscriminator( "'+ flashggDeepCSVb +'" ) + bJets.at(0).bDiscriminator( "'+ flashggDeepCSVbb +'" )) : -999',
     'bjet2_discr  := ?bJets.size>1? (bJets.at(1).bDiscriminator( "'+ flashggDeepCSVb +'" ) + bJets.at(1).bDiscriminator( "'+ flashggDeepCSVbb +'" )) : -999',
     'bjet3_discr  := ?bJets.size>2? (bJets.at(2).bDiscriminator( "'+ flashggDeepCSVb +'" ) + bJets.at(2).bDiscriminator( "'+ flashggDeepCSVbb +'" )) : -999',

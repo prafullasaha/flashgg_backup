@@ -177,7 +177,7 @@ flashggVHEtTag = cms.EDProducer("FlashggVHEtTagProducer",
 ttHLeptonic_ttH_vs_ttGG_DNN_preprocess_scheme_path = os.path.expandvars("$CMSSW_BASE/src/flashgg/Taggers/data/metadata_Leptonic_ttHLeptonic_ttH_vs_ttGG_v3.10_8Oct2019.json")
 ttHLeptonic_ttH_vs_ttGG_DNN_preprocess_scheme = TTHDNNPreprocessingConstructor.construct(ttHLeptonic_ttH_vs_ttGG_DNN_preprocess_scheme_path, "Leptonic")
 
-ttHLeptonic_ttH_vs_tH_DNN_preprocess_scheme_path = os.path.expandvars("$CMSSW_BASE/src/flashgg/Taggers/data/metadata_Leptonic_ttHLeptonic_ttH_vs_tH_v4.14_ttH_vs_tH_13Jan2020.json")
+ttHLeptonic_ttH_vs_tH_DNN_preprocess_scheme_path = os.path.expandvars("$CMSSW_BASE/src/flashgg/Taggers/data/metadata_Leptonic_ttHLeptonic_ttH_vs_tH_legacy_v1.0_ttH_vs_tH_26Nov2020.json")
 ttHLeptonic_ttH_vs_tH_DNN_preprocess_scheme = TTHDNNPreprocessingConstructor.construct(ttHLeptonic_ttH_vs_tH_DNN_preprocess_scheme_path, "Leptonic", True)
 
 flashggTTHLeptonicTag = cms.EDProducer("FlashggTTHLeptonicTagProducer",
@@ -303,13 +303,13 @@ flashggTHQLeptonicTag = cms.EDProducer("FlashggTHQLeptonicTagProducer",
                                        DeltaRtHchainfwdjet=cms.double(0.4),
 #                                       thqleptonicMVAweightfile = cms.FileInPath("flashgg/Taggers/data/TMVA_THQLeptonicTag_tHq_Vs_ttH_BDT.weights.xml"),
 #                                      thqCatweightfile_ForNonPeakingBkg = cms.FileInPath("flashgg/Taggers/data/TMVA_THQLeptonicTag_tHq_Vs_NonPeakingBkg_BDT_16.weights.xml"),
-				       tthVstHDNNfile = cms.FileInPath("flashgg/Taggers/data/Leptonic_ttHLeptonic_ttH_vs_tH_v4.14_ttH_vs_tH_13Jan2020_weights.pb"),
+				       tthVstHDNNfile = cms.FileInPath("flashgg/Taggers/data/Leptonic_ttHLeptonic_ttH_vs_tH_legacy_v1.0_ttH_vs_tH_26Nov2020_weights.pb"),
                                        tthVstHDNN_global_mean = ttHLeptonic_ttH_vs_tH_DNN_preprocess_scheme["global_mean"],
                                        tthVstHDNN_global_stddev = ttHLeptonic_ttH_vs_tH_DNN_preprocess_scheme["global_stddev"],
                                        tthVstHDNN_object_mean = ttHLeptonic_ttH_vs_tH_DNN_preprocess_scheme["object_mean"],
                                        tthVstHDNN_object_stddev = ttHLeptonic_ttH_vs_tH_DNN_preprocess_scheme["object_stddev"],
 				       debug = cms.bool(False),
-				       use_MVAs = cms.bool(True),
+				       use_MVAs = cms.bool(False),
 				       use_tthVstHDNN = cms.bool(True),
 				       use_tthVstHBDT = cms.bool(False),
 				       MVAThreshold_tHqVsttHDNN = cms.double(0.3),

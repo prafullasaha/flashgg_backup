@@ -309,9 +309,9 @@ flashggTHQLeptonicTag = cms.EDProducer("FlashggTHQLeptonicTagProducer",
                                        tthVstHDNN_object_mean = ttHLeptonic_ttH_vs_tH_DNN_preprocess_scheme["object_mean"],
                                        tthVstHDNN_object_stddev = ttHLeptonic_ttH_vs_tH_DNN_preprocess_scheme["object_stddev"],
 				       debug = cms.bool(False),
-				       use_MVAs = cms.bool(True),
-				       use_tthVstHDNN = cms.bool(True),
-				       use_tthVstHBDT = cms.bool(False),
+				       use_MVAs = cms.bool(False),
+				       use_tthVstHDNN = cms.bool(False),
+				       use_tthVstHBDT = cms.bool(True),
 				       MVAThreshold_tHqVsttHDNN = cms.double(0.3),
 )
 

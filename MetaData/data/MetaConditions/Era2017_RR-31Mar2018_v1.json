@@ -342,14 +342,6 @@
         "photonHistName" : "L1prefiring_photonpt_2017BtoF",
         "jetFileName"    : "flashgg/Taggers/data/L1prefiring_jetpt_2017BtoF.root",
         "jetHistName"    : "L1prefiring_jetpt_2017BtoF"
-    },
-
-    "THQLeptonicTag":
-    {
-        "MVAweights_VsAllBkg" : "flashgg/Taggers/data/TMVA_THQLeptonicTag_Tprime_Vs_NonHiggsBkg_BDT_17.weights.xml",
-        "MVAweights_VsttH" : "flashgg/Taggers/data/TMVA_THQLeptonicTag_Tprime_Vs_HiggsBkg_BDT_17.weights.xml",
-        "MVAThreshold_VsAllBkg" : 0.0,
-        "MVAThreshold_VsttH" : 0.03
     }
-    
+
 }

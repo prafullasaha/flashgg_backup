@@ -5,6 +5,8 @@
 #include "flashgg/DataFormats/interface/VBFTag.h"
 #include "flashgg/DataFormats/interface/TTHDiLeptonTag.h"
 #include "flashgg/DataFormats/interface/TTHLeptonicTag.h"
+#include "flashgg/DataFormats/interface/THQLeptonicTag.h"
+#include "flashgg/DataFormats/interface/THQHadronicTag.h"
 #include "flashgg/DataFormats/interface/TTHHadronicTag.h"
 #include "flashgg/DataFormats/interface/VHEtTag.h"
 #include "flashgg/DataFormats/interface/VHLooseTag.h"
@@ -30,6 +32,12 @@ namespace flashgg {
     typedef CollectionDumper<std::vector<TTHLeptonicTag>,
             TTHLeptonicTag,
             CutBasedClassifier<TTHLeptonicTag> > CutBasedTTHLeptonicTagDumper;
+    typedef CollectionDumper<std::vector<THQLeptonicTag>,
+            THQLeptonicTag,
+            CutBasedClassifier<THQLeptonicTag> > CutBasedTHQLeptonicTagDumper;
+    typedef CollectionDumper<std::vector<THQHadronicTag>,
+            THQHadronicTag,
+            CutBasedClassifier<THQHadronicTag> > CutBasedTHQHadronicTagDumper;
     typedef CollectionDumper<std::vector<TTHHadronicTag>,
             TTHHadronicTag,
             CutBasedClassifier<TTHHadronicTag> > CutBasedTTHHadronicTagDumper;

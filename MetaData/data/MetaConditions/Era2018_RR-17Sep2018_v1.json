@@ -321,13 +321,6 @@
     "L1Prefiring" :
     {
         "isRelevant" : false
-    },
-
-    "THQLeptonicTag":
-    {
-        "MVAweights_VsAllBkg" : "flashgg/Taggers/data/TMVA_THQLeptonicTag_Tprime_Vs_NonHiggsBkg_BDT_18.weights.xml",
-        "MVAweights_VsttH" : "flashgg/Taggers/data/TMVA_THQLeptonicTag_Tprime_Vs_HiggsBkg_BDT_18.weights.xml",
-        "MVAThreshold_VsAllBkg" : 0.0,
-        "MVAThreshold_VsttH" : 0.06
     }
+
 }

@@ -39,6 +39,7 @@ process.flashggTagSorter = cms.EDProducer('FlashggTagSorter',
                                                                         cms.untracked.InputTag('flashggVHTightTag'),
         								cms.untracked.InputTag('flashggTTHLeptonicTag'),
 									cms.untracked.InputTag('flashggTHQLeptonicTag'),
+                                                                        cms.untracked.InputTag('flashggTHQHadronicTag'),
                                                                         cms.untracked.InputTag('flashggTTHHadronicTag'),
         								cms.untracked.InputTag('flashggVBFTag'),
 									cms.untracked.InputTag('flashggUntagged'),
@@ -102,7 +103,7 @@ process.p = cms.Path(process.flashggVertexMapUnique*
                      (process.flashggVBFDiPhoDiJetMVA)* # Needs to happen after VBF MVA and DiPho MVA
 
                      # Tag producers, once written, can run in parallel, so they go in here with +
-                     (process.flashggUntagged+process.flashggVBFTag+process.flashggTTHLeptonicTag+process.flashggTTHHadronicTag+process.flashggVHLooseTag+process.flashggVHTightTag+process.flashggTHQLeptonicTag)*
+                     (process.flashggUntagged+process.flashggVBFTag+process.flashggTTHLeptonicTag+process.flashggTTHHadronicTag+process.flashggVHLooseTag+process.flashggVHTightTag+process.flashggTHQLeptonicTag+process.flashggTHQHadronicTag)*
                      process.flashggTagSorter*
                      process.flashggTreeMakerWithTagSorter
                     )

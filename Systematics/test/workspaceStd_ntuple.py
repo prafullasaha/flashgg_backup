@@ -19,7 +19,7 @@ process.load("Configuration.StandardSequences.GeometryDB_cff")
 process.load("Configuration.StandardSequences.MagneticField_cff")
 process.load("Configuration.StandardSequences.FrontierConditions_GlobalTag_condDBv2_cff")
 process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(-1) )
-process.MessageLogger.cerr.FwkReport.reportEvery = cms.untracked.int32( 1 )
+process.MessageLogger.cerr.FwkReport.reportEvery = cms.untracked.int32( 1000 )
 
 
 systlabels = [""]
@@ -163,7 +163,7 @@ customize.options.register('dumpTrees',
                            'dumpTrees'
                            )
 customize.options.register('dumpWorkspace',
-                           True,
+                           False,
                            VarParsing.VarParsing.multiplicity.singleton,
                            VarParsing.VarParsing.varType.bool,
                            'dumpWorkspace'
@@ -306,7 +306,7 @@ useEGMTools(process)
 
 # Only run systematics for signal events
 # convention: ggh vbf wzh (wh zh) tth
-signal_processes = ["ggh_","vbf_","wzh_","wh_","zh_","bbh_","thq_","thw_","tth_","ggzh_","HHTo2B2G","GluGluHToGG","VBFHToGG","VHToGG","ttHToGG","Acceptance","hh","vbfhh","qqh","ggh","tth","vh","Tprime"]
+signal_processes = ["ggh_","vbf_","wzh_","wh_","zh_","bbh_","thq_","thw_","tth_","ggzh_","HHTo2B2G","GluGluHToGG","VBFHToGG","VHToGG","ttHToGG","Acceptance","hh","vbfhh","qqh","ggh","tth","vh"]
 is_signal = reduce(lambda y,z: y or z, map(lambda x: customize.processId.count(x), signal_processes))
 
 applyL1Prefiring = customizeForL1Prefiring(process, customize.metaConditions, customize.processId)
@@ -433,11 +433,11 @@ process.extraDumpers = cms.Sequence()
 from flashgg.Taggers.TagsDumperCustomize import customizeTagsDumper
 customizeTagsDumper(process, customize) ## move all the default tags dumper configuration to this function
 
-#import flashgg.Taggers.THQLeptonicTagVariables as var
-#if customize.processId.count("Data"):
-#        variablesToUse = minimalNonSignalVariables + var.vtx_variables + var.dipho_variables + var.photon_variables + var.lepton_variables + var.jet_variables + var.thqmva_variables
-#else:
-#        variablesToUse = minimalVariables + minimalVariablesHTXS + var.dipho_variables + var.vtx_variables + var.vtx_truth_variables + var.photon_variables + var.lepton_variables + var.jet_variables + var.thqmva_variables + var.dr_variable + var.thqSystematicVariables# + var.gen_met
+import flashgg.Taggers.THQLeptonicTagVariables as var
+if customize.processId.count("Data"):
+        variablesToUse = minimalNonSignalVariables + var.vtx_variables + var.dipho_variables + var.photon_variables + var.lepton_variables + var.jet_variables + var.thqmva_variables + var.dr_variable
+else:
+        variablesToUse = minimalVariables + minimalVariablesHTXS + var.dipho_variables + var.vtx_variables + var.vtx_truth_variables + var.photon_variables + var.lepton_variables + var.jet_variables + var.thqmva_variables + var.dr_variable + var.thqSystematicVariables + var.gen_met
 
 #tagList=[
 #["UntaggedTag",4],
@@ -467,18 +467,18 @@ elif customize.doStageOne:
     tagList = soc.tagList
 else:
     tagList=[
-#        ["NoTag",0],
-#        ["UntaggedTag",4],
-#        ["VBFTag",3],
-#        ["ZHLeptonicTag",2],
-#        ["WHLeptonicTag",6],
-#        ["VHMetTag",2],
-#        ["VHHadronicTag",0],
-#        ["TTHHadronicTag",16],
-#        ["TTHLeptonicTag",10],
+        ["NoTag",0],
+        ["UntaggedTag",4],
+        ["VBFTag",3],
+        ["ZHLeptonicTag",2],
+        ["WHLeptonicTag",6],
+        ["VHMetTag",2],
+        ["VHHadronicTag",0],
+        ["TTHHadronicTag",4],
+        ["TTHLeptonicTag",4],
         ["THQLeptonicTag",0],
-	["THQHadronicTag",0]
-#        ["TTHDiLeptonTag",0]
+	["THQHadronicTag",0],
+        ["TTHDiLeptonTag",0]
         ]
 
 definedSysts=set()

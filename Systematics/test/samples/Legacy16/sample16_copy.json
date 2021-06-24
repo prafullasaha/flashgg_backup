@@ -1,5 +1,6 @@
 {
     "processes" : {
+        "ggh_125"    : [ ["/GluGluHToGG_M125_13TeV_amcatnloFXFX_pythia8/spigazzi-Era2016_RR-17Jul2018_v2-legacyRun2FullV1-v0-RunIISummer16MiniAODv3-PUMoriond17_94X_mcRun2_asymptotic_v3_ext2-v2-6512204af72ea57fbfefdf0db0649ffe/USER", { "args" : ["outputFile=output_GluGluHToGG_M125_13TeV_amcatnloFXFX_pythia8.root"] } ] ],  
 	"tth_123"    : [ ["/ttHJetToGG_M123_13TeV_amcatnloFXFX_madspin_pythia8/spigazzi-Era2016_RR-17Jul2018_v2-legacyRun2FullV1-v0-RunIISummer16MiniAODv3-PUMoriond17_94X_mcRun2_asymptotic_v3-v1-4b15415e8d56c44d7f20bde93a158c60/USER", { "args" : ["outputFile=output_ttHJetToGG_M123_13TeV_amcatnloFXFX_madspin_pythia8.root"] } ] ],
         "tth_124"    : [ ["/ttHJetToGG_M124_13TeV_amcatnloFXFX_madspin_pythia8/spigazzi-Era2016_RR-17Jul2018_v2-legacyRun2FullV1-v0-RunIISummer16MiniAODv3-PUMoriond17_94X_mcRun2_asymptotic_v3-v1-4b15415e8d56c44d7f20bde93a158c60/USER", { "args" : ["outputFile=output_ttHJetToGG_M124_13TeV_amcatnloFXFX_madspin_pythia8.root"] } ] ],
 	"tth_126"    : [ ["/ttHJetToGG_M126_13TeV_amcatnloFXFX_madspin_pythia8/spigazzi-Era2016_RR-17Jul2018_v2-legacyRun2FullV1-v0-RunIISummer16MiniAODv3-PUMoriond17_94X_mcRun2_asymptotic_v3-v1-4b15415e8d56c44d7f20bde93a158c60/USER", { "args" : ["outputFile=output_ttHJetToGG_M126_13TeV_amcatnloFXFX_madspin_pythia8.root"] } ] ],	

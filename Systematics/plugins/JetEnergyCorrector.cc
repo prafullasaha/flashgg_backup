@@ -98,6 +98,8 @@ namespace flashgg {
                 if ( debug_ ) {
                     std::cout << " DOING JEC! We get this jec from the corrector: " << jec << std::endl;
                     std::cout << "    ... previous jec was: " << oldjec << std::endl;
+                    std::cout << "Uncorrected energy        " << y.correctedJet("Uncorrected").energy()<< std::endl;
+                    std::cout << "General energy            " << y.energy() << std::endl;
                 }
                 jec_adjust = jec/oldjec;
             }

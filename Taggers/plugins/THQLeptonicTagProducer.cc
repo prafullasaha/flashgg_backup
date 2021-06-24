@@ -300,24 +300,24 @@ private:
         if ( bjets->size() < 1 || jets->size() < 2 /*|| LeptonType == 0*/) {
             return ;
         }
-        fwdJet = fwdjets->at(0);
-        bJet = bjets->at(0);
+        fwdJet  = fwdjets->at(0);
+        bJet    = bjets->at(0);
 /*        if( fwdJet == bJet )
             fwdJet = SelJetVect_EtaSorted[1] ;
 */
 
-        bL.SetPtEtaPhiE( bJet->pt(), bJet->eta(), bJet->phi(), bJet->energy());
-        fwdJL.SetPtEtaPhiE( fwdJet->pt(),fwdJet->eta(), fwdJet->phi(), fwdJet->energy());
+        bL.SetPtEtaPhiE(    bJet->pt(),     bJet->eta(),    bJet->phi(),    bJet->energy());
+        fwdJL.SetPtEtaPhiE( fwdJet->pt(),   fwdJet->eta(),  fwdJet->phi(),  fwdJet->energy());
 
 
         flashgg::SemiLepTopQuark singletop(bL, metL, l1, fwdJL,fwdJL);
-        n_jets = jets->size();
-        metL = singletop.getMET() ;
+        n_jets      = jets->size();
+        metL        = singletop.getMET() ;
         jprime_eta  = fabs( fwdJL.Eta() );
-        met_pt = metL.Pt();
-        metW_check = singletop.neutrino_W () ;
-        topL = singletop.top();
-        topMass = singletop.top().M() ;
+        met_pt      = metL.Pt();
+        metW_check  = singletop.neutrino_W () ;
+        topL        = singletop.top();
+        topMass     = singletop.top().M() ;
     };
 
 
@@ -600,24 +600,13 @@ void THQLeptonicTagProducer::produce( Event &evt, const EventSetup & )
                            theMET->energy()
                          ) ;
 //Lepton
-        std::vector<edm::Ptr<flashgg::Muon> > LooseMu15 = selectMuons( theMuons->ptrs(), dipho, vertices->ptrs(), muonEtaThreshold_ , muonPtThreshold_,
-                0.15 , deltaRLepPhoThreshold_, deltaRLepPhoThreshold_ );
-        std::vector<edm::Ptr<flashgg::Muon> > LooseMu25 = selectMuons( theMuons->ptrs(), dipho, vertices->ptrs(), muonEtaThreshold_ , muonPtThreshold_,
-                0.25 , deltaRLepPhoThreshold_, deltaRLepPhoThreshold_ );
-
-        std::vector<edm::Ptr<flashgg::Muon> > LooseMu200 = selectMuons( theMuons->ptrs(), dipho, vertices->ptrs(), muonEtaThreshold_ , muonPtThreshold_,
-                2. , deltaRLepPhoThreshold_, deltaRLepPhoThreshold_);
-
-
-        std::vector<edm::Ptr<flashgg::Muon> > MediumMu15 = selectMuons( theMuons->ptrs(), dipho, vertices->ptrs(), muonEtaThreshold_ , muonPtThreshold_,
-                0.15 , deltaRLepPhoThreshold_, deltaRLepPhoThreshold_ );
-        std::vector<edm::Ptr<flashgg::Muon> > MediumMu25 = selectMuons( theMuons->ptrs(), dipho, vertices->ptrs(), muonEtaThreshold_ , muonPtThreshold_,
-                0.25 , deltaRLepPhoThreshold_, deltaRLepPhoThreshold_ );
-
-        std::vector<edm::Ptr<flashgg::Muon> > TightMuo15 = selectMuons( theMuons->ptrs(), dipho, vertices->ptrs(), muonEtaThreshold_ , muonPtThreshold_,
-                0.15 , deltaRLepPhoThreshold_, deltaRLepPhoThreshold_);
-        std::vector<edm::Ptr<flashgg::Muon> > TightMuo25 = selectMuons( theMuons->ptrs(), dipho, vertices->ptrs(), muonEtaThreshold_ , muonPtThreshold_,
-                0.25 , deltaRLepPhoThreshold_, deltaRLepPhoThreshold_);
+        std::vector<edm::Ptr<flashgg::Muon> > LooseMu15 = selectMuons( theMuons->ptrs(), dipho, vertices->ptrs(), muonEtaThreshold_ , muonPtThreshold_, 0.15 , deltaRLepPhoThreshold_, deltaRLepPhoThreshold_ );
+        std::vector<edm::Ptr<flashgg::Muon> > LooseMu25 = selectMuons( theMuons->ptrs(), dipho, vertices->ptrs(), muonEtaThreshold_ , muonPtThreshold_, 0.25 , deltaRLepPhoThreshold_, deltaRLepPhoThreshold_ );
+        std::vector<edm::Ptr<flashgg::Muon> > LooseMu200= selectMuons( theMuons->ptrs(), dipho, vertices->ptrs(), muonEtaThreshold_ , muonPtThreshold_, 2.  , deltaRLepPhoThreshold_, deltaRLepPhoThreshold_);
+        std::vector<edm::Ptr<flashgg::Muon> > MediumMu15= selectMuons( theMuons->ptrs(), dipho, vertices->ptrs(), muonEtaThreshold_ , muonPtThreshold_, 0.15 , deltaRLepPhoThreshold_, deltaRLepPhoThreshold_ );
+        std::vector<edm::Ptr<flashgg::Muon> > MediumMu25= selectMuons( theMuons->ptrs(), dipho, vertices->ptrs(), muonEtaThreshold_ , muonPtThreshold_, 0.25 , deltaRLepPhoThreshold_, deltaRLepPhoThreshold_ );
+        std::vector<edm::Ptr<flashgg::Muon> > TightMuo15= selectMuons( theMuons->ptrs(), dipho, vertices->ptrs(), muonEtaThreshold_ , muonPtThreshold_, 0.15 , deltaRLepPhoThreshold_, deltaRLepPhoThreshold_);
+        std::vector<edm::Ptr<flashgg::Muon> > TightMuo25= selectMuons( theMuons->ptrs(), dipho, vertices->ptrs(), muonEtaThreshold_ , muonPtThreshold_, 0.25 , deltaRLepPhoThreshold_, deltaRLepPhoThreshold_);
 
         std::vector<edm::Ptr<flashgg::Muon> > goodMuons = muPFIsoSumRelThreshold_== 0.15 ? TightMuo15 : TightMuo25 ;
 
@@ -626,29 +615,11 @@ void THQLeptonicTagProducer::produce( Event &evt, const EventSetup & )
         for(auto mu: LooseMu200)
             looseMus_PassTight.push_back( std::find( goodMuons.begin() , goodMuons.end() , mu ) != goodMuons.end() );
 
-
-
-
-        std::vector<edm::Ptr<Electron> > vetoNonIsoElectrons = selectStdElectrons(theElectrons->ptrs(), dipho, vertices->ptrs(), electronPtThreshold_,  electronEtaThresholds_ ,
-                0,4,
-                deltaRPhoElectronThreshold_,DeltaRTrkElec_,deltaMassElectronZThreshold_ , rho_, true ); //evt.isRealData()
-
-        std::vector<edm::Ptr<Electron> > looseElectrons = selectStdElectrons(theElectrons->ptrs(), dipho, vertices->ptrs(), electronPtThreshold_,  electronEtaThresholds_ ,
-                0,3,
-                deltaRPhoElectronThreshold_,DeltaRTrkElec_,deltaMassElectronZThreshold_ , rho_, true ); //evt.isRealData()
-
-
-        std::vector<edm::Ptr<Electron> > vetoElectrons = selectStdElectrons(theElectrons->ptrs(), dipho, vertices->ptrs(), electronPtThreshold_,  electronEtaThresholds_ ,
-                0,0,
-                deltaRPhoElectronThreshold_,DeltaRTrkElec_,deltaMassElectronZThreshold_ , rho_, true ); //evt.isRealData()
-
-        std::vector<edm::Ptr<Electron> > mediumElectrons = selectStdElectrons(theElectrons->ptrs(), dipho, vertices->ptrs(), electronPtThreshold_,  electronEtaThresholds_ ,
-                0,2,
-                deltaRPhoElectronThreshold_,DeltaRTrkElec_,deltaMassElectronZThreshold_ , rho_, true ); //evt.isRealData()
-
-        std::vector<edm::Ptr<Electron> > goodElectrons = selectStdElectrons(theElectrons->ptrs(), dipho, vertices->ptrs(), electronPtThreshold_,  electronEtaThresholds_ ,
-                0,1,
-                deltaRPhoElectronThreshold_,DeltaRTrkElec_,deltaMassElectronZThreshold_ , rho_, true);
+        std::vector<edm::Ptr<Electron> > vetoNonIsoElectrons= selectStdElectrons(theElectrons->ptrs(), dipho, vertices->ptrs(), electronPtThreshold_,  electronEtaThresholds_ , 0,  4, deltaRPhoElectronThreshold_,DeltaRTrkElec_,deltaMassElectronZThreshold_ , rho_, true ); //evt.isRealData()
+        std::vector<edm::Ptr<Electron> > looseElectrons     = selectStdElectrons(theElectrons->ptrs(), dipho, vertices->ptrs(), electronPtThreshold_,  electronEtaThresholds_ , 0,  3, deltaRPhoElectronThreshold_,DeltaRTrkElec_,deltaMassElectronZThreshold_ , rho_, true ); //evt.isRealData()
+        std::vector<edm::Ptr<Electron> > vetoElectrons      = selectStdElectrons(theElectrons->ptrs(), dipho, vertices->ptrs(), electronPtThreshold_,  electronEtaThresholds_ , 0,  0,  deltaRPhoElectronThreshold_,DeltaRTrkElec_,deltaMassElectronZThreshold_ , rho_, true ); //evt.isRealData()
+        std::vector<edm::Ptr<Electron> > mediumElectrons    = selectStdElectrons(theElectrons->ptrs(), dipho, vertices->ptrs(), electronPtThreshold_,  electronEtaThresholds_ , 0,  2,  deltaRPhoElectronThreshold_,DeltaRTrkElec_,deltaMassElectronZThreshold_ , rho_, true ); //evt.isRealData()
+        std::vector<edm::Ptr<Electron> > goodElectrons      = selectStdElectrons(theElectrons->ptrs(), dipho, vertices->ptrs(), electronPtThreshold_,  electronEtaThresholds_ , 0,  1,  deltaRPhoElectronThreshold_,DeltaRTrkElec_,deltaMassElectronZThreshold_ , rho_, true);
 
         std::vector<int> vetoNonIsoElectrons_PassTight;
         std::vector<int> vetoNonIsoElectrons_PassVeto;

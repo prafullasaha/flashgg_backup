@@ -205,6 +205,8 @@ private:
     float secondMaxBTagVal_;
     float MVAscore_tHqVsttHDNN;
 
+    InputVariables MVAvarList;
+    MoreVariables  MyCheckVarList;
     THQ_BDT_Helper *tprimeTagger_nrb;
     THQ_BDT_Helper *tprimeTagger_smh;
 
@@ -306,8 +308,8 @@ THQHadronicTagProducer::THQHadronicTagProducer( const ParameterSet &iConfig ) :
     BDT_smh_xml_file_ = iConfig.getParameter<edm::FileInPath> ( "tprime_bdt_smh_xmlfile" );
 
     if(use_MVAs_) {
-        tprimeTagger_nrb = new THQ_BDT_Helper(BDT_nrb_xml_file_.fullPath());
-        tprimeTagger_smh = new THQ_BDT_Helper(BDT_smh_xml_file_.fullPath());
+        tprimeTagger_nrb = new THQ_BDT_Helper("BDTG", BDT_nrb_xml_file_.fullPath());
+        tprimeTagger_smh = new THQ_BDT_Helper("BDTG", BDT_smh_xml_file_.fullPath());
     }
 
     for (unsigned i = 0 ; i < inputTagJets_.size() ; i++) {
@@ -495,12 +497,6 @@ void THQHadronicTagProducer::produce( Event &evt, const EventSetup & )
     for( unsigned int diphoIndex = 0; diphoIndex < diPhotons->size(); diphoIndex++ ) {
         if(debug) printf("[check] diphoIndex = %d/%d\n", diphoIndex, diPhotons->size());
 
-        if(use_MVAs_)
-        {
-            tprimeTagger_nrb->clear();
-            tprimeTagger_smh->clear();
-        }
-
         hasGoodElec  = false;
         hasVetoElec  = false;
         hasGoodMuons = false;
@@ -516,11 +512,8 @@ void THQHadronicTagProducer::produce( Event &evt, const EventSetup & )
         if( dipho->subLeadingPhoton()->pt() < ( dipho->mass() )*subleadPhoOverMassThreshold_ ) continue;
         idmva1 = dipho->leadingPhoton()->phoIdMvaDWrtVtx( dipho->vtx() );
         idmva2 = dipho->subLeadingPhoton()->phoIdMvaDWrtVtx( dipho->vtx() );
-        if(debug) printf("[check] idmva1 = %.3f, idmva2 = %.3f\n", idmva1, idmva2);
+        //if( idmva1 < -0.9 || idmva2 < -0.9 ) continue; // for the purpose of data-driven study, use looser criteria on photon idmva
         if( idmva1 < PhoMVAThreshold_ || idmva2 < PhoMVAThreshold_ ) continue;
-        //if( (!evt.isRealData()) && (idmva1 < PhoMVAThreshold_ || idmva2 < PhoMVAThreshold_) ) continue; // for ntuple production, data skips the condition
-        if(debug) printf("[check] survive idmva cuts!\n");
-
         //if( mvares->result < MVAThreshold_ ) continue;            //DiPho_MVA
 
         photonSelection = true;
@@ -577,7 +570,6 @@ void THQHadronicTagProducer::produce( Event &evt, const EventSetup & )
         float ht = 0;
         float dRPhoLeadJet    = 0;
         float dRPhoSubLeadJet = 0;
-        //double minDrLepton    = 999.;
         int njets_btagloose_  = 0;
         int njets_btagmedium_ = 0;
         int njets_btagtight_  = 0;
@@ -591,12 +583,9 @@ void THQHadronicTagProducer::produce( Event &evt, const EventSetup & )
         std::vector<edm::Ptr<flashgg::Jet> > centraljet;
         std::vector<edm::Ptr<flashgg::Jet> > forwardjet;
 	    std::vector<float> bDiscr_bjets;
-        std::vector<float> bDiscr_jets;
         std::vector<float> bDiscr_fwdjets;
         for( unsigned int candIndex_outer = 0; candIndex_outer < Jets[jetCollectionIndex]->size() ; candIndex_outer++ ) {
             edm::Ptr<flashgg::Jet> thejet = Jets[jetCollectionIndex]->ptrAt( candIndex_outer );
-            //std::vector <float> minDrLepton_ele;
-            //std::vector <float> minDrLepton_muon;
 
             if( !thejet->passesPuJetId( dipho ) ) continue;
             if( fabs( thejet->eta() ) > jetEtaThreshold_ ) continue;
@@ -636,24 +625,11 @@ void THQHadronicTagProducer::produce( Event &evt, const EventSetup & )
             SelJetVect_EtaSorted.push_back( thejet );
             SelJetVect_PtSorted.push_back( thejet );
             SelJetVect_BSorted.push_back( thejet );
-            //bDiscr_jets.push_back( thejet->bDiscriminator("pfDeepCSVJetTags:probb") + thejet->bDiscriminator("pfDeepCSVJetTags:probbb") );
 
-            if(use_MVAs_)
-            {
-                tprimeTagger_nrb->addJet(thejet->pt(), thejet->eta(), thejet->phi(), thejet->mass(), bDiscriminatorValue);
-                tprimeTagger_smh->addJet(thejet->pt(), thejet->eta(), thejet->phi(), thejet->mass(), bDiscriminatorValue);
-            }
-        }//end of jets loop
-
-        if(use_MVAs_)
-        {
-            tprimeTagger_nrb->sortJetsByPt();
-            tprimeTagger_smh->sortJetsByPt();
-        }
+        }//end of loop
 
         if(debug) printf("[debug] num leps = %lu, num_jets = %lu \n", goodElectrons.size() + goodMuons.size(), SelJetVect.size());
 
-        //Calculate scalar sum of jets
         std::sort( LooseBJetVect_PtSorted.begin()  , LooseBJetVect_PtSorted.end()  , GreaterByPt()  );
         std::sort( MediumBJetVect_PtSorted.begin() , MediumBJetVect_PtSorted.end() , GreaterByPt()  );
         std::sort( TightBJetVect_PtSorted.begin()  , TightBJetVect_PtSorted.end()  , GreaterByPt()  );
@@ -661,8 +637,15 @@ void THQHadronicTagProducer::produce( Event &evt, const EventSetup & )
         std::sort( SelJetVect_PtSorted.begin()     , SelJetVect_PtSorted.end()     , GreaterByPt()  );
 	    std::sort( SelJetVect_BSorted.begin()      , SelJetVect_BSorted.end()      , GreaterByBTagging("pfDeepCSVJetTags:probb", "pfDeepCSVJetTags:probbb"));
 
+        std::vector<float> bDiscr_jets;
+        std::vector<TLorentzVector> jets;
         for(unsigned int jetsindex = 0 ; jetsindex < SelJetVect_PtSorted.size(); jetsindex++){
+
 	        bDiscr_jets.push_back( SelJetVect_PtSorted[jetsindex]->bDiscriminator("pfDeepCSVJetTags:probb") + SelJetVect_PtSorted[jetsindex]->bDiscriminator("pfDeepCSVJetTags:probbb") );
+
+            TLorentzVector jet;
+            jet.SetPtEtaPhiE(SelJetVect_PtSorted[jetsindex]->pt(), SelJetVect_PtSorted[jetsindex]->eta(), SelJetVect_PtSorted[jetsindex]->phi(), SelJetVect_PtSorted[jetsindex]->energy());
+            jets.push_back(jet);
         }
 
         //----------------------------------------------------------------------------------------------------
@@ -673,19 +656,18 @@ void THQHadronicTagProducer::produce( Event &evt, const EventSetup & )
 	    for(unsigned int bjetsindex = 0 ; bjetsindex < LooseBJetVect.size(); bjetsindex++){
 	        BJetVect.push_back( LooseBJetVect[bjetsindex] );
 	        bDiscr_bjets.push_back( LooseBJetVect[bjetsindex]->bDiscriminator("pfDeepCSVJetTags:probb") + LooseBJetVect[bjetsindex]->bDiscriminator("pfDeepCSVJetTags:probbb") );
-	        //if(LooseBJetVect[bjetsindex] !=  SelJetVect_EtaSorted[0] ){
-	        //    BJetVect.push_back( LooseBJetVect[bjetsindex] );
-	        //    bDiscr_bjets.push_back( LooseBJetVect[bjetsindex]->bDiscriminator("pfDeepCSVJetTags:probb") + LooseBJetVect[bjetsindex]->bDiscriminator("pfDeepCSVJetTags:probbb") );
-	        //}
 	    }
 	    //LooseBJetVect.clear();
 	    std::sort(BJetVect.begin(), BJetVect.end(), GreaterByBTagging("pfDeepCSVJetTags:probb", "pfDeepCSVJetTags:probbb"));
 	    std::sort(bDiscr_bjets.begin(), bDiscr_bjets.end(), std::greater<float>());
 
-
         if(SelJetVect.size() < jetsNumberThreshold_ || BJetVect.size() < bjetsNumberThreshold_) continue;	
         if(debug) printf("[check] survive jets criteria!\n");
 
+        //----------------------------------------------------------------------------------------------------
+        // previous MVA variables
+        //----------------------------------------------------------------------------------------------------
+        // more details{{{
         bjet1_discr_   = -999;
         bjet2_discr_   = -999;
         bjet3_discr_   = -999;
@@ -809,196 +791,313 @@ void THQHadronicTagProducer::produce( Event &evt, const EventSetup & )
         minPhoID_           = TMath::Min( dipho_leadIDMVA_, dipho_subleadIDMVA_);
         maxPhoID_           = TMath::Max( dipho_leadIDMVA_, dipho_subleadIDMVA_);
 
-        //maxBTagVal_         = bDiscr_bjets.size() > 0 ? bDiscr_bjets[0] : -1.;
-        //secondMaxBTagVal_   = bDiscr_bjets.size() > 1 ? bDiscr_bjets[1]: -1.;
         maxBTagVal_         = SelJetVect_BSorted.size() > 0 ? SelJetVect_BSorted[0]->bDiscriminator("pfDeepCSVJetTags:probb") + SelJetVect_BSorted[0]->bDiscriminator("pfDeepCSVJetTags:probbb"): -1.;
         secondMaxBTagVal_   = SelJetVect_BSorted.size() > 1 ? SelJetVect_BSorted[1]->bDiscriminator("pfDeepCSVJetTags:probb") + SelJetVect_BSorted[1]->bDiscriminator("pfDeepCSVJetTags:probbb"): -1.;
+        //}}}
 
-        double mva_value_nrb = -999;
-        double mva_value_smh = -999;
-        double mva_value_nrb_raw = -999;
-        double mva_value_smh_raw = -999;
+        //----------------------------------------------------------------------------------------------------
+        // Variables / TLorentzVector
+        //----------------------------------------------------------------------------------------------------
+        TLorentzVector diphoton;
+        diphoton.SetPtEtaPhiE(dipho->pt(), dipho->eta(), dipho->phi(), dipho->energy());
+        //printf("mycheck1 \n");
+        //printf("%s: %.10f , " , "diphoton_pt_"  , diphoton.Pt()   );
+        //printf("%s: %.10f , " , "diphoton_eta_" , diphoton.Eta()  );
+        //printf("%s: %.10f , " , "diphoton_phi_" , diphoton.Phi()  );
+        //printf("%s: %.10f , " , "diphoton_e_"   , diphoton.E()    );
+        //printf("\n\n");
+        //printf("mycheck2 \n");
+        //printf("%s: %.10f , " , "diphoton_pt_"     , dipho->pt()     );
+        //printf("%s: %.10f , " , "diphoton_eta_"    , dipho->eta()    );
+        //printf("%s: %.10f , " , "diphoton_phi_"    , dipho->phi()    );
+        //printf("%s: %.10f , " , "diphoton_e_"      , dipho->energy() );
+        //printf("\n\n");
+        float lead_eta_    = dipho->leadingPhoton()->eta();
+        float sublead_eta_ = dipho->subLeadingPhoton()->eta();
+        float lead_phi_    = dipho->leadingPhoton()->phi();
+        float sublead_phi_ = dipho->subLeadingPhoton()->phi();
 
-        //printf("[check] dipho in producer: %f, %f, %f, %f\n", dipho->pt(), dipho->eta(), dipho->phi(), dipho->mass() );
-        //printf("[check] dipho in producer (float): %f, %f, %f, %f\n", (float) dipho->pt(), (float) dipho->eta(), (float) dipho->phi(), (float) dipho->mass() );
+        //----------------------------------------------------------------------------------------------------
+        // Minimum chi-2 method (cov.)
+        //----------------------------------------------------------------------------------------------------
+        double min_chi2_value_2x2 = 99999.;
+        vector<int> indices_bjj(3, -1);
+        bool has_resonable_reco = tprimeTagger_nrb->get_the_best_bjj_candidate(indices_bjj, jets, diphoton, bDiscr_jets, min_chi2_value_2x2);
+  
+        TLorentzVector null;
+        TLorentzVector cov_bjet  = has_resonable_reco ? jets[indices_bjj[0]] : null;
+        TLorentzVector cov_wjet1 = has_resonable_reco ? jets[indices_bjj[1]] : null;
+        TLorentzVector cov_wjet2 = has_resonable_reco ? jets[indices_bjj[2]] : null;
+        TLorentzVector cov_wboson = cov_wjet1 + cov_wjet2;
+        TLorentzVector cov_top = cov_bjet + cov_wboson;
+        TLorentzVector cov_tprime = cov_top + diphoton;
+  
+        bool pass_eta_criteria_on_wjets = ( cov_wjet1.Eta() < 3. && cov_wjet2.Eta() < 3. );
+        if( !pass_eta_criteria_on_wjets ) continue;
+        if( !has_resonable_reco ) continue;
+  
+        min_chi2_value_2x2 = has_resonable_reco ? min_chi2_value_2x2 : -1.;
+        //----------------------------------------------------------------------------------------------------
+
+        // MVA input variables {{{
+        MVAvarList.maxIDMVA_                = maxPhoID_;
+        MVAvarList.minIDMVA_                = minPhoID_;
+        MVAvarList.max1_btag_               = maxBTagVal_;
+        MVAvarList.max2_btag_               = secondMaxBTagVal_;
+        MVAvarList.dipho_delta_R            = deltaR(lead_eta_, lead_phi_, sublead_eta_, sublead_phi_);
+        MVAvarList.njets_                   = n_jets_;
+        MVAvarList.nbjets_                  = (float) LooseBJetVect.size();
+        MVAvarList.ht_                      = ht;
+        MVAvarList.leadptoM_                = dipho->leadingPhoton()->pt() / dipho->mass();
+        MVAvarList.subleadptoM_             = dipho->subLeadingPhoton()->pt() / dipho->mass();
+        MVAvarList.lead_eta_                = dipho->leadingPhoton()->eta();
+        MVAvarList.sublead_eta_             = dipho->subLeadingPhoton()->eta();
+        MVAvarList.leadPSV_                 = dipho_lead_haspixelseed_;
+        MVAvarList.subleadPSV_              = dipho_sublead_haspixelseed_;
+        MVAvarList.dipho_cosphi_            = abs(TMath::Cos(dipho->leadingPhoton()->phi() - dipho->subLeadingPhoton()->phi()));
+        MVAvarList.dipho_rapidity_          = tprimeTagger_nrb->Rapidity(dipho->energy(), dipho->pz());
+        MVAvarList.met_                     = theMET->getCorPt();
+        MVAvarList.dipho_pt_over_mass_      = dipho->pt() / dipho->mass();
+        MVAvarList.helicity_angle_          = tprimeTagger_nrb->Helicity(G1, G2);
+        MVAvarList.chi2_value_              = min_chi2_value_2x2;
+        MVAvarList.chi2_bjet_ptOverM_       = (has_resonable_reco && pass_eta_criteria_on_wjets) ? cov_bjet.Pt() / cov_top.M()      : -999;
+        MVAvarList.chi2_bjet_eta_           = (has_resonable_reco && pass_eta_criteria_on_wjets) ? cov_bjet.Eta()                   : -999;
+        MVAvarList.chi2_bjet_btagScores_    = (has_resonable_reco && pass_eta_criteria_on_wjets) ? bDiscr_jets[indices_bjj[0]]      : -999;
+        MVAvarList.chi2_wjet1_ptOverM_      = (has_resonable_reco && pass_eta_criteria_on_wjets) ? cov_wjet1.Pt() / cov_wboson.M()  : -999;
+        MVAvarList.chi2_wjet1_eta_          = (has_resonable_reco && pass_eta_criteria_on_wjets) ? cov_wjet1.Eta()                  : -999;
+        MVAvarList.chi2_wjet1_btagScores_   = (has_resonable_reco && pass_eta_criteria_on_wjets) ? bDiscr_jets[indices_bjj[1]]      : -999;
+        MVAvarList.chi2_wjet2_ptOverM_      = (has_resonable_reco && pass_eta_criteria_on_wjets) ? cov_wjet2.Pt() / cov_wboson.M()  : -999;
+        MVAvarList.chi2_wjet2_eta_          = (has_resonable_reco && pass_eta_criteria_on_wjets) ? cov_wjet2.Eta()                  : -999;
+        MVAvarList.chi2_wjet2_btagScores_   = (has_resonable_reco && pass_eta_criteria_on_wjets) ? bDiscr_jets[indices_bjj[2]]      : -999;
+        MVAvarList.chi2_wjets_deltaR_       = (has_resonable_reco && pass_eta_criteria_on_wjets) ? cov_wjet1.DeltaR(cov_wjet2)      : -999;
+        MVAvarList.chi2_wboson_ptOverM_     = (has_resonable_reco && pass_eta_criteria_on_wjets) ? cov_wboson.Pt() / cov_wboson.M() : -999;
+        MVAvarList.chi2_wboson_eta_         = (has_resonable_reco && pass_eta_criteria_on_wjets) ? cov_wboson.Eta()                 : -999;
+        MVAvarList.chi2_wboson_mass_        = (has_resonable_reco && pass_eta_criteria_on_wjets) ? cov_wboson.M()                   : -999;
+        MVAvarList.chi2_wboson_deltaR_bjet_ = (has_resonable_reco && pass_eta_criteria_on_wjets) ? cov_wboson.DeltaR(cov_bjet)      : -999;
+        MVAvarList.chi2_tbw_mass_           = (has_resonable_reco && pass_eta_criteria_on_wjets) ? cov_top.M()                      : -999;
+        MVAvarList.chi2_tbw_ptOverM_        = (has_resonable_reco && pass_eta_criteria_on_wjets) ? cov_top.Pt() / cov_top.M()       : -999;
+        MVAvarList.chi2_tbw_eta_            = (has_resonable_reco && pass_eta_criteria_on_wjets) ? cov_top.Eta()                    : -999;
+        MVAvarList.chi2_tprime_ptOverM_     = (has_resonable_reco && pass_eta_criteria_on_wjets) ? cov_tprime.Pt()/cov_tprime.M()   : -999;
+        MVAvarList.chi2_tprime_eta_         = (has_resonable_reco && pass_eta_criteria_on_wjets) ? cov_tprime.Eta()                 : -999;
+        MVAvarList.tprime_pt_ratio_         = (has_resonable_reco && pass_eta_criteria_on_wjets) ? (cov_top.Pt() + dipho->pt())/ ht : -999;
+        MVAvarList.helicity_tprime_         = (has_resonable_reco && pass_eta_criteria_on_wjets) ? tprimeTagger_nrb->Helicity(cov_top, diphoton)      : -999;
+        MVAvarList.jet1_ptOverM_            = (n_jets_ >= 1 && (has_resonable_reco && pass_eta_criteria_on_wjets)) ? SelJetVect_PtSorted[0]->pt() / cov_top.M()  : -999;
+        MVAvarList.jet2_ptOverM_            = (n_jets_ >= 2 && (has_resonable_reco && pass_eta_criteria_on_wjets)) ? SelJetVect_PtSorted[1]->pt() / cov_top.M()  : -999;
+        MVAvarList.jet3_ptOverM_            = (n_jets_ >= 3 && (has_resonable_reco && pass_eta_criteria_on_wjets)) ? SelJetVect_PtSorted[2]->pt() / cov_top.M()  : -999;
+        MVAvarList.jet4_ptOverM_            = (n_jets_ >= 4 && (has_resonable_reco && pass_eta_criteria_on_wjets)) ? SelJetVect_PtSorted[3]->pt() / cov_top.M()  : -999;
+        MVAvarList.jet1_eta_                = (n_jets_ >= 1) ? SelJetVect_PtSorted[0]->eta() : -999;
+        MVAvarList.jet1_btag_               = (n_jets_ >= 1) ? bDiscr_jets[0]                : -999;
+        MVAvarList.jet2_eta_                = (n_jets_ >= 2) ? SelJetVect_PtSorted[1]->eta() : -999;
+        MVAvarList.jet2_btag_               = (n_jets_ >= 2) ? bDiscr_jets[1]                : -999;
+        MVAvarList.jet3_eta_                = (n_jets_ >= 3) ? SelJetVect_PtSorted[2]->eta() : -999;
+        MVAvarList.jet3_btag_               = (n_jets_ >= 3) ? bDiscr_jets[2]                : -999;
+        MVAvarList.jet4_eta_                = (n_jets_ >= 4) ? SelJetVect_PtSorted[3]->eta() : -999;
+        MVAvarList.jet4_btag_               = (n_jets_ >= 4) ? bDiscr_jets[3]                : -999;
+
+        // tprime mass is not used for training
+        float chi2_tprime_mass_             = (has_resonable_reco && pass_eta_criteria_on_wjets) ? cov_tprime.M()                   : -999;
+        //}}}
+// MoreVariables{{{
+        MyCheckVarList.diphoton_ptOverM_ = dipho->pt() / dipho->mass();
+        MyCheckVarList.diphoton_pt_      = dipho->pt();
+        MyCheckVarList.diphoton_eta_     = dipho->eta();
+        MyCheckVarList.diphoton_phi_     = dipho->phi();
+        MyCheckVarList.diphoton_energy_  = dipho->energy();
+        MyCheckVarList.diphoton_mass_    = dipho->mass();
+        MyCheckVarList.wboson_ptOverM_   = (has_resonable_reco && pass_eta_criteria_on_wjets) ? cov_wboson.Pt() / cov_wboson.M() : -999;
+        MyCheckVarList.wboson_pt_        = (has_resonable_reco && pass_eta_criteria_on_wjets) ? cov_wboson.Pt()                  : -999;
+        MyCheckVarList.wboson_eta_       = (has_resonable_reco && pass_eta_criteria_on_wjets) ? cov_wboson.Eta()                 : -999;
+        MyCheckVarList.wboson_phi_       = (has_resonable_reco && pass_eta_criteria_on_wjets) ? cov_wboson.Phi()                 : -999;
+        MyCheckVarList.wboson_energy_    = (has_resonable_reco && pass_eta_criteria_on_wjets) ? cov_wboson.E()                   : -999;
+        MyCheckVarList.wboson_mass_      = (has_resonable_reco && pass_eta_criteria_on_wjets) ? cov_wboson.M()                   : -999;
+        MyCheckVarList.top_ptOverM_      = (has_resonable_reco && pass_eta_criteria_on_wjets) ? cov_top.Pt() / cov_top.M()       : -999;
+        MyCheckVarList.top_pt_           = (has_resonable_reco && pass_eta_criteria_on_wjets) ? cov_top.Pt()                     : -999;
+        MyCheckVarList.top_eta_          = (has_resonable_reco && pass_eta_criteria_on_wjets) ? cov_top.Eta()                    : -999;
+        MyCheckVarList.top_phi_          = (has_resonable_reco && pass_eta_criteria_on_wjets) ? cov_top.Phi()                    : -999;
+        MyCheckVarList.top_energy_       = (has_resonable_reco && pass_eta_criteria_on_wjets) ? cov_top.E()                      : -999;
+        MyCheckVarList.top_mass_         = (has_resonable_reco && pass_eta_criteria_on_wjets) ? cov_top.M()                      : -999;
+        MyCheckVarList.tprime_ptOverM_   = (has_resonable_reco && pass_eta_criteria_on_wjets) ? cov_tprime.Pt() / cov_tprime.M() : -999;
+        MyCheckVarList.tprime_pt_        = (has_resonable_reco && pass_eta_criteria_on_wjets) ? cov_tprime.Pt()                  : -999;
+        MyCheckVarList.tprime_eta_       = (has_resonable_reco && pass_eta_criteria_on_wjets) ? cov_tprime.Eta()                 : -999;
+        MyCheckVarList.tprime_phi_       = (has_resonable_reco && pass_eta_criteria_on_wjets) ? cov_tprime.Phi()                 : -999;
+        MyCheckVarList.tprime_energy_    = (has_resonable_reco && pass_eta_criteria_on_wjets) ? cov_tprime.E()                   : -999;
+        MyCheckVarList.tprime_mass_      = (has_resonable_reco && pass_eta_criteria_on_wjets) ? cov_tprime.M()                   : -999;
+        MyCheckVarList.bjet_ptOverM_     = (has_resonable_reco && pass_eta_criteria_on_wjets) ? cov_bjet.Pt() / cov_top.M()      : -999;
+        MyCheckVarList.bjet_pt_          = (has_resonable_reco && pass_eta_criteria_on_wjets) ? cov_bjet.Pt()                    : -999;
+        MyCheckVarList.bjet_eta_         = (has_resonable_reco && pass_eta_criteria_on_wjets) ? cov_bjet.Eta()                   : -999;
+        MyCheckVarList.bjet_phi_         = (has_resonable_reco && pass_eta_criteria_on_wjets) ? cov_bjet.Phi()                   : -999;
+        MyCheckVarList.bjet_energy_      = (has_resonable_reco && pass_eta_criteria_on_wjets) ? cov_bjet.E()                     : -999;
+        MyCheckVarList.bjet_mass_        = (has_resonable_reco && pass_eta_criteria_on_wjets) ? cov_bjet.M()                     : -999;
+        MyCheckVarList.bjet_btag_        = (has_resonable_reco && pass_eta_criteria_on_wjets) ? bDiscr_jets[indices_bjj[0]]      : -999;
+        MyCheckVarList.wjet1_ptOverM_    = (has_resonable_reco && pass_eta_criteria_on_wjets) ? cov_wjet1.Pt() / cov_wboson.M()  : -999;
+        MyCheckVarList.wjet1_pt_         = (has_resonable_reco && pass_eta_criteria_on_wjets) ? cov_wjet1.Pt()                   : -999;
+        MyCheckVarList.wjet1_eta_        = (has_resonable_reco && pass_eta_criteria_on_wjets) ? cov_wjet1.Eta()                  : -999;
+        MyCheckVarList.wjet1_phi_        = (has_resonable_reco && pass_eta_criteria_on_wjets) ? cov_wjet1.Phi()                  : -999;
+        MyCheckVarList.wjet1_energy_     = (has_resonable_reco && pass_eta_criteria_on_wjets) ? cov_wjet1.E()                    : -999;
+        MyCheckVarList.wjet1_mass_       = (has_resonable_reco && pass_eta_criteria_on_wjets) ? cov_wjet1.M()                    : -999;
+        MyCheckVarList.wjet1_btag_       = (has_resonable_reco && pass_eta_criteria_on_wjets) ? bDiscr_jets[indices_bjj[1]]      : -999;
+        MyCheckVarList.wjet2_ptOverM_    = (has_resonable_reco && pass_eta_criteria_on_wjets) ? cov_wjet2.Pt() / cov_wboson.M()  : -999;
+        MyCheckVarList.wjet2_pt_         = (has_resonable_reco && pass_eta_criteria_on_wjets) ? cov_wjet2.Pt()                   : -999;
+        MyCheckVarList.wjet2_eta_        = (has_resonable_reco && pass_eta_criteria_on_wjets) ? cov_wjet2.Eta()                  : -999;
+        MyCheckVarList.wjet2_phi_        = (has_resonable_reco && pass_eta_criteria_on_wjets) ? cov_wjet2.Phi()                  : -999;
+        MyCheckVarList.wjet2_energy_     = (has_resonable_reco && pass_eta_criteria_on_wjets) ? cov_wjet2.E()                    : -999;
+        MyCheckVarList.wjet2_mass_       = (has_resonable_reco && pass_eta_criteria_on_wjets) ? cov_wjet2.M()                    : -999;
+        MyCheckVarList.wjet2_btag_       = (has_resonable_reco && pass_eta_criteria_on_wjets) ? bDiscr_jets[indices_bjj[2]]      : -999;
+
+        MyCheckVarList.jet1_pt_       =  (n_jets_ >= 1)  ? SelJetVect_PtSorted[0]->pt()      : -999;
+        MyCheckVarList.jet1_eta_      =  (n_jets_ >= 1)  ? SelJetVect_PtSorted[0]->eta()     : -999;
+        MyCheckVarList.jet1_phi_      =  (n_jets_ >= 1)  ? SelJetVect_PtSorted[0]->phi()     : -999;
+        MyCheckVarList.jet1_energy_   =  (n_jets_ >= 1)  ? SelJetVect_PtSorted[0]->energy()  : -999;
+        MyCheckVarList.jet1_mass_     =  (n_jets_ >= 1)  ? SelJetVect_PtSorted[0]->mass()    : -999;
+        MyCheckVarList.jet1_btag_     =  (n_jets_ >= 1)  ? bDiscr_jets[0]                    : -999;
+        MyCheckVarList.jet2_pt_       =  (n_jets_ >= 2)  ? SelJetVect_PtSorted[1]->pt()      : -999;
+        MyCheckVarList.jet2_eta_      =  (n_jets_ >= 2)  ? SelJetVect_PtSorted[1]->eta()     : -999;
+        MyCheckVarList.jet2_phi_      =  (n_jets_ >= 2)  ? SelJetVect_PtSorted[1]->phi()     : -999;
+        MyCheckVarList.jet2_energy_   =  (n_jets_ >= 2)  ? SelJetVect_PtSorted[1]->energy()  : -999;
+        MyCheckVarList.jet2_mass_     =  (n_jets_ >= 2)  ? SelJetVect_PtSorted[1]->mass()    : -999;
+        MyCheckVarList.jet2_btag_     =  (n_jets_ >= 2)  ? bDiscr_jets[1]                    : -999;
+        MyCheckVarList.jet3_pt_       =  (n_jets_ >= 3)  ? SelJetVect_PtSorted[2]->pt()      : -999;
+        MyCheckVarList.jet3_eta_      =  (n_jets_ >= 3)  ? SelJetVect_PtSorted[2]->eta()     : -999;
+        MyCheckVarList.jet3_phi_      =  (n_jets_ >= 3)  ? SelJetVect_PtSorted[2]->phi()     : -999;
+        MyCheckVarList.jet3_energy_   =  (n_jets_ >= 3)  ? SelJetVect_PtSorted[2]->energy()  : -999;
+        MyCheckVarList.jet3_mass_     =  (n_jets_ >= 3)  ? SelJetVect_PtSorted[2]->mass()    : -999;
+        MyCheckVarList.jet3_btag_     =  (n_jets_ >= 3)  ? bDiscr_jets[2]                    : -999;
+        MyCheckVarList.jet4_pt_       =  (n_jets_ >= 4)  ? SelJetVect_PtSorted[3]->pt()      : -999;
+        MyCheckVarList.jet4_eta_      =  (n_jets_ >= 4)  ? SelJetVect_PtSorted[3]->eta()     : -999;
+        MyCheckVarList.jet4_phi_      =  (n_jets_ >= 4)  ? SelJetVect_PtSorted[3]->phi()     : -999;
+        MyCheckVarList.jet4_energy_   =  (n_jets_ >= 4)  ? SelJetVect_PtSorted[3]->energy()  : -999;
+        MyCheckVarList.jet4_mass_     =  (n_jets_ >= 4)  ? SelJetVect_PtSorted[3]->mass()    : -999;
+        MyCheckVarList.jet4_btag_     =  (n_jets_ >= 4)  ? bDiscr_jets[3]                    : -999;
+        MyCheckVarList.jet5_pt_       =  (n_jets_ >= 5)  ? SelJetVect_PtSorted[4]->pt()      : -999;
+        MyCheckVarList.jet5_eta_      =  (n_jets_ >= 5)  ? SelJetVect_PtSorted[4]->eta()     : -999;
+        MyCheckVarList.jet5_phi_      =  (n_jets_ >= 5)  ? SelJetVect_PtSorted[4]->phi()     : -999;
+        MyCheckVarList.jet5_energy_   =  (n_jets_ >= 5)  ? SelJetVect_PtSorted[4]->energy()  : -999;
+        MyCheckVarList.jet5_mass_     =  (n_jets_ >= 5)  ? SelJetVect_PtSorted[4]->mass()    : -999;
+        MyCheckVarList.jet5_btag_     =  (n_jets_ >= 5)  ? bDiscr_jets[4]                    : -999;
+        MyCheckVarList.jet6_pt_       =  (n_jets_ >= 6)  ? SelJetVect_PtSorted[5]->pt()      : -999;
+        MyCheckVarList.jet6_eta_      =  (n_jets_ >= 6)  ? SelJetVect_PtSorted[5]->eta()     : -999;
+        MyCheckVarList.jet6_phi_      =  (n_jets_ >= 6)  ? SelJetVect_PtSorted[5]->phi()     : -999;
+        MyCheckVarList.jet6_energy_   =  (n_jets_ >= 6)  ? SelJetVect_PtSorted[5]->energy()  : -999;
+        MyCheckVarList.jet6_mass_     =  (n_jets_ >= 6)  ? SelJetVect_PtSorted[5]->mass()    : -999;
+        MyCheckVarList.jet6_btag_     =  (n_jets_ >= 6)  ? bDiscr_jets[5]                    : -999;
+        MyCheckVarList.jet7_pt_       =  (n_jets_ >= 7)  ? SelJetVect_PtSorted[6]->pt()      : -999;
+        MyCheckVarList.jet7_eta_      =  (n_jets_ >= 7)  ? SelJetVect_PtSorted[6]->eta()     : -999;
+        MyCheckVarList.jet7_phi_      =  (n_jets_ >= 7)  ? SelJetVect_PtSorted[6]->phi()     : -999;
+        MyCheckVarList.jet7_energy_   =  (n_jets_ >= 7)  ? SelJetVect_PtSorted[6]->energy()  : -999;
+        MyCheckVarList.jet7_mass_     =  (n_jets_ >= 7)  ? SelJetVect_PtSorted[6]->mass()    : -999;
+        MyCheckVarList.jet7_btag_     =  (n_jets_ >= 7)  ? bDiscr_jets[6]                    : -999;
+        MyCheckVarList.jet8_pt_       =  (n_jets_ >= 8)  ? SelJetVect_PtSorted[7]->pt()      : -999;
+        MyCheckVarList.jet8_eta_      =  (n_jets_ >= 8)  ? SelJetVect_PtSorted[7]->eta()     : -999;
+        MyCheckVarList.jet8_phi_      =  (n_jets_ >= 8)  ? SelJetVect_PtSorted[7]->phi()     : -999;
+        MyCheckVarList.jet8_energy_   =  (n_jets_ >= 8)  ? SelJetVect_PtSorted[7]->energy()  : -999;
+        MyCheckVarList.jet8_mass_     =  (n_jets_ >= 8)  ? SelJetVect_PtSorted[7]->mass()    : -999;
+        MyCheckVarList.jet8_btag_     =  (n_jets_ >= 8)  ? bDiscr_jets[7]                    : -999;
+        MyCheckVarList.jet9_pt_       =  (n_jets_ >= 9)  ? SelJetVect_PtSorted[8]->pt()      : -999;
+        MyCheckVarList.jet9_eta_      =  (n_jets_ >= 9)  ? SelJetVect_PtSorted[8]->eta()     : -999;
+        MyCheckVarList.jet9_phi_      =  (n_jets_ >= 9)  ? SelJetVect_PtSorted[8]->phi()     : -999;
+        MyCheckVarList.jet9_energy_   =  (n_jets_ >= 9)  ? SelJetVect_PtSorted[8]->energy()  : -999;
+        MyCheckVarList.jet9_mass_     =  (n_jets_ >= 9)  ? SelJetVect_PtSorted[8]->mass()    : -999;
+        MyCheckVarList.jet9_btag_     =  (n_jets_ >= 9)  ? bDiscr_jets[8]                    : -999;
+        MyCheckVarList.jet10_pt_      =  (n_jets_ >= 10) ? SelJetVect_PtSorted[9]->pt()      : -999;
+        MyCheckVarList.jet10_eta_     =  (n_jets_ >= 10) ? SelJetVect_PtSorted[9]->eta()     : -999;
+        MyCheckVarList.jet10_phi_     =  (n_jets_ >= 10) ? SelJetVect_PtSorted[9]->phi()     : -999;
+        MyCheckVarList.jet10_energy_  =  (n_jets_ >= 10) ? SelJetVect_PtSorted[9]->energy()  : -999;
+        MyCheckVarList.jet10_mass_    =  (n_jets_ >= 10) ? SelJetVect_PtSorted[9]->mass()    : -999;
+        MyCheckVarList.jet10_btag_    =  (n_jets_ >= 10) ? bDiscr_jets[9]                    : -999;
+        MyCheckVarList.jet11_pt_      =  (n_jets_ >= 11) ? SelJetVect_PtSorted[10]->pt()     : -999;
+        MyCheckVarList.jet11_eta_     =  (n_jets_ >= 11) ? SelJetVect_PtSorted[10]->eta()    : -999;
+        MyCheckVarList.jet11_phi_     =  (n_jets_ >= 11) ? SelJetVect_PtSorted[10]->phi()    : -999;
+        MyCheckVarList.jet11_energy_  =  (n_jets_ >= 11) ? SelJetVect_PtSorted[10]->energy() : -999;
+        MyCheckVarList.jet11_mass_    =  (n_jets_ >= 11) ? SelJetVect_PtSorted[10]->mass()   : -999;
+        MyCheckVarList.jet11_btag_    =  (n_jets_ >= 11) ? bDiscr_jets[10]                   : -999;
+        MyCheckVarList.jet12_pt_      =  (n_jets_ >= 12) ? SelJetVect_PtSorted[11]->pt()     : -999;
+        MyCheckVarList.jet12_eta_     =  (n_jets_ >= 12) ? SelJetVect_PtSorted[11]->eta()    : -999;
+        MyCheckVarList.jet12_phi_     =  (n_jets_ >= 12) ? SelJetVect_PtSorted[11]->phi()    : -999;
+        MyCheckVarList.jet12_energy_  =  (n_jets_ >= 12) ? SelJetVect_PtSorted[11]->energy() : -999;
+        MyCheckVarList.jet12_mass_    =  (n_jets_ >= 12) ? SelJetVect_PtSorted[11]->mass()   : -999;
+        MyCheckVarList.jet12_btag_    =  (n_jets_ >= 12) ? bDiscr_jets[11]                   : -999;
+        MyCheckVarList.jet13_pt_      =  (n_jets_ >= 13) ? SelJetVect_PtSorted[12]->pt()     : -999;
+        MyCheckVarList.jet13_eta_     =  (n_jets_ >= 13) ? SelJetVect_PtSorted[12]->eta()    : -999;
+        MyCheckVarList.jet13_phi_     =  (n_jets_ >= 13) ? SelJetVect_PtSorted[12]->phi()    : -999;
+        MyCheckVarList.jet13_energy_  =  (n_jets_ >= 13) ? SelJetVect_PtSorted[12]->energy() : -999;
+        MyCheckVarList.jet13_mass_    =  (n_jets_ >= 13) ? SelJetVect_PtSorted[12]->mass()   : -999;
+        MyCheckVarList.jet13_btag_    =  (n_jets_ >= 13) ? bDiscr_jets[12]                   : -999;
+        MyCheckVarList.jet14_pt_      =  (n_jets_ >= 14) ? SelJetVect_PtSorted[13]->pt()     : -999;
+        MyCheckVarList.jet14_eta_     =  (n_jets_ >= 14) ? SelJetVect_PtSorted[13]->eta()    : -999;
+        MyCheckVarList.jet14_phi_     =  (n_jets_ >= 14) ? SelJetVect_PtSorted[13]->phi()    : -999;
+        MyCheckVarList.jet14_energy_  =  (n_jets_ >= 14) ? SelJetVect_PtSorted[13]->energy() : -999;
+        MyCheckVarList.jet14_mass_    =  (n_jets_ >= 14) ? SelJetVect_PtSorted[13]->mass()   : -999;
+        MyCheckVarList.jet14_btag_    =  (n_jets_ >= 14) ? bDiscr_jets[13]                   : -999;
+        MyCheckVarList.jet15_pt_      =  (n_jets_ >= 15) ? SelJetVect_PtSorted[14]->pt()     : -999;
+        MyCheckVarList.jet15_eta_     =  (n_jets_ >= 15) ? SelJetVect_PtSorted[14]->eta()    : -999;
+        MyCheckVarList.jet15_phi_     =  (n_jets_ >= 15) ? SelJetVect_PtSorted[14]->phi()    : -999;
+        MyCheckVarList.jet15_energy_  =  (n_jets_ >= 15) ? SelJetVect_PtSorted[14]->energy() : -999;
+        MyCheckVarList.jet15_mass_    =  (n_jets_ >= 15) ? SelJetVect_PtSorted[14]->mass()   : -999;
+        MyCheckVarList.jet15_btag_    =  (n_jets_ >= 15) ? bDiscr_jets[14]                   : -999;
+//}}}
+
+        // init mva scores correspond to bkg
+        double raw_score_nrb = -1.;
+        double raw_score_smh = -1.;
+        double mva_value_nrb =  0.;
+        double mva_value_smh =  0.;
+
         if(use_MVAs_) {
-            tprimeTagger_nrb->addDiphoton(dipho->pt(), dipho->eta(), dipho->phi(), dipho->mass());
-            tprimeTagger_nrb->addPhoton(dipho->leadingPhoton()->pt(), dipho->leadingPhoton()->eta(), dipho->leadingPhoton()->phi(), 0., dipho_leadIDMVA_);
-            tprimeTagger_nrb->addPhoton(dipho->subLeadingPhoton()->pt(), dipho->subLeadingPhoton()->eta(), dipho->subLeadingPhoton()->phi(), 0., dipho_subleadIDMVA_);
-            tprimeTagger_nrb->addPhotonPixelSeed(dipho_lead_haspixelseed_, dipho_sublead_haspixelseed_);
-            //tprimeTagger_nrb->addNbjets((float) BJetVect.size());
-            tprimeTagger_nrb->addNbjets((float) LooseBJetVect.size());
-            tprimeTagger_nrb->addHt(ht);
-            tprimeTagger_nrb->addDiPho_pt(dipho->pt());
-            tprimeTagger_nrb->addMet(theMET->getCorPt());
-            mva_value_nrb = tprimeTagger_nrb->EvalMVA();
-            mva_value_nrb_raw = tprimeTagger_nrb->get_raw_score();
-
-            tprimeTagger_smh->addDiphoton(dipho->pt(), dipho->eta(), dipho->phi(), dipho->mass());
-            tprimeTagger_smh->addPhoton(dipho->leadingPhoton()->pt(), dipho->leadingPhoton()->eta(), dipho->leadingPhoton()->phi(), 0., dipho_leadIDMVA_);
-            tprimeTagger_smh->addPhoton(dipho->subLeadingPhoton()->pt(), dipho->subLeadingPhoton()->eta(), dipho->subLeadingPhoton()->phi(), 0., dipho_subleadIDMVA_);
-            tprimeTagger_smh->addPhotonPixelSeed(dipho_lead_haspixelseed_, dipho_sublead_haspixelseed_);
-            //tprimeTagger_smh->addNbjets((float) BJetVect.size());
-            tprimeTagger_smh->addNbjets((float) LooseBJetVect.size());
-            tprimeTagger_smh->addHt(ht);
-            tprimeTagger_smh->addDiPho_pt(dipho->pt());
-            tprimeTagger_smh->addMet(theMET->getCorPt());
-            mva_value_smh = tprimeTagger_smh->EvalMVA();
-            mva_value_smh_raw = tprimeTagger_smh->get_raw_score();
+            raw_score_nrb = tprimeTagger_nrb->evaluate("BDTG", MVAvarList);
+            mva_value_nrb = tprimeTagger_nrb->convert_tmva_to_prob(raw_score_nrb);
+            raw_score_smh = tprimeTagger_smh->evaluate("BDTG", MVAvarList);
+            mva_value_smh = tprimeTagger_smh->convert_tmva_to_prob(raw_score_smh);
         }
 
+        //tprimeTagger_nrb->print_details( MVAvarList );
+        //tprimeTagger_nrb->print_details( tprimeTagger_nrb->varList_ );
         //----------------------------------------------------------------------------------------------------
-        // Consistency check  last update: 19.05.2021
+        // Consistency check  last update: 31.05.2021, 19.05.2021
         //----------------------------------------------------------------------------------------------------
-        bool do_consistency_check = true;
+        bool print_jet_info = false;
+        if(print_jet_info)
+        {
+            tprimeTagger_nrb->print_details_jets( MyCheckVarList );
+        }
+
+        bool do_consistency_check = false;
         if(do_consistency_check)
         {
-            float lead_eta_ = dipho->leadingPhoton()->eta();
-            float sublead_eta_ = dipho->subLeadingPhoton()->eta();
-            float lead_phi_ = dipho->leadingPhoton()->phi();
-            float sublead_phi_ = dipho->subLeadingPhoton()->phi();
-
+            // printf format
             printf("[check] diphoIndex = %d/%d\n", diphoIndex, diPhotons->size());
-            printf("%s: %8.7f, "  , "diphoton_mass_                                     "             , dipho->mass()                                                                );
-            printf("%s: %8.7f, \n"  , "diphoton_pt_                                     "               , dipho->pt()                                                                  );
-            cout<<                    "[CHECK in COUT]diphoton_pt in Producer           =" <<dipho->pt()<<endl;
-            cout<<                    "[CHECK in COUT]diphoton_mass in Producer           =" <<dipho->mass()<<endl;
-/*            printf("%s: %8.6f, "  , "maxIDMVA_"                  , maxPhoID_                                                                    );
-            printf("%s: %8.6f, "  , "minIDMVA_"                  , minPhoID_                                                                    );
-            printf("%s: %8.6f, "  , "max1_btag_"                 , maxBTagVal_                                                                  );
-            printf("%s: %8.6f, "  , "max2_btag_"                 , secondMaxBTagVal_                                                            );
-            printf("%s: %8.6f, "  , "dipho_delta_R"              , deltaR(lead_eta_, lead_phi_, sublead_eta_, sublead_phi_)                     );
-            printf("%s: %8.6f, "  , "njets_"                     , n_jets_                                                                      );
-            printf("%s: %8.6f, "  , "nbjets_"                    , (float) LooseBJetVect.size()                                                 );
-            printf("%s: %8.4f, "  , "ht_"                        , ht                                                                           );
-            printf("%s: %8.6f, "  , "leadptoM_"                  , dipho->leadingPhoton()->pt() / dipho->mass()                                 );
-            printf("%s: %8.6f, "  , "subleadptoM_"               , dipho->subLeadingPhoton()->pt() / dipho->mass()                              );
-            printf("%s: %8.6f, "  , "lead_eta_"                  , dipho->leadingPhoton()->eta()                                                );
-            printf("%s: %8.6f, "  , "sublead_eta_"               , dipho->subLeadingPhoton()->eta()                                             );
-            printf("%s: %8.6f, "  , "jet1_ptOverM_"              , jet1_pt_ / tprimeTagger_nrb->get_top_mass()                                  );
-            printf("%s: %8.6f, "  , "jet1_pt_"                   , jet1_pt_                                                                     );
-            printf("%s: %8.6f, "  , "jet1_eta_"                  , jet1_eta_                                                                    );
-            printf("%s: %8.6f, "  , "jet1_phi_"                  , jet1_phi_                                                                    );
-            printf("%s: %8.6f, "  , "jet1_mass_"                 , jet1_mass_                                                                   ); //std::cout << "jet1_mass_: " << jet1_mass_ << ", ";
-            printf("%s: %8.5f, "  , "jet1_energy_"               , jet1_energy_                                                                 );
-            printf("%s: %8.6f, "  , "jet1_btag_"                 , jet1_discr_                                                                  );
-            printf("%s: %8.6f, "  , "jet2_ptOverM_"              , jet2_pt_ / tprimeTagger_nrb->get_top_mass()                                  );
-            printf("%s: %8.6f, "  , "jet2_pt_"                   , jet2_pt_                                                                     );
-            printf("%s: %8.6f, "  , "jet2_eta_"                  , jet2_eta_                                                                    );
-            printf("%s: %8.6f, "  , "jet2_phi_"                  , jet2_phi_                                                                    );
-            printf("%s: %8.6f, "  , "jet2_mass_"                 , jet2_mass_                                                                   ); //std::cout << "jet2_mass_: " << jet2_mass_ << ", ";
-            printf("%s: %8.5f, "  , "jet2_energy_"               , jet2_energy_                                                                 );
-            printf("%s: %8.6f, "  , "jet2_btag_"                 , jet2_discr_                                                                  );
-            printf("%s: %8.6f, "  , "jet3_ptOverM_"              , jet3_pt_ / tprimeTagger_nrb->get_top_mass()                                  );
-            printf("%s: %8.6f, "  , "jet3_pt_"                   , jet3_pt_                                                                     );
-            printf("%s: %8.6f, "  , "jet3_eta_"                  , jet3_eta_                                                                    );
-            printf("%s: %8.6f, "  , "jet3_phi_"                  , jet3_phi_                                                                    );
-            printf("%s: %8.6f, "  , "jet3_mass_"                 , jet3_mass_                                                                   ); //std::cout << "jet3_mass_: " << jet3_mass_ << ", ";
-            printf("%s: %8.5f, "  , "jet3_energy_"               , jet3_energy_                                                                 );
-            printf("%s: %8.6f, "  , "jet3_btag_"                 , jet3_discr_                                                                  );
-            printf("%s: %8.6f, "  , "jet4_ptOverM_"              , jet4_pt_ / tprimeTagger_nrb->get_top_mass()                                  );
-            printf("%s: %8.6f, "  , "jet4_pt_"                   , jet4_pt_                                                                     );
-            printf("%s: %8.6f, "  , "jet4_eta_"                  , jet4_eta_                                                                    );
-            printf("%s: %8.6f, "  , "jet4_phi_"                  , jet4_phi_                                                                    );
-            printf("%s: %8.6f, "  , "jet4_mass_"                 , jet4_mass_                                                                   ); //std::cout << "jet4_mass_: " << jet4_mass_ << ", ";
-            printf("%s: %8.5f, "  , "jet4_energy_"               , jet4_energy_                                                                 );
-            printf("%s: %8.6f, "  , "jet4_btag_"                 , jet4_discr_                                                                  );
-            printf("%s: %8.6f, "  , "leadPSV_"                   , dipho_lead_haspixelseed_                                                     );
-            printf("%s: %8.6f, "  , "subleadPSV_"                , dipho_sublead_haspixelseed_                                                  );
-            printf("%s: %8.6f, "  , "dipho_cosphi_"              , abs(TMath::Cos(dipho->leadingPhoton()->phi() - dipho->subLeadingPhoton()->phi())) );
-            printf("%s: %8.6f, "  , "dipho_rapidity_"            , tprimeTagger_nrb->get_dipho_rapidity()                                       );
-            printf("%s: %8.5f, "  , "met_"                       , theMET->getCorPt()                                                           );
-            printf("%s: %8.6f, "  , "dipho_pt_over_mass_"        , dipho->pt() / dipho->mass()                                                  );
-            printf("%s: %8.6f, "  , "helicity_angle_"            , tprimeTagger_nrb->get_helicity_angle()                                       );
-            printf("%s: %8.6f, "  , "chi2_value_"                , tprimeTagger_nrb->get_chi2_value()                                           );
-            printf("%s: %8.6f, "  , "chi2_bjet_ptOverM_"         , tprimeTagger_nrb->get_chi2_bjet_ptOverM()                                    );
-            printf("%s: %8.6f, "  , "chi2_bjet_pt_"              , tprimeTagger_nrb->get_chi2_bjet_pt()                                         );
-            printf("%s: %8.6f, "  , "chi2_bjet_eta_"             , tprimeTagger_nrb->get_chi2_bjet_eta()                                        );
-            printf("%s: %8.6f, "  , "chi2_bjet_phi_"             , tprimeTagger_nrb->get_chi2_bjet_phi()                                        );
-            printf("%s: %8.6f, "  , "chi2_bjet_mass_"            , tprimeTagger_nrb->get_chi2_bjet_mass()                                       ); //std::cout << "chi2_bjet_mass_: " << tprimeTagger_nrb->get_chi2_bjet_mass() << ", ";
-            printf("%s: %8.5f, "  , "chi2_bjet_energy_"          , tprimeTagger_nrb->get_chi2_bjet_energy()                                     );
-            printf("%s: %8.6f, "  , "chi2_bjet_btagScores_"      , tprimeTagger_nrb->get_chi2_bjet_btagScores()                                 );
-            printf("%s: %8.6f, "  , "chi2_wjet1_ptOverM_"        , tprimeTagger_nrb->get_chi2_wjet1_ptOverM()                                   );
-            printf("%s: %8.6f, "  , "chi2_wjet1_pt_"             , tprimeTagger_nrb->get_chi2_wjet1_pt()                                        );
-            printf("%s: %8.6f, "  , "chi2_wjet1_eta_"            , tprimeTagger_nrb->get_chi2_wjet1_eta()                                       );
-            printf("%s: %8.6f, "  , "chi2_wjet1_phi_"            , tprimeTagger_nrb->get_chi2_wjet1_phi()                                       );
-            printf("%s: %8.6f, "  , "chi2_wjet1_mass_"           , tprimeTagger_nrb->get_chi2_wjet1_mass()                                      ); //std::cout << "chi2_wjet1_mass_: " << tprimeTagger_nrb->get_chi2_wjet1_mass() << ", ";
-            printf("%s: %8.5f, "  , "chi2_wjet1_energy_"         , tprimeTagger_nrb->get_chi2_wjet1_energy()                                    );
-            printf("%s: %8.6f, "  , "chi2_wjet1_btagScores_"     , tprimeTagger_nrb->get_chi2_wjet1_btagScores()                                );
-            printf("%s: %8.6f, "  , "chi2_wjet2_ptOverM_"        , tprimeTagger_nrb->get_chi2_wjet2_ptOverM()                                   );
-            printf("%s: %8.6f, "  , "chi2_wjet2_pt_"             , tprimeTagger_nrb->get_chi2_wjet2_pt()                                        );
-            printf("%s: %8.6f, "  , "chi2_wjet2_eta_"            , tprimeTagger_nrb->get_chi2_wjet2_eta()                                       );
-            printf("%s: %8.6f, "  , "chi2_wjet2_phi_"            , tprimeTagger_nrb->get_chi2_wjet2_phi()                                       );
-            printf("%s: %8.6f, "  , "chi2_wjet2_mass_"           , tprimeTagger_nrb->get_chi2_wjet2_mass()                                      ); //std::cout << "chi2_wjet2_mass_: " << tprimeTagger_nrb->get_chi2_wjet2_mass() << ", ";
-            printf("%s: %8.5f, "  , "chi2_wjet2_energy_"         , tprimeTagger_nrb->get_chi2_wjet2_energy()                                    );
-            printf("%s: %8.6f, "  , "chi2_wjet2_btagScores_"     , tprimeTagger_nrb->get_chi2_wjet2_btagScores()                                );
-            printf("%s: %8.6f, "  , "chi2_wjets_deltaR_"         , tprimeTagger_nrb->get_chi2_wjets_deltaR()                                    );
-            printf("%s: %8.6f, "  , "chi2_wboson_ptOverM_"       , tprimeTagger_nrb->get_chi2_wboson_ptOverM()                                  );
-            printf("%s: %8.6f, "  , "chi2_wboson_eta_"           , tprimeTagger_nrb->get_chi2_wboson_eta()                                      );
-            printf("%s: %8.5f, "  , "chi2_wboson_mass_"          , tprimeTagger_nrb->get_chi2_wboson_mass()                                     );
-            printf("%s: %8.6f, "  , "chi2_wboson_deltaR_bjet_"   , tprimeTagger_nrb->get_chi2_wboson_deltaR_bjet()                              );
-            printf("%s: %8.4f, "  , "chi2_tbw_mass_"             , tprimeTagger_nrb->get_top_mass()                                             );
-            printf("%s: %8.6f, "  , "chi2_tbw_ptOverM_"          , tprimeTagger_nrb->get_chi2_tbw_ptOverM()                                     );
-            printf("%s: %8.6f, "  , "chi2_tbw_eta_"              , tprimeTagger_nrb->get_chi2_tbw_eta()                                         );
-            printf("%s: %8.6f, "  , "chi2_tbw_phi_"              , tprimeTagger_nrb->get_chi2_tbw_phi()                                         );
-            printf("%s: %8.6f, "  , "chi2_tbw_deltaR_dipho_"     , tprimeTagger_nrb->get_chi2_tbw_deltaR_dipho()                                );
-            printf("%s: %8.6f, "  , "chi2_tprime_ptOverM_"       , tprimeTagger_nrb->get_chi2_tprime_ptOverM()                                  );
-            printf("%s: %8.6f, "  , "chi2_tprime_eta_"           , tprimeTagger_nrb->get_chi2_tprime_eta()                                      );
-            printf("%s: %8.6f, "  , "chi2_tprime_deltaR_tbw_"    , tprimeTagger_nrb->get_chi2_tprime_deltaR_tbw()                               );
-            printf("%s: %8.6f, "  , "chi2_tprime_deltaR_dipho_"  , tprimeTagger_nrb->get_chi2_tprime_deltaR_dipho()                             );
-            printf("%s: %8.6f, "  , "tprime_pt_ratio_"           , tprimeTagger_nrb->get_tprime_pt_ratio()                                      );
-            printf("%s: %8.6f, "  , "helicity_tprime_"           , tprimeTagger_nrb->get_helicity_tprime()                                      );
-            printf("%s: %8.6f, "  , "score_raw_"                 , tprimeTagger_nrb->get_raw_score()                                            );
-            printf("%s: %8.6f, "  , "score_"                     , mva_value_nrb                                                                );
-            // further check
-            TLorentzVector top = tprimeTagger_nrb->get_top_quark();
-            TLorentzVector my_dipho; my_dipho.SetPtEtaPhiM(dipho->pt(), dipho->eta(), dipho->phi(), dipho->mass());
-            printf("%s: %8.4f , " , "[TLorentzVector] my_dipho pt"            , my_dipho.Pt()                                    );
-            printf("%s: %8.6f , " , "[TLorentzVector] my_dipho eta"           , my_dipho.Eta()                                   );
-            printf("%s: %8.6f , " , "[TLorentzVector] my_dipho phi"           , my_dipho.Phi()                                   );
-            printf("%s: %8.4f , " , "[TLorentzVector] my_dipho mass"          , my_dipho.M()                                     );
-            printf("%s: %8.4f , " , "[TLorentzVector] top pt"                 , top.Pt()                                         );
-            printf("%s: %8.6f , " , "[TLorentzVector] top eta"                , top.Eta()                                        );
-            printf("%s: %8.6f , " , "[TLorentzVector] top phi"                , top.Phi()                                        );
-            printf("%s: %8.4f , " , "[TLorentzVector] top mass"               , top.M()                                          );
-            printf("%s: %8.6f , " , "[TLorentzVector] chi2_tbw_deltaR_dipho_" , top.DeltaR(my_dipho)                             );
-            printf("%s: %8.6f , " , "[TLorentzVector] helicity_tprime_"       , thq_helicity(top, my_dipho)                      );
- */           printf("\n\n");
+            printf("%s: %.10f , " , "diphoton_mass_"           , dipho->mass()                );
+            printf("%s: %.10f , " , "diphoton_pt_"             , dipho->pt()                  );
+            tprimeTagger_nrb->print_details( MVAvarList );
+            printf("%s: %.10f , " , "score_raw_nrb_"           , raw_score_nrb                );
+            printf("%s: %.10f , " , "score_nrb_"               , mva_value_nrb                );
+            printf("%s: %.10f , " , "score_raw_smh_"           , raw_score_smh                );
+            printf("%s: %.10f , " , "score_smh_"               , mva_value_smh                );
+            printf("\n\n");
 
-            //----------------------------------------------------------------------------------------------------
-            // Debug: Monitor consistency of # jets
-            //----------------------------------------------------------------------------------------------------
-            bool is_consistent = tprimeTagger_nrb->set_alarm_njets_inconsistency(n_jets_);
-            if(!is_consistent)
-            {
-                printf(">>>>> jets in producer:\n");
-                for(std::size_t i=0; i<n_jets_; ++i)
-                {
-                    printf("idx = %lu, ", i);
-                    printf("pt= %f, ", SelJetVect[i]->pt());
-                    printf("eta = %f, ", SelJetVect[i]->eta());
-                    printf("deepcsv = %f, ", SelJetVect[i]->bDiscriminator("pfDeepCSVJetTags:probb") + SelJetVect[i]->bDiscriminator("pfDeepCSVJetTags:probbb"));
-                    printf("\n");
-                }
-                printf("\n");
-            }
+            // print jets info
+            tprimeTagger_nrb->print_details_more( MyCheckVarList );
+            printf("\n\n");
 
+            // cout format
+            std::cout << "diphoton_mass_: " << dipho->mass() << ", ";
+            std::cout << "diphoton_pt_: "   << dipho->pt()   << ", ";
+            tprimeTagger_nrb->print_details_cout( MVAvarList );
+            std::cout << "score_raw_nrb_: " << raw_score_nrb << ", ";
+            std::cout << "score_nrb_: "     << mva_value_nrb << ", ";
+            std::cout << "score_raw_smh_: " << raw_score_smh << ", ";
+            std::cout << "score_smh_: "     << mva_value_smh << ", ";
+            printf("\n\n");
+
+            printf("\n\n");
             printf("----------------------------------------------------------------------------------------------------\n\n");
         } // end of consistency check
 
-
-        if(use_MVAs_)
-        {
-            tprimeTagger_nrb->clear();
-            tprimeTagger_smh->clear();
-        }
-
-
         //----------------------------------------------------------------------------------------------------
-
+        // Selection on BDT scorers
+        //----------------------------------------------------------------------------------------------------
         // select events that pass specified bdt scores
-//        if(mva_value_nrb < 0.58) continue;
-//        if(mva_value_smh < 0.814) continue;
+        if(mva_value_nrb < 0.530) continue;
+        if(mva_value_smh < 0.828) continue;
 
         /*---------------------------------------------------------------------------------------
         # Evaluate MVA
@@ -1009,42 +1108,19 @@ void THQHadronicTagProducer::produce( Event &evt, const EventSetup & )
         catnum = chooseCategory( mvares->result );
         catnum = chooseCategory( idmva1, idmva2 );
         ---------------------------------------------------------------------------------------*/
-        if(debug_){
-            cout<<"jet1_eta_"<<jet1_eta_<<endl;
-            cout<<"jet2_eta_"<<jet2_eta_<<endl;
-            cout<<"jet3_eta_"<<jet3_eta_<<endl;
-            cout<<"jet4_eta_"<<jet4_eta_<<endl;
-            cout<<"jet1_pt_"<<jet1_pt_<<endl;
-            cout<<"jet2_pt_"<<jet2_pt_<<endl;
-            cout<<"jet3_pt_"<<jet3_pt_<<endl;
-            cout<<"jet4_pt_"<<jet4_pt_<<endl;
-            cout<<"jet1_discr_"<<jet1_discr_<<endl;
-            cout<<"jet2_discr_"<<jet2_discr_<<endl;
-            cout<<"jet3_discr_"<<jet3_discr_<<endl;
-            cout<<"jet4_discr_"<<jet4_discr_<<endl;
-            cout<<"bjet1_pt_"<<bjet1_pt_<<endl;
-            cout<<"bjet2_pt_"<<bjet2_pt_<<endl;
-            cout<<"bjet3_pt_"<<bjet3_pt_<<endl;
-            cout<<"bjet1_eta_"<<bjet1_eta_<<endl;
-            cout<<"bjet2_eta_"<<bjet2_eta_<<endl;
-            cout<<"bjet3_eta_"<<bjet3_eta_<<endl;
-            cout<<"bjet1_discr_"<<bjet1_discr_<<endl;
-            cout<<"bjet2_discr_"<<bjet2_discr_<<endl;
-            cout<<"bjet3_discr_"<<bjet3_discr_<<endl;
-            cout<<"fwdJet1_pt_= "<<fwdJet1_pt_<<endl;
-            cout<<"fwdJet1_pt_= "<<fwdJet1_eta_<<endl;
-            cout<<"fwdJet1_discr_= "<<fwdJet1_discr_<<endl;
-        }
-
-//-------------------------------------------------------------------------------------------------//
 
         thqhtags_obj.setHT(ht);
 
         if( photonSelection ) {
             thqhtags_obj.setMVAscore_nrb(mva_value_nrb);
             thqhtags_obj.setMVAscore_smh(mva_value_smh);
-            thqhtags_obj.setMVAscore_nrb_raw(mva_value_nrb_raw);
-            thqhtags_obj.setMVAscore_smh_raw(mva_value_smh_raw);
+            thqhtags_obj.setMVAscore_nrb_raw(raw_score_nrb);
+            thqhtags_obj.setMVAscore_smh_raw(raw_score_smh);
+
+            thqhtags_obj.setRecoMass_wboson(MVAvarList.chi2_wboson_mass_);
+            thqhtags_obj.setRecoMass_top(MVAvarList.chi2_tbw_mass_);
+            thqhtags_obj.setRecoMass_tprime(chi2_tprime_mass_);
+
             thqhtags_obj.setrho(rho_);
 
             //thqhtags_obj.setLeptonType(LeptonType);
@@ -1094,7 +1170,7 @@ void THQHadronicTagProducer::produce( Event &evt, const EventSetup & )
 
 
                     
-////------------------------------------ MC-Truth Info -----------------------------------------//
+//------------------------------------ MC-Truth Info -----------------------------------------//
             if ( ! evt.isRealData() ) {
                 evt.getByToken( genParticleToken_, genParticles );
                 evt.getByToken( genJetToken_, genJets );
@@ -1121,129 +1197,127 @@ void THQHadronicTagProducer::produce( Event &evt, const EventSetup & )
                 }
                 //----------------------------------------------------------------------------------------------------
             
-//
-//                //--- gen met ---//
-//                TLorentzVector nu_lorentzVector, allnus_LorentzVector, promptnus_LorentzVector;
-//
-//                for( unsigned int genLoop = 0 ; genLoop < genParticles->size(); genLoop++ ) {
-//                    edm::Ptr<reco::GenParticle> part = genParticles->ptrAt( genLoop );
-//                    bool fid_cut = (abs(part->eta())<5.0 && part->status()==1) ? 1 : 0;
-//                    bool isNu = (abs(part->pdgId())==12 || abs(part->pdgId())==14 || abs(part->pdgId())==16) ? 1 : 0;
-//                    if (!fid_cut || !isNu) continue;
-//                    if( part->isPromptFinalState() || part->isDirectPromptTauDecayProductFinalState()) {
-//                        nu_lorentzVector.SetPtEtaPhiE(  part->pt() , part->eta() , part->phi() , part->energy() );
-//                        promptnus_LorentzVector+=nu_lorentzVector;
-//                    }
-//                    else {
-//                        nu_lorentzVector.SetPtEtaPhiE(  part->pt() , part->eta() , part->phi() , part->energy() );
-//                        allnus_LorentzVector+=nu_lorentzVector;
-//                    }
-//                }
-//                thqhtags_obj.setMETPtEtaPhiE( "allPromptNus", promptnus_LorentzVector.Pt(), promptnus_LorentzVector.Eta(), promptnus_LorentzVector.Phi(), promptnus_LorentzVector.Energy() );
-//                thqhtags_obj.setMETPtEtaPhiE( "allNus", allnus_LorentzVector.Pt(), allnus_LorentzVector.Eta(), allnus_LorentzVector.Phi(), allnus_LorentzVector.Energy() );
-//                thqhtags_obj.setMETPtEtaPhiE( "genMetTrue", theMET->genMET()->pt(), theMET->genMET()->eta(), theMET->genMET()->phi(), theMET->genMET()->energy() );
-//                thqhtags_obj.setStage1recoTag( DiPhotonTagBase::stage1recoTag::RECO_THQ_LEP );
-//
-//                // MC truth matching
-//                std::vector<int> vec_pdgId_register;
-//                std::vector<int> vec_index_register;
-//                std::vector<double> vec_deltaR_register;
-//                std::vector<int> gens_pdgId;
-//                std::vector<int> gens_status;
-//                std::vector<double> gens_pt;
-//                std::vector<double> gens_eta;
-//                std::vector<double> gens_phi;
-//                std::vector<double> gens_mass;
-//                std::vector<int> moms_pdgId;
-//                std::vector<int> moms_status;
-//                std::vector<double> moms_pt;
-//                std::vector<double> moms_eta;
-//                std::vector<double> moms_phi;
-//                std::vector<double> moms_mass;
-//                int counter_num_gen_particles = 0;
-//                for( unsigned int genLoop = 0 ; genLoop < genParticles->size(); genLoop++ ) {
-//                    edm::Ptr<reco::GenParticle> part = genParticles->ptrAt( genLoop );
-//
-//                    const reco::GenParticle *mom = getMother( *part );
-//
-//                    bool fid_cut = ( abs(part->eta())<jetEtaThreshold_ ) ? 1 : 0;
-//                    bool status_cut = ( part->status()==22 || part->status()==23 ) ? 1 : 0; //22: intermediate state, 23: outgoing particles
-//                    if (!fid_cut || !status_cut) continue;
-//                    counter_num_gen_particles += 1;
-//
-//                    // store gen parton & mom kinematic info
-//                    gens_pdgId.push_back(part->pdgId());
-//                    gens_status.push_back(part->status());
-//                    gens_pt.push_back(part->pt());
-//                    gens_eta.push_back(part->eta());
-//                    gens_phi.push_back(part->phi());
-//                    gens_mass.push_back(part->mass());
-//
-//                    moms_pdgId.push_back(mom->pdgId());
-//                    moms_status.push_back(mom->status());
-//                    moms_pt.push_back(mom->pt());
-//                    moms_eta.push_back(mom->eta());
-//                    moms_phi.push_back(mom->phi());
-//                    moms_mass.push_back(mom->mass());
-//
-//                    // gen matching
-//                    std::vector<double> vec_deltaR;
-//	                for(unsigned int index = 0 ; index < SelJetVect_PtSorted.size(); index++){
-//                        edm::Ptr<reco::Jet> jet = SelJetVect_PtSorted[index];
-//                        double deltaR = sqrt( (jet->eta()-part->eta())*(jet->eta()-part->eta()) + (jet->phi()-part->phi())*(jet->phi()-part->phi()) );
-//                        vec_deltaR.push_back(deltaR);
-//                    }
-//                    std::vector<std::pair<int, double>> vec_deltaR_sorted = sortVector(vec_deltaR);
-//                    if(vec_deltaR_sorted[0].second > 0.4) continue;
-//                    vec_pdgId_register.push_back(part->pdgId());
-//                    vec_index_register.push_back(vec_deltaR_sorted[0].first);
-//                    vec_deltaR_register.push_back(vec_deltaR_sorted[0].second);
-//                }
-//
-//                printf("[check] counter_num_gen_particles = %d\n", counter_num_gen_particles);
-//
-//                unsigned int register_size = vec_deltaR_register.size();
-//                int    pdgId_jet0  = register_size > 0 ? vec_pdgId_register[0] : -1;
-//                int    pdgId_jet1  = register_size > 1 ? vec_pdgId_register[1] : -1;
-//                int    pdgId_jet2  = register_size > 2 ? vec_pdgId_register[2] : -1;
-//                int    index_jet0  = register_size > 0 ? vec_index_register[0] : -1;
-//                int    index_jet1  = register_size > 1 ? vec_index_register[1] : -1;
-//                int    index_jet2  = register_size > 2 ? vec_index_register[2] : -1;
-//                double deltaR_jet0 = register_size > 0 ? vec_deltaR_register[0] : -1.;
-//                double deltaR_jet1 = register_size > 1 ? vec_deltaR_register[1] : -1.;
-//                double deltaR_jet2 = register_size > 2 ? vec_deltaR_register[2] : -1.;
-//
-//                std::vector<int > jets_matched_pdgId = { pdgId_jet0, pdgId_jet1, pdgId_jet2 };
-//                std::vector<int > jets_matched_index = { index_jet0, index_jet1, index_jet2 };
-//                std::vector<double > jets_matched_deltaR = { deltaR_jet0, deltaR_jet1, deltaR_jet2 };
-//                thqhtags_obj.setMatchedPdgId  ( jets_matched_pdgId  );
-//                thqhtags_obj.setMatchedIndex  ( jets_matched_index  );
-//                thqhtags_obj.setMatchedDeltaR ( jets_matched_deltaR );
-//                thqhtags_obj.setGenPdgId      ( gens_pdgId          );
-//                thqhtags_obj.setGenStatus     ( gens_status         );
-//                thqhtags_obj.setGenPt         ( gens_pt             );
-//                thqhtags_obj.setGenEta        ( gens_eta            );
-//                thqhtags_obj.setGenPhi        ( gens_phi            );
-//                thqhtags_obj.setGenMass       ( gens_mass           );
-//                thqhtags_obj.setMomPdgId      ( moms_pdgId          );
-//                thqhtags_obj.setMomStatus     ( moms_status         );
-//                thqhtags_obj.setMomPt         ( moms_pt             );
-//                thqhtags_obj.setMomEta        ( moms_eta            );
-//                thqhtags_obj.setMomPhi        ( moms_phi            );
-//                thqhtags_obj.setMomMass       ( moms_mass           );
-            }
-////--------------------------------------------------------------------------------------------//
 
-            if (evt.isRealData()) {
+                //--- gen met ---//
+                TLorentzVector nu_lorentzVector, allnus_LorentzVector, promptnus_LorentzVector;
+
+                for( unsigned int genLoop = 0 ; genLoop < genParticles->size(); genLoop++ ) {
+                    edm::Ptr<reco::GenParticle> part = genParticles->ptrAt( genLoop );
+                    bool fid_cut = (abs(part->eta())<5.0 && part->status()==1) ? 1 : 0;
+                    bool isNu = (abs(part->pdgId())==12 || abs(part->pdgId())==14 || abs(part->pdgId())==16) ? 1 : 0;
+                    if (!fid_cut || !isNu) continue;
+                    if( part->isPromptFinalState() || part->isDirectPromptTauDecayProductFinalState()) {
+                        nu_lorentzVector.SetPtEtaPhiE(  part->pt() , part->eta() , part->phi() , part->energy() );
+                        promptnus_LorentzVector+=nu_lorentzVector;
+                    }
+                    else {
+                        nu_lorentzVector.SetPtEtaPhiE(  part->pt() , part->eta() , part->phi() , part->energy() );
+                        allnus_LorentzVector+=nu_lorentzVector;
+                    }
+                }
+                thqhtags_obj.setMETPtEtaPhiE( "allPromptNus", promptnus_LorentzVector.Pt(), promptnus_LorentzVector.Eta(), promptnus_LorentzVector.Phi(), promptnus_LorentzVector.Energy() );
+                thqhtags_obj.setMETPtEtaPhiE( "allNus", allnus_LorentzVector.Pt(), allnus_LorentzVector.Eta(), allnus_LorentzVector.Phi(), allnus_LorentzVector.Energy() );
+                thqhtags_obj.setMETPtEtaPhiE( "genMetTrue", theMET->genMET()->pt(), theMET->genMET()->eta(), theMET->genMET()->phi(), theMET->genMET()->energy() );
                 thqhtags_obj.setStage1recoTag( DiPhotonTagBase::stage1recoTag::RECO_THQ_LEP );
-                //thqhtags->push_back( thqhtags_obj ); //FIXME at next iteration!!
-            }
+
+                // MC truth matching
+                std::vector<int> vec_pdgId_register;
+                std::vector<int> vec_index_register;
+                std::vector<double> vec_deltaR_register;
+                std::vector<int> gens_pdgId;
+                std::vector<int> gens_status;
+                std::vector<double> gens_pt;
+                std::vector<double> gens_eta;
+                std::vector<double> gens_phi;
+                std::vector<double> gens_mass;
+                std::vector<int> moms_pdgId;
+                std::vector<int> moms_status;
+                std::vector<double> moms_pt;
+                std::vector<double> moms_eta;
+                std::vector<double> moms_phi;
+                std::vector<double> moms_mass;
+                int counter_num_gen_particles = 0;
+                for( unsigned int genLoop = 0 ; genLoop < genParticles->size(); genLoop++ ) {
+                    edm::Ptr<reco::GenParticle> part = genParticles->ptrAt( genLoop );
+
+                    const reco::GenParticle *mom = getMother( *part );
+
+                    bool fid_cut = ( abs(part->eta())<jetEtaThreshold_ ) ? 1 : 0;
+                    bool status_cut = ( part->status()==22 || part->status()==23 ) ? 1 : 0; //22: intermediate state, 23: outgoing particles
+                    if (!fid_cut || !status_cut) continue;
+                    counter_num_gen_particles += 1;
+
+                    // store gen parton & mom kinematic info
+                    gens_pdgId.push_back(part->pdgId());
+                    gens_status.push_back(part->status());
+                    gens_pt.push_back(part->pt());
+                    gens_eta.push_back(part->eta());
+                    gens_phi.push_back(part->phi());
+                    gens_mass.push_back(part->mass());
+
+                    moms_pdgId.push_back(mom->pdgId());
+                    moms_status.push_back(mom->status());
+                    moms_pt.push_back(mom->pt());
+                    moms_eta.push_back(mom->eta());
+                    moms_phi.push_back(mom->phi());
+                    moms_mass.push_back(mom->mass());
+
+                    // gen matching
+                    std::vector<double> vec_deltaR;
+	                for(unsigned int index = 0 ; index < SelJetVect_PtSorted.size(); index++){
+                        edm::Ptr<reco::Jet> jet = SelJetVect_PtSorted[index];
+                        double deltaR = sqrt( (jet->eta()-part->eta())*(jet->eta()-part->eta()) + (jet->phi()-part->phi())*(jet->phi()-part->phi()) );
+                        vec_deltaR.push_back(deltaR);
+                    }
+                    std::vector<std::pair<int, double>> vec_deltaR_sorted = sortVector(vec_deltaR);
+                    if(vec_deltaR_sorted[0].second > 0.4) continue;
+                    vec_pdgId_register.push_back(part->pdgId());
+                    vec_index_register.push_back(vec_deltaR_sorted[0].first);
+                    vec_deltaR_register.push_back(vec_deltaR_sorted[0].second);
+                }
+
+               if(debug) printf("[check] counter_num_gen_particles = %d\n", counter_num_gen_particles);
+
+                unsigned int register_size = vec_deltaR_register.size();
+                int    pdgId_jet0  = register_size > 0 ? vec_pdgId_register[0] : -1;
+                int    pdgId_jet1  = register_size > 1 ? vec_pdgId_register[1] : -1;
+                int    pdgId_jet2  = register_size > 2 ? vec_pdgId_register[2] : -1;
+                int    index_jet0  = register_size > 0 ? vec_index_register[0] : -1;
+                int    index_jet1  = register_size > 1 ? vec_index_register[1] : -1;
+                int    index_jet2  = register_size > 2 ? vec_index_register[2] : -1;
+                double deltaR_jet0 = register_size > 0 ? vec_deltaR_register[0] : -1.;
+                double deltaR_jet1 = register_size > 1 ? vec_deltaR_register[1] : -1.;
+                double deltaR_jet2 = register_size > 2 ? vec_deltaR_register[2] : -1.;
+
+                std::vector<int > jets_matched_pdgId = { pdgId_jet0, pdgId_jet1, pdgId_jet2 };
+                std::vector<int > jets_matched_index = { index_jet0, index_jet1, index_jet2 };
+                std::vector<double > jets_matched_deltaR = { deltaR_jet0, deltaR_jet1, deltaR_jet2 };
+                thqhtags_obj.setMatchedPdgId  ( jets_matched_pdgId  );
+                thqhtags_obj.setMatchedIndex  ( jets_matched_index  );
+                thqhtags_obj.setMatchedDeltaR ( jets_matched_deltaR );
+                thqhtags_obj.setGenPdgId      ( gens_pdgId          );
+                thqhtags_obj.setGenStatus     ( gens_status         );
+                thqhtags_obj.setGenPt         ( gens_pt             );
+                thqhtags_obj.setGenEta        ( gens_eta            );
+                thqhtags_obj.setGenPhi        ( gens_phi            );
+                thqhtags_obj.setGenMass       ( gens_mass           );
+                thqhtags_obj.setMomPdgId      ( moms_pdgId          );
+                thqhtags_obj.setMomStatus     ( moms_status         );
+                thqhtags_obj.setMomPt         ( moms_pt             );
+                thqhtags_obj.setMomEta        ( moms_eta            );
+                thqhtags_obj.setMomPhi        ( moms_phi            );
+                thqhtags_obj.setMomMass       ( moms_mass           );
+          }
+//--------------------------------------------------------------------------------------------//
+
+            if (evt.isRealData()) thqhtags_obj.setStage1recoTag( DiPhotonTagBase::stage1recoTag::RECO_THQ_LEP );
 
             thqhtags->push_back( thqhtags_obj );
 
         } else {
             if(false) std::cout << " THQHadronicTagProducer NO TAG " << std::endl;
         }// end of photon if-else statement
+
     }//diPho loop end !
     evt.put( std::move( thqhtags ) );
 }// end of THQHadronicTagProducer::produce

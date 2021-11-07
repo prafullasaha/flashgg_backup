@@ -521,11 +521,14 @@ namespace flashgg {
         if(!unbinnedSystematics_){
             if( nbins > 0 ) { 
                 rooVar.setBins( nbins );
+                rooVar.setMin( vmin );
+                rooVar.setMax( vmax );
             }
             if(nbins == -1){
                 rooVar.setMin( binning.at(0)  );
                 rooVar.setMax( binning.at(binning.size()-1) );
                 //            RooBinning* rooBinning = new RooBinning(int(binning.size()), &binning[0]);
+
                 //            rooVar.setBinning(*rooBinning);
                 RooBinning* rooBinning = new RooBinning(binning.at(0), binning.at(binning.size()-1));
                 for(int ib =1; ib< (int)binning.size()-1; ib++){
@@ -539,6 +542,7 @@ namespace flashgg {
         else{
             rooVar.setMin( vmin );
             rooVar.setMax( vmax );
+
         }
         
 

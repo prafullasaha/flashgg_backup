@@ -27,11 +27,20 @@ def flashggPrepareTagSequence(process, options):
         flashggGluGluHMVA.ggHMVAweightfile = cms.FileInPath(str(options["flashggGluGluHMVA"]["weightFile"]))
         flashggGluGluHMVA.JetIDLevel = cms.string(str(options["flashggGluGluHMVA"]["jetID"]))
 
-    flashggTHQLeptonicTag.MVAweight_tHqVsNonHiggsBkg = cms.FileInPath(str(options['THQLeptonicTag']['MVAweights_VsAllBkg']))
-    flashggTHQLeptonicTag.MVAThreshold_tHqVsNonHiggsBkg = cms.double(options['THQLeptonicTag']['MVAThreshold_VsAllBkg'])
-    flashggTHQLeptonicTag.MVAweight_tHqVsttHBDT = cms.FileInPath(str(options['THQLeptonicTag']['MVAweights_VsttH']))
-    flashggTHQLeptonicTag.MVAThreshold_tHqVsttHBDT = cms.double(options['THQLeptonicTag']['MVAThreshold_VsttH'])
+    if "flashggTHQLeptonicTag" in options:
+        print ">>> [Info] Taggers/python/flashggTagSequence_cfi.py: flashggTHQLeptonicTag is in options!"
+        flashggTHQLeptonicTag.bDiscriminator = cms.vdouble(options["flashggTHQLeptonicTag"]["btagDeepCSV"])
+        flashggTHQLeptonicTag.JetIDLevel = cms.string(str(options["flashggTHQLeptonicTag"]["jetID"]))
+    if "flashggTHQHadronicTag" in options:
+        print ">>> [Info] Taggers/python/flashggTagSequence_cfi.py: flashggTHQHadronicTag is in options!"
+        flashggTHQHadronicTag.bDiscriminator = cms.vdouble(options["flashggTHQHadronicTag"]["btagDeepCSV"])
+        flashggTHQHadronicTag.JetIDLevel = cms.string(str(options["flashggTHQHadronicTag"]["jetID"]))
 
+#    flashggTHQLeptonicTag.MVAweight_tHqVsNonHiggsBkg = cms.FileInPath(str(options['THQLeptonicTag']['MVAweights_VsAllBkg']))
+#    flashggTHQLeptonicTag.MVAThreshold_tHqVsNonHiggsBkg = cms.double(options['THQLeptonicTag']['MVAThreshold_VsAllBkg'])
+#    flashggTHQLeptonicTag.MVAweight_tHqVsttHBDT = cms.FileInPath(str(options['THQLeptonicTag']['MVAweights_VsttH']))
+#    flashggTHQLeptonicTag.MVAThreshold_tHqVsttHBDT = cms.double(options['THQLeptonicTag']['MVAThreshold_VsttH'])
+#
     flashggTagSequence = cms.Sequence(flashggDifferentialPhoIdInputsCorrection
                                       * flashggPrefireDiPhotons
                                       * flashggPreselectedDiPhotons
@@ -46,7 +55,8 @@ def flashggPrepareTagSequence(process, options):
                                           + flashggVBFTag
                                           + flashggTTHDiLeptonTag
                                           + flashggTTHLeptonicTag
-                      + flashggTHQLeptonicTag
+					                      + flashggTHQLeptonicTag
+										  + flashggTHQHadronicTag
 #                                     + flashggTTHHadronicTTag                                      
 #                                     + flashggTTHHadronicLTag                                      
                                           + flashggTTHHadronicTag

@@ -15,7 +15,7 @@ namespace flashgg {
         int idFlag;
     };
 
-    enum JetIDLevel {Loose=0, Tight=1, Tight2017=2, Tight2018=3};
+    enum JetIDLevel {Loose=0, Tight=1, Tight2017=2, Tight2018=3, UL1718=4};
     enum JetPuIdLevel {none=0, loose=1, medium=2, tight=3, mixed=4, forward_loose=5, forward_medium=6, forward_tight=7};
     
     class Jet : public pat::Jet, public WeightedObject

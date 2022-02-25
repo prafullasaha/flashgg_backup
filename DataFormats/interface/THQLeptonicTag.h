@@ -137,11 +137,20 @@ namespace flashgg {
         float getdEtaleptonfwdjet() const{
             return dEtaleptonfwdjet_;
         }
+        float getXtt0() const{
+            return Xtt0_;
+        }
         float gettop_mt() const{
             return top_mt_;
         }
         float gettop_mass() const{
             return top_mass_;
+        }
+        float getTprime_mt() const{
+            return Tprime_mt_;
+        }
+        float getTprime_mass() const{
+            return Tprime_mass_;
         }
         float getlepton_ch() const{
             return lepton_ch_;
@@ -261,6 +270,28 @@ namespace flashgg {
 
             return MET_E[findMETIndex(label)];
         }
+        float getMET_Px(string label) const{
+            int index = findMETIndex(label);
+            if(index < 0 )
+                return -100;
+
+            return MET_Px[findMETIndex(label)];
+        }
+        float getMET_Py(string label) const{
+            int index = findMETIndex(label);
+            if(index < 0 )
+                return -100;
+
+            return MET_Py[findMETIndex(label)];
+        }
+        float getMET_Pz(string label) const{
+            int index = findMETIndex(label);
+            if(index < 0 )
+                return -100;
+
+            return MET_Pz[findMETIndex(label)];
+        }
+
 
         const Ptr<reco::Vertex> getVertex( int vtx_index ) const {
             if(vtx_index < 0 ){
@@ -465,11 +496,20 @@ namespace flashgg {
         void setdEtaleptonfwdjet(float dEtaleptonfwdjet){
             dEtaleptonfwdjet_ = dEtaleptonfwdjet;
         }
+        void setXtt0(float Xtt0){
+            Xtt0_ = Xtt0;
+        }
         void settop_mt(float top_mt){
             top_mt_ = top_mt;
         }
         void settop_mass(float top_mass){
             top_mass_ = top_mass;
+        }
+        void setTprime_mt(float Tprime_mt){
+            Tprime_mt_ = Tprime_mt;
+        }
+        void setTprime_mass(float Tprime_mass){
+            Tprime_mass_ = Tprime_mass;
         }
         void setlepton_ch(float lepton_ch){
             lepton_ch_ = lepton_ch;
@@ -570,8 +610,11 @@ namespace flashgg {
         float dRleptonbjet_;
         float dRleptonfwdjet_;
         float dEtaleptonfwdjet_;
+        float Xtt0_;
         float top_mt_;
         float top_mass_;
+        float Tprime_mt_;
+        float Tprime_mass_;
         float lepton_ch_;
         float lepton_leadPt_;
         float lepton_leadEta_;

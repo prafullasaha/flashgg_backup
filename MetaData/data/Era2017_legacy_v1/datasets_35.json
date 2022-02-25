@@ -6469,5 +6469,1228 @@
         ], 
         "parent_n_units": 20154972, 
         "vetted": true
+    }, 
+    "/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/lata-Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2-01f31eaceb254ddd929b0978a7323b12/USER": {
+        "dset_type": "mc", 
+        "files": [
+            {
+                "bad": false, 
+                "events": 24111, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_55.root", 
+                "nevents": 24111, 
+                "totEvents": 24111, 
+                "weights": 24111.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24303, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_7.root", 
+                "nevents": 24303, 
+                "totEvents": 24303, 
+                "weights": 24303.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24385, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_51.root", 
+                "nevents": 24385, 
+                "totEvents": 24385, 
+                "weights": 24385.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24475, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_38.root", 
+                "nevents": 24475, 
+                "totEvents": 24475, 
+                "weights": 24475.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24367, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_146.root", 
+                "nevents": 24367, 
+                "totEvents": 24367, 
+                "weights": 24367.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24285, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_25.root", 
+                "nevents": 24285, 
+                "totEvents": 24285, 
+                "weights": 24285.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24431, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_10.root", 
+                "nevents": 24431, 
+                "totEvents": 24431, 
+                "weights": 24431.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24221, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_2.root", 
+                "nevents": 24221, 
+                "totEvents": 24221, 
+                "weights": 24221.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24062, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_103.root", 
+                "nevents": 24062, 
+                "totEvents": 24062, 
+                "weights": 24062.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24380, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_63.root", 
+                "nevents": 24380, 
+                "totEvents": 24380, 
+                "weights": 24380.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24252, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_35.root", 
+                "nevents": 24252, 
+                "totEvents": 24252, 
+                "weights": 24252.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24334, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_108.root", 
+                "nevents": 24334, 
+                "totEvents": 24334, 
+                "weights": 24334.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24190, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_5.root", 
+                "nevents": 24190, 
+                "totEvents": 24190, 
+                "weights": 24190.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24216, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_150.root", 
+                "nevents": 24216, 
+                "totEvents": 24216, 
+                "weights": 24216.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24237, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_115.root", 
+                "nevents": 24237, 
+                "totEvents": 24237, 
+                "weights": 24237.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24443, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_120.root", 
+                "nevents": 24443, 
+                "totEvents": 24443, 
+                "weights": 24443.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24412, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_48.root", 
+                "nevents": 24412, 
+                "totEvents": 24412, 
+                "weights": 24412.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24212, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_28.root", 
+                "nevents": 24212, 
+                "totEvents": 24212, 
+                "weights": 24212.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24038, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_144.root", 
+                "nevents": 24038, 
+                "totEvents": 24038, 
+                "weights": 24038.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24069, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_32.root", 
+                "nevents": 24069, 
+                "totEvents": 24069, 
+                "weights": 24069.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24065, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_128.root", 
+                "nevents": 24065, 
+                "totEvents": 24065, 
+                "weights": 24065.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24345, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_122.root", 
+                "nevents": 24345, 
+                "totEvents": 24345, 
+                "weights": 24345.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24377, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_72.root", 
+                "nevents": 24377, 
+                "totEvents": 24377, 
+                "weights": 24377.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24388, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_113.root", 
+                "nevents": 24388, 
+                "totEvents": 24388, 
+                "weights": 24388.0
+            }, 
+            {
+                "bad": false, 
+                "events": 23887, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_34.root", 
+                "nevents": 23887, 
+                "totEvents": 23887, 
+                "weights": 23887.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24313, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_118.root", 
+                "nevents": 24313, 
+                "totEvents": 24313, 
+                "weights": 24313.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24164, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_105.root", 
+                "nevents": 24164, 
+                "totEvents": 24164, 
+                "weights": 24164.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24535, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_41.root", 
+                "nevents": 24535, 
+                "totEvents": 24535, 
+                "weights": 24535.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24336, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_53.root", 
+                "nevents": 24336, 
+                "totEvents": 24336, 
+                "weights": 24336.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24330, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_95.root", 
+                "nevents": 24330, 
+                "totEvents": 24330, 
+                "weights": 24330.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24387, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_87.root", 
+                "nevents": 24387, 
+                "totEvents": 24387, 
+                "weights": 24387.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24487, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_93.root", 
+                "nevents": 24487, 
+                "totEvents": 24487, 
+                "weights": 24487.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24271, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_142.root", 
+                "nevents": 24271, 
+                "totEvents": 24271, 
+                "weights": 24271.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24175, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_130.root", 
+                "nevents": 24175, 
+                "totEvents": 24175, 
+                "weights": 24175.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24321, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_114.root", 
+                "nevents": 24321, 
+                "totEvents": 24321, 
+                "weights": 24321.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24275, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_82.root", 
+                "nevents": 24275, 
+                "totEvents": 24275, 
+                "weights": 24275.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24015, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_148.root", 
+                "nevents": 24015, 
+                "totEvents": 24015, 
+                "weights": 24015.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24114, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_69.root", 
+                "nevents": 24114, 
+                "totEvents": 24114, 
+                "weights": 24114.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24228, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_89.root", 
+                "nevents": 24228, 
+                "totEvents": 24228, 
+                "weights": 24228.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24292, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_143.root", 
+                "nevents": 24292, 
+                "totEvents": 24292, 
+                "weights": 24292.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24346, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_26.root", 
+                "nevents": 24346, 
+                "totEvents": 24346, 
+                "weights": 24346.0
+            }, 
+            {
+                "bad": false, 
+                "events": 10224, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_152.root", 
+                "nevents": 10224, 
+                "totEvents": 10224, 
+                "weights": 10224.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24563, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_79.root", 
+                "nevents": 24563, 
+                "totEvents": 24563, 
+                "weights": 24563.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24276, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_86.root", 
+                "nevents": 24276, 
+                "totEvents": 24276, 
+                "weights": 24276.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24344, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_91.root", 
+                "nevents": 24344, 
+                "totEvents": 24344, 
+                "weights": 24344.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24050, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_68.root", 
+                "nevents": 24050, 
+                "totEvents": 24050, 
+                "weights": 24050.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24167, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_39.root", 
+                "nevents": 24167, 
+                "totEvents": 24167, 
+                "weights": 24167.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24255, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_60.root", 
+                "nevents": 24255, 
+                "totEvents": 24255, 
+                "weights": 24255.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24480, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_145.root", 
+                "nevents": 24480, 
+                "totEvents": 24480, 
+                "weights": 24480.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24339, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_36.root", 
+                "nevents": 24339, 
+                "totEvents": 24339, 
+                "weights": 24339.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24185, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_110.root", 
+                "nevents": 24185, 
+                "totEvents": 24185, 
+                "weights": 24185.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24380, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_129.root", 
+                "nevents": 24380, 
+                "totEvents": 24380, 
+                "weights": 24380.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24323, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_90.root", 
+                "nevents": 24323, 
+                "totEvents": 24323, 
+                "weights": 24323.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24176, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_57.root", 
+                "nevents": 24176, 
+                "totEvents": 24176, 
+                "weights": 24176.0
+            }, 
+            {
+                "bad": false, 
+                "events": 23670, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_20.root", 
+                "nevents": 23670, 
+                "totEvents": 23670, 
+                "weights": 23670.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24223, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_121.root", 
+                "nevents": 24223, 
+                "totEvents": 24223, 
+                "weights": 24223.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24132, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_16.root", 
+                "nevents": 24132, 
+                "totEvents": 24132, 
+                "weights": 24132.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24232, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_85.root", 
+                "nevents": 24232, 
+                "totEvents": 24232, 
+                "weights": 24232.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24281, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_119.root", 
+                "nevents": 24281, 
+                "totEvents": 24281, 
+                "weights": 24281.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24479, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_132.root", 
+                "nevents": 24479, 
+                "totEvents": 24479, 
+                "weights": 24479.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24053, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_8.root", 
+                "nevents": 24053, 
+                "totEvents": 24053, 
+                "weights": 24053.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24256, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_71.root", 
+                "nevents": 24256, 
+                "totEvents": 24256, 
+                "weights": 24256.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24203, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_1.root", 
+                "nevents": 24203, 
+                "totEvents": 24203, 
+                "weights": 24203.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24349, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_61.root", 
+                "nevents": 24349, 
+                "totEvents": 24349, 
+                "weights": 24349.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24374, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_139.root", 
+                "nevents": 24374, 
+                "totEvents": 24374, 
+                "weights": 24374.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24453, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_123.root", 
+                "nevents": 24453, 
+                "totEvents": 24453, 
+                "weights": 24453.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24386, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_111.root", 
+                "nevents": 24386, 
+                "totEvents": 24386, 
+                "weights": 24386.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24214, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_83.root", 
+                "nevents": 24214, 
+                "totEvents": 24214, 
+                "weights": 24214.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24043, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_13.root", 
+                "nevents": 24043, 
+                "totEvents": 24043, 
+                "weights": 24043.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24190, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_151.root", 
+                "nevents": 24190, 
+                "totEvents": 24190, 
+                "weights": 24190.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24057, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_109.root", 
+                "nevents": 24057, 
+                "totEvents": 24057, 
+                "weights": 24057.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24273, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_125.root", 
+                "nevents": 24273, 
+                "totEvents": 24273, 
+                "weights": 24273.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24135, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_97.root", 
+                "nevents": 24135, 
+                "totEvents": 24135, 
+                "weights": 24135.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24216, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_138.root", 
+                "nevents": 24216, 
+                "totEvents": 24216, 
+                "weights": 24216.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24358, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_56.root", 
+                "nevents": 24358, 
+                "totEvents": 24358, 
+                "weights": 24358.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24587, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_147.root", 
+                "nevents": 24587, 
+                "totEvents": 24587, 
+                "weights": 24587.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24451, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_102.root", 
+                "nevents": 24451, 
+                "totEvents": 24451, 
+                "weights": 24451.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24244, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_46.root", 
+                "nevents": 24244, 
+                "totEvents": 24244, 
+                "weights": 24244.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24167, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_106.root", 
+                "nevents": 24167, 
+                "totEvents": 24167, 
+                "weights": 24167.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24514, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_124.root", 
+                "nevents": 24514, 
+                "totEvents": 24514, 
+                "weights": 24514.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24146, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_112.root", 
+                "nevents": 24146, 
+                "totEvents": 24146, 
+                "weights": 24146.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24194, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_136.root", 
+                "nevents": 24194, 
+                "totEvents": 24194, 
+                "weights": 24194.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24429, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_73.root", 
+                "nevents": 24429, 
+                "totEvents": 24429, 
+                "weights": 24429.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24390, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_17.root", 
+                "nevents": 24390, 
+                "totEvents": 24390, 
+                "weights": 24390.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24184, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_101.root", 
+                "nevents": 24184, 
+                "totEvents": 24184, 
+                "weights": 24184.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24266, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_9.root", 
+                "nevents": 24266, 
+                "totEvents": 24266, 
+                "weights": 24266.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24289, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_14.root", 
+                "nevents": 24289, 
+                "totEvents": 24289, 
+                "weights": 24289.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24375, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_11.root", 
+                "nevents": 24375, 
+                "totEvents": 24375, 
+                "weights": 24375.0
+            }, 
+            {
+                "bad": false, 
+                "events": 25283, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_19.root", 
+                "nevents": 25283, 
+                "totEvents": 25283, 
+                "weights": 25283.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24159, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_107.root", 
+                "nevents": 24159, 
+                "totEvents": 24159, 
+                "weights": 24159.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24106, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_117.root", 
+                "nevents": 24106, 
+                "totEvents": 24106, 
+                "weights": 24106.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24714, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_77.root", 
+                "nevents": 24714, 
+                "totEvents": 24714, 
+                "weights": 24714.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24382, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_33.root", 
+                "nevents": 24382, 
+                "totEvents": 24382, 
+                "weights": 24382.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24234, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_45.root", 
+                "nevents": 24234, 
+                "totEvents": 24234, 
+                "weights": 24234.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24266, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_24.root", 
+                "nevents": 24266, 
+                "totEvents": 24266, 
+                "weights": 24266.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24351, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_30.root", 
+                "nevents": 24351, 
+                "totEvents": 24351, 
+                "weights": 24351.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24284, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_29.root", 
+                "nevents": 24284, 
+                "totEvents": 24284, 
+                "weights": 24284.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24377, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_75.root", 
+                "nevents": 24377, 
+                "totEvents": 24377, 
+                "weights": 24377.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24188, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_74.root", 
+                "nevents": 24188, 
+                "totEvents": 24188, 
+                "weights": 24188.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24312, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_76.root", 
+                "nevents": 24312, 
+                "totEvents": 24312, 
+                "weights": 24312.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24346, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_21.root", 
+                "nevents": 24346, 
+                "totEvents": 24346, 
+                "weights": 24346.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24215, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_12.root", 
+                "nevents": 24215, 
+                "totEvents": 24215, 
+                "weights": 24215.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24239, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_80.root", 
+                "nevents": 24239, 
+                "totEvents": 24239, 
+                "weights": 24239.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24521, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_84.root", 
+                "nevents": 24521, 
+                "totEvents": 24521, 
+                "weights": 24521.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24466, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_67.root", 
+                "nevents": 24466, 
+                "totEvents": 24466, 
+                "weights": 24466.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24183, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_70.root", 
+                "nevents": 24183, 
+                "totEvents": 24183, 
+                "weights": 24183.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24213, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_88.root", 
+                "nevents": 24213, 
+                "totEvents": 24213, 
+                "weights": 24213.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24435, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_149.root", 
+                "nevents": 24435, 
+                "totEvents": 24435, 
+                "weights": 24435.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24109, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_66.root", 
+                "nevents": 24109, 
+                "totEvents": 24109, 
+                "weights": 24109.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24055, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_54.root", 
+                "nevents": 24055, 
+                "totEvents": 24055, 
+                "weights": 24055.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24431, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_64.root", 
+                "nevents": 24431, 
+                "totEvents": 24431, 
+                "weights": 24431.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24221, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_141.root", 
+                "nevents": 24221, 
+                "totEvents": 24221, 
+                "weights": 24221.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24249, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_3.root", 
+                "nevents": 24249, 
+                "totEvents": 24249, 
+                "weights": 24249.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24524, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_99.root", 
+                "nevents": 24524, 
+                "totEvents": 24524, 
+                "weights": 24524.0
+            }, 
+            {
+                "bad": false, 
+                "events": 23873, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_4.root", 
+                "nevents": 23873, 
+                "totEvents": 23873, 
+                "weights": 23873.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24521, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_52.root", 
+                "nevents": 24521, 
+                "totEvents": 24521, 
+                "weights": 24521.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24413, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_37.root", 
+                "nevents": 24413, 
+                "totEvents": 24413, 
+                "weights": 24413.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24329, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_22.root", 
+                "nevents": 24329, 
+                "totEvents": 24329, 
+                "weights": 24329.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24550, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_140.root", 
+                "nevents": 24550, 
+                "totEvents": 24550, 
+                "weights": 24550.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24005, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_133.root", 
+                "nevents": 24005, 
+                "totEvents": 24005, 
+                "weights": 24005.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24519, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_23.root", 
+                "nevents": 24519, 
+                "totEvents": 24519, 
+                "weights": 24519.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24303, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_127.root", 
+                "nevents": 24303, 
+                "totEvents": 24303, 
+                "weights": 24303.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24311, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_65.root", 
+                "nevents": 24311, 
+                "totEvents": 24311, 
+                "weights": 24311.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24249, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_49.root", 
+                "nevents": 24249, 
+                "totEvents": 24249, 
+                "weights": 24249.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24326, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_104.root", 
+                "nevents": 24326, 
+                "totEvents": 24326, 
+                "weights": 24326.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24310, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_137.root", 
+                "nevents": 24310, 
+                "totEvents": 24310, 
+                "weights": 24310.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24366, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_43.root", 
+                "nevents": 24366, 
+                "totEvents": 24366, 
+                "weights": 24366.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24307, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_59.root", 
+                "nevents": 24307, 
+                "totEvents": 24307, 
+                "weights": 24307.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24328, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_47.root", 
+                "nevents": 24328, 
+                "totEvents": 24328, 
+                "weights": 24328.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24334, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_27.root", 
+                "nevents": 24334, 
+                "totEvents": 24334, 
+                "weights": 24334.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24345, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_116.root", 
+                "nevents": 24345, 
+                "totEvents": 24345, 
+                "weights": 24345.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24680, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_44.root", 
+                "nevents": 24680, 
+                "totEvents": 24680, 
+                "weights": 24680.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24263, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_31.root", 
+                "nevents": 24263, 
+                "totEvents": 24263, 
+                "weights": 24263.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24704, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_62.root", 
+                "nevents": 24704, 
+                "totEvents": 24704, 
+                "weights": 24704.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24275, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_131.root", 
+                "nevents": 24275, 
+                "totEvents": 24275, 
+                "weights": 24275.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24362, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_50.root", 
+                "nevents": 24362, 
+                "totEvents": 24362, 
+                "weights": 24362.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24151, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_42.root", 
+                "nevents": 24151, 
+                "totEvents": 24151, 
+                "weights": 24151.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24547, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_58.root", 
+                "nevents": 24547, 
+                "totEvents": 24547, 
+                "weights": 24547.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24287, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_40.root", 
+                "nevents": 24287, 
+                "totEvents": 24287, 
+                "weights": 24287.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24198, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_126.root", 
+                "nevents": 24198, 
+                "totEvents": 24198, 
+                "weights": 24198.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24195, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_78.root", 
+                "nevents": 24195, 
+                "totEvents": 24195, 
+                "weights": 24195.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24018, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_92.root", 
+                "nevents": 24018, 
+                "totEvents": 24018, 
+                "weights": 24018.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24245, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_6.root", 
+                "nevents": 24245, 
+                "totEvents": 24245, 
+                "weights": 24245.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24138, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_134.root", 
+                "nevents": 24138, 
+                "totEvents": 24138, 
+                "weights": 24138.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24233, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_81.root", 
+                "nevents": 24233, 
+                "totEvents": 24233, 
+                "weights": 24233.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24364, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_96.root", 
+                "nevents": 24364, 
+                "totEvents": 24364, 
+                "weights": 24364.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24210, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_15.root", 
+                "nevents": 24210, 
+                "totEvents": 24210, 
+                "weights": 24210.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24443, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_135.root", 
+                "nevents": 24443, 
+                "totEvents": 24443, 
+                "weights": 24443.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24463, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_100.root", 
+                "nevents": 24463, 
+                "totEvents": 24463, 
+                "weights": 24463.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24164, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_98.root", 
+                "nevents": 24164, 
+                "totEvents": 24164, 
+                "weights": 24164.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24198, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_18.root", 
+                "nevents": 24198, 
+                "totEvents": 24198, 
+                "weights": 24198.0
+            }, 
+            {
+                "bad": false, 
+                "events": 24161, 
+                "name": "/store/user/lata/Era2017_legacy_v1/v1_p2/QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8/Era2017_legacy_v1-v1_p2-v0-RunIISummer20UL17MiniAODv2-106X_mc2017_realistic_v9-v2/211126_155906/0000/myMicroAODOutputFile_94.root", 
+                "nevents": 24161, 
+                "totEvents": 24161, 
+                "weights": 24161.0
+            }
+        ], 
+        "parent_n_units": 3678200, 
+        "vetted": true
     }
 }

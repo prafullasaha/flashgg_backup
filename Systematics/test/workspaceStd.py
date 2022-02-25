@@ -235,6 +235,14 @@ if customize.tthTagsOnly:
     process.flashggDiPhotons.vertexIdMVAweightfile = customize.metaConditions['flashggDiPhotons']['vertexIdMVAweightfile'].encode("ascii")
     process.flashggDiPhotons.vertexProbMVAweightfile = customize.metaConditions['flashggDiPhotons']['vertexProbMVAweightfile'].encode("ascii")
 
+use_primary_verterx = True # search for VLQ T->tH (gamma gamma)
+if use_primary_verterx:
+    process.load("flashgg/MicroAOD/flashggDiPhotons_cfi")
+    process.flashggDiPhotons.whichVertex = cms.uint32(0)
+    process.flashggDiPhotons.useZerothVertexFromMicro = cms.bool(True)
+    process.flashggDiPhotons.vertexIdMVAweightfile = customize.metaConditions['flashggDiPhotons']['vertexIdMVAweightfile'].encode("ascii")
+    process.flashggDiPhotons.vertexProbMVAweightfile = customize.metaConditions['flashggDiPhotons']['vertexProbMVAweightfile'].encode("ascii")
+
 print 'here we print the tag sequence before'
 print process.flashggTagSequence
 
@@ -270,6 +278,7 @@ if customize.doStageOne:
     systematicVariables = soc.systematicVariables()
 
 process.flashggTHQLeptonicTag.processId = cms.string(str(customize.processId))
+process.flashggTHQHadronicTag.processId = cms.string(str(customize.processId))
 
 print 'here we print the tag sequence after'
 print process.flashggTagSequence
@@ -305,7 +314,7 @@ useEGMTools(process)
 
 # Only run systematics for signal events
 # convention: ggh vbf wzh (wh zh) tth
-signal_processes = ["ggh_","vbf_","wzh_","wh_","zh_","bbh_","thq_","thw_","tth_","ggzh_","HHTo2B2G","GluGluHToGG","VBFHToGG","VHToGG","ttHToGG","Acceptance","hh","vbfhh","qqh","ggh","tth","vh"]
+signal_processes = ["ggh_","vbf_","wzh_","wh_","zh_","bbh_","thq_","thw_","tth_","ggzh_","HHTo2B2G","GluGluHToGG","VBFHToGG","VHToGG","ttHToGG","Acceptance","hh","vbfhh","qqh","ggh","tth","vh", "Tprime", "tHq", "SMH"]
 is_signal = reduce(lambda y,z: y or z, map(lambda x: customize.processId.count(x), signal_processes))
 
 applyL1Prefiring = customizeForL1Prefiring(process, customize.metaConditions, customize.processId)
@@ -464,17 +473,18 @@ elif customize.doStageOne:
     tagList = soc.tagList
 else:
     tagList=[
-        ["NoTag",0],
-        ["UntaggedTag",4],
-        ["VBFTag",3],
-        ["ZHLeptonicTag",2],
-        ["WHLeptonicTag",6],
-        ["VHMetTag",2],
-        ["VHHadronicTag",0],
-        ["TTHHadronicTag",4],
-        ["TTHLeptonicTag",4],
+#        ["NoTag",0],
+#        ["UntaggedTag",4],
+#        ["VBFTag",3],
+#        ["ZHLeptonicTag",2],
+#        ["WHLeptonicTag",6],
+#        ["VHMetTag",2],
+#        ["VHHadronicTag",0],
+#        ["TTHHadronicTag",4],
+#        ["TTHLeptonicTag",4],
         ["THQLeptonicTag",0],
-        ["TTHDiLeptonTag",0]
+	    ["THQHadronicTag",0]
+#        ["TTHDiLeptonTag",0]
         ]
 
 definedSysts=set()

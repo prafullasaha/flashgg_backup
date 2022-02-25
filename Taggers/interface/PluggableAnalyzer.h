@@ -17,7 +17,7 @@ namespace flashgg {
     {
     public:
         virtual void *allocate( const edm::ParameterSet &cfg, TFileDirectory &fileService ) const = 0;
-
+        virtual ~AnalyzerFactory() = default;
         static const AnalyzerFactory *allocator( const std::string &name );
 
     protected:

@@ -521,11 +521,14 @@ namespace flashgg {
         if(!unbinnedSystematics_){
             if( nbins > 0 ) { 
                 rooVar.setBins( nbins );
+                rooVar.setMin( vmin );
+                rooVar.setMax( vmax );
             }
             if(nbins == -1){
                 rooVar.setMin( binning.at(0)  );
                 rooVar.setMax( binning.at(binning.size()-1) );
                 //            RooBinning* rooBinning = new RooBinning(int(binning.size()), &binning[0]);
+
                 //            rooVar.setBinning(*rooBinning);
                 RooBinning* rooBinning = new RooBinning(binning.at(0), binning.at(binning.size()-1));
                 for(int ib =1; ib< (int)binning.size()-1; ib++){
@@ -539,6 +542,7 @@ namespace flashgg {
         else{
             rooVar.setMin( vmin );
             rooVar.setMax( vmax );
+
         }
         
 
@@ -576,12 +580,16 @@ namespace flashgg {
     rooVars_pdfWeights_.add(*ws.var( weightVar ),true);
     
     std::string dsetName = formatString( name_, replacements );
+std::cout<<"unbinnedSystematics_  ="<<unbinnedSystematics_<<std::endl;
+std::cout<<"binnedOnly_  ="<<binnedOnly_<<std::endl;
     if( ! binnedOnly_ || unbinnedSystematics_) {
         RooDataSet dset( dsetName.c_str(), dsetName.c_str(), rooVars_, weightVar );
         ws.import( dset );
+std::cout<<"DEBUG[1]I am here"<<std::endl;
     } else {
         RooDataHist dhist(dsetName.c_str(),dsetName.c_str(),rooVars_);
         ws.import( dhist );
+std::cout<<"DEBUG[2]I am here"<<std::endl;
     }
     dataset_ = ws.data( dsetName.c_str() );
 

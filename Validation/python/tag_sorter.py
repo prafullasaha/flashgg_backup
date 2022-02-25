@@ -33,19 +33,20 @@ process.load("flashgg/TagProducers/flashggVBFDiPhoDiJetMVA_cfi")
 process.load("flashgg/TagProducers/flashggTags_cfi")
 
 process.flashggTagSorter = cms.EDProducer('FlashggTagSorter',
-                                          DiPhotonTag = cms.InputTag('flashggDiPhotons'),
-                                          TagVectorTag = cms.untracked.VInputTag(
-									cms.untracked.InputTag('flashggVHLooseTag'),
-                                                                        cms.untracked.InputTag('flashggVHTightTag'),
+                                        DiPhotonTag = cms.InputTag('flashggDiPhotons'),
+                                        TagVectorTag = cms.untracked.VInputTag(
+										cms.untracked.InputTag('flashggVHLooseTag'),
+                               			cms.untracked.InputTag('flashggVHTightTag'),
         								cms.untracked.InputTag('flashggTTHLeptonicTag'),
-									cms.untracked.InputTag('flashggTHQLeptonicTag'),
-                                                                        cms.untracked.InputTag('flashggTTHHadronicTag'),
+										cms.untracked.InputTag('flashggTHQLeptonicTag'),
+										cms.untracked.InputTag('flashggTHQHadronicTag'),
+                                    	cms.untracked.InputTag('flashggTTHHadronicTag'),
         								cms.untracked.InputTag('flashggVBFTag'),
-									cms.untracked.InputTag('flashggUntagged'),
-                                                                        ),
-                                          massCutUpper=cms.untracked.double(180.),
-                                          massCutLower=cms.untracked.double(100)
-                                          )
+										cms.untracked.InputTag('flashggUntagged'),
+                                    	),
+                                        massCutUpper=cms.untracked.double(180.),
+                                        massCutLower=cms.untracked.double(100)
+                                        )
 
 
 process.TFileService = cms.Service("TFileService",fileName = cms.string("flashggTreeWithTags.root"))
@@ -102,7 +103,7 @@ process.p = cms.Path(process.flashggVertexMapUnique*
                      (process.flashggVBFDiPhoDiJetMVA)* # Needs to happen after VBF MVA and DiPho MVA
 
                      # Tag producers, once written, can run in parallel, so they go in here with +
-                     (process.flashggUntagged+process.flashggVBFTag+process.flashggTTHLeptonicTag+process.flashggTTHHadronicTag+process.flashggVHLooseTag+process.flashggVHTightTag+process.flashggTHQLeptonicTag)*
+                     (process.flashggUntagged+process.flashggVBFTag+process.flashggTTHLeptonicTag+process.flashggTTHHadronicTag+process.flashggVHLooseTag+process.flashggVHTightTag+process.flashggTHQLeptonicTag+process.flashggTHQHadronicTag)*
                      process.flashggTagSorter*
                      process.flashggTreeMakerWithTagSorter
                     )

@@ -302,11 +302,18 @@ jet_variables=[
     "solvedMET_eta          :=getMET_Eta(\"SolvedMET\")",
     "solvedMET_phi          :=getMET_Phi(\"SolvedMET\")",
     "solvedMET_e            :=getMET_E(\"SolvedMET\")",
-    "dr_leadphobjet          :=getmyfunction()",
-    "dr_leptonfwdjet         :=getdRleptonfwdjet",
+    "solvedMET_px           :=getMET_Px(\"SolvedMET\")",
+    "solvedMET_py           :=getMET_Py(\"SolvedMET\")",
+    "solvedMET_pz           :=getMET_Pz(\"SolvedMET\")",
+    "dr_leadphobjet         :=getmyfunction()",
+    "dr_leptonfwdjet        :=getdRleptonfwdjet",
+#    "Xtt0		    :=getXtt0()",
     "top_mt                 :=gettop_mt()",
     "top_mass               :=gettop_mass()",
-    "HT                     :=getHT()"    
+    "Tprime_mt              :=getTprime_mt()",
+    "Tprime_mass            :=getTprime_mass()",
+    "HT                     :=getHT()",    
+    "Xtt0                  :=getXtt0()"
 ]
 
 #bDiscr_values=[
@@ -340,7 +347,6 @@ dr_variable=[
 #    "jet1_discr  := ?jets.size>0? (jets.at(0).bDiscriminator( "'+ flashggDeepCSVb +'" ) + jets.at(0).bDiscriminator( "'+ flashggDeepCSVbb +'" )) : -999",
     "likelihood_value        :=getlikelihood()",
 #    "MVAresult_thq	     :=getthq_mvaresult"
-    
 ]
 
 thqmva_variables=[
@@ -363,6 +369,31 @@ for label in ["HighestBTagVal", "Medium" , "Loose" , "Tight"]:
     thqmva_variables.append('fwdJetEta_{0}             := ?thqleptonicMvaRes("{0}")>-10.? getFwdJet("{0}").eta : -999'.format(label) )
     thqmva_variables.append('MVA_{0}                   := thqleptonicMvaRes("{0}")'.format(label) )
     thqmva_variables.append('bJetPt_{0}                := ?thqleptonicMvaRes("{0}")>-10.? getbJet("{0}").pt : -999'.format(label) )
+
+gen_met=[
+    "genMET_pt                            := getMET_Pt(\"allNus\")",
+    "genMET_eta                           := getMET_Eta(\"allNus\")",
+    "genMET_phi                           := getMET_Phi(\"allNus\")",
+    "genMET_e                             := getMET_E(\"allNus\")",
+    "promptGenMET_pt                      := getMET_Pt(\"allPromptNus\")",
+    "promptGenMET_eta                     := getMET_Eta(\"allPromptNus\")",
+    "promptGenMET_phi                     := getMET_Phi(\"allPromptNus\")",
+    "promptGenMET_e                       := getMET_E(\"allPromptNus\")",
+    "genMETTrue_pt                        := getMET_Pt(\"genMetTrue\")",
+    "genMETTrue_eta                       := getMET_Eta(\"genMetTrue\")",
+    "genMETTrue_phi                       := getMET_Phi(\"genMetTrue\")",
+    "genMETTrue_e                         := getMET_E(\"genMetTrue\")",
+    "genMET_px                            := getMET_Px(\"allNus\")",
+    "genMET_py                            := getMET_Py(\"allNus\")",
+    "genMET_pz                            := getMET_Pz(\"allNus\")",
+    "promptGenMET_px                      := getMET_Px(\"allPromptNus\")",
+    "promptGenMET_py                      := getMET_Py(\"allPromptNus\")",
+    "promptGenMET_pz                      := getMET_Pz(\"allPromptNus\")",
+    "genMETTrue_px                        := getMET_Px(\"genMetTrue\")",
+    "genMETTrue_py                        := getMET_Py(\"genMetTrue\")",
+    "genMETTrue_pz                        := getMET_Pz(\"genMetTrue\")"
+    
+] 
 
 
 truth_variables=[
